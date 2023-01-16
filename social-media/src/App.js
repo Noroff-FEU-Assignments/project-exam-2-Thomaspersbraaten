@@ -1,21 +1,37 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import CreateAccount from "./pages/CreateAccount";
+import NavBar from "./components/navigation/NavBar";
+import { AuthContext, AuthProvider } from "./components/context/AuthContext";
+import Home from "./pages/home/Home";
+import ProfileDetail from "./pages/ProfileDetail";
+import { useContext } from "react";
+import CreatePost from "./pages/createPost/CreatePost";
+import PostDetail from "./pages/postDetail/PostDetail";
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/create-account" element={<CreateAccount />} />
-        </Routes>
-      </Router>
-    </div>
+    <AuthProvider>
+      <div className="App">
+        <Router>
+          <NavBar />
+
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/create-account" element={<CreateAccount />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/profiles/:name" element={<ProfileDetail />} />
+            <Route path="/create-post" element={<CreatePost />} />
+            <Route path="/posts/:id" element={<PostDetail />} />
+
+            {/* <Route path="*" /> */}
+          </Routes>
+        </Router>
+      </div>
+    </AuthProvider>
   );
 }
 
