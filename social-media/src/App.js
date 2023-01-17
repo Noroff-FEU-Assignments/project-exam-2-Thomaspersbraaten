@@ -10,28 +10,33 @@ import ProfileDetail from "./pages/ProfileDetail";
 import { useContext } from "react";
 import CreatePost from "./pages/createPost/CreatePost";
 import PostDetail from "./pages/postDetail/PostDetail";
+import MyProfile from "./pages/myProfile/MyProfile";
+import { NameProvider } from "./components/context/NameContext";
 
 function App() {
   return (
-    <AuthProvider>
-      <div className="App">
-        <Router>
-          <NavBar />
+    <NameProvider>
+      <AuthProvider>
+        <div className="App">
+          <Router>
+            <NavBar />
 
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/create-account" element={<CreateAccount />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/profiles/:name" element={<ProfileDetail />} />
-            <Route path="/create-post" element={<CreatePost />} />
-            <Route path="/posts/:id" element={<PostDetail />} />
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/create-account" element={<CreateAccount />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/profiles/:name" element={<ProfileDetail />} />
+              <Route path="/create-post" element={<CreatePost />} />
+              <Route path="/posts/:id" element={<PostDetail />} />
+              <Route path="/my-profile" element={<MyProfile />} />
 
-            {/* <Route path="*" /> */}
-          </Routes>
-        </Router>
-      </div>
-    </AuthProvider>
+              {/* <Route path="*" /> */}
+            </Routes>
+          </Router>
+        </div>
+      </AuthProvider>
+    </NameProvider>
   );
 }
 

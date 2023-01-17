@@ -12,6 +12,15 @@ function NavBar() {
         <Link to="/login">login</Link>
         <Link to="/create-account">create</Link>
         <Link to="/create-Post">Create Post</Link>
+        <Link to="/my-profile">Profile</Link>
+
+        <button
+          onClick={() => {
+            localStorage.removeItem("auth");
+          }}
+        >
+          logout
+        </button>
       </nav>
     );
   }

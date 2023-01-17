@@ -30,13 +30,11 @@ import { Link } from "react-router-dom";
 // }));
 
 export default function PostsCard({ post }) {
-  const [expanded, setExpanded] = React.useState(false);
+  // const [expanded, setExpanded] = React.useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-  console.log(post);
-
+  // const handleExpandClick = () => {
+  //   setExpanded(!expanded);
+  // };
   return (
     <Card sx={{ maxWidth: 345 }} key={post.id} className="post">
       {/* <CardHeader

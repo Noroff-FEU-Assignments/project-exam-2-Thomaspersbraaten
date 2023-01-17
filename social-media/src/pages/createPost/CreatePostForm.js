@@ -56,12 +56,6 @@ function CreatePostForm() {
     if (title.length < 1) {
       return;
     }
-    var myHeaders = new Headers();
-    myHeaders.append(
-      "Authorization",
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQyLCJuYW1lIjoiaGVsbG9icm9vIiwiZW1haWwiOiJva2V5Lm1hbkBzdHVkLm5vcm9mZi5ubyIsImF2YXRhciI6IiIsImJhbm5lciI6IiIsImlhdCI6MTY3MzU0NzQxOX0.TAIalkx0gBFiKRXBlGa3KpyfvTAo7AEkHZlz3yK7yiY"
-    );
-    myHeaders.append("Content-Type", "application/json");
 
     const raw = JSON.stringify({
       title: title,
@@ -69,41 +63,24 @@ function CreatePostForm() {
       tags: tags,
       media: media,
     });
-    // const raw = JSON.stringify({ data }); yup
 
-    var requestOptions = {
+    const requestOptions = {
       method: "POST",
-      headers: myHeaders,
+      headers: {
+        Authorization: `Bearer ${auth}`,
+        "Content-Type": "application/json",
+      },
       body: raw,
-      redirect: "follow",
     };
+    console.log(requestOptions);
 
-    fetch("https://api.noroff.dev/api/v1/social/posts", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
-    //   const options = {
-    //     // method: "POST",
-    //     headers: {
-    //       Authorization: `Bearer ${auth}`,
-    //       "Content-Type": "application/json",
-    //       // header: {
-    //       //   "Content-Type": "application/json",
-    //       // },
-    //     },
-    //     body: raw,
-    //     redirect: "follow",
-    //   };
-    //   console.log(options);
-    //   // console.log(data);
-    //   try {
-    //     // const response = await fetch(createPostUrl, options);
-    //     const response = await axios.post("https://api.noroff.dev/api/v1/social/posts", options);
-
-    //     console.log(response);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
+    try {
+      const response = await fetch(createPostUrl, requestOptions);
+      const json = await response.json();
+      console.log(json);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -209,3 +186,38 @@ function CreatePostForm() {
 }
 
 export default CreatePostForm;
+
+// var myHeaders = new Headers();
+// myHeaders.append(
+//   "Authorization",
+//   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQyLCJuYW1lIjoiaGVsbG9icm9vIiwiZW1haWwiOiJva2V5Lm1hbkBzdHVkLm5vcm9mZi5ubyIsImF2YXRhciI6IiIsImJhbm5lciI6IiIsImlhdCI6MTY3MzU0NzQxOX0.TAIalkx0gBFiKRXBlGa3KpyfvTAo7AEkHZlz3yK7yiY"
+// );
+// myHeaders.append("Content-Type", "application/json");
+// const raw = JSON.stringify({ data }); yup
+// fetch("https://api.noroff.dev/api/v1/social/posts", requestOptions)
+//   .then((response) => response.text())
+//   .then((result) => console.log(result))
+//   .catch((error) => console.log("error", error));
+
+//   const options = {
+//     // method: "POST",
+//     headers: {
+//       Authorization: `Bearer ${auth}`,
+//       "Content-Type": "application/json",
+//       // header: {
+//       //   "Content-Type": "application/json",
+//       // },
+//     },
+//     body: raw,
+//     redirect: "follow",
+//   };
+//   console.log(options);
+//   // console.log(data);
+//   try {
+//     // const response = await fetch(createPostUrl, options);
+//     const response = await axios.post("https://api.noroff.dev/api/v1/social/posts", options);
+
+//     console.log(response);
+//   } catch (error) {
+//     console.log(error);
+//   }

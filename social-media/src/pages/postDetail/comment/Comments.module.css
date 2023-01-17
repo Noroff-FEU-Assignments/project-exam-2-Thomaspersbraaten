@@ -1,0 +1,22 @@
+.container {
+  border-top: 1px solid grey;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.topContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.author {
+  display: flex;
+  gap: 1rem;
+}
+
+.commentBy {
+  display: flex;
+  gap: 0.5rem;
+}

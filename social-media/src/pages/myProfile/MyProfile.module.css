@@ -1,0 +1,31 @@
+.modalBackground {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.468);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.imageLarge {
+  width: 50%;
+  height: 45%;
+  margin: auto;
+}
+
+.buttonContainer {
+  background-color: white;
+  border-radius: 25px;
+  width: 50%;
+  height: 20%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+.buttonContainer button {
+  width: 150px;
+  display: flex;
+  margin: auto;
+}

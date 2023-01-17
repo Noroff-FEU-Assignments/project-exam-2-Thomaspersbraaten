@@ -7,9 +7,11 @@ import { BASE_URL } from "../components/constants/baseUrl";
 import { AuthContext } from "../components/context/AuthContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { NameContext } from "../components/context/NameContext";
 
 function Login() {
   const [auth, setAuth] = useContext(AuthContext);
+  const [name, setName] = useContext(NameContext);
   const schema = yup.object().shape({
     email: yup.string().required("ok"),
     password: yup.string().required("ok"),
@@ -32,6 +34,7 @@ function Login() {
       console.log(response);
       console.log(response.data.accessToken);
       setAuth(response.data.accessToken);
+      setName(response.data.name);
       navigate("/home");
     } catch (error) {
       console.log(error);

@@ -38,9 +38,9 @@ function ProfileDetail() {
       <div>{profile.name}</div>
       <div>{profile.email}</div>
       <Avatar src={profile.avatar}></Avatar>
-      {posts.map((post) => (
+      {/* {posts.map((post) => (
         <PostsCard post={post} />
-      ))}
+      ))} */}
     </div>
   );
 }
