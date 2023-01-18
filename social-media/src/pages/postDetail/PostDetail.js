@@ -7,6 +7,7 @@ import { AuthContext } from "../../components/context/AuthContext";
 import Comments from "./comment/Comments";
 import PostsCard from "../../components/posts/PostsCard";
 import CommentForm from "./comment/form/CommentForm";
+import deletePost from "../../components/ui/deletePost";
 
 function PostDetail() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -39,6 +40,13 @@ function PostDetail() {
 
   return (
     <div>
+      <button
+        onClick={() => {
+          deletePost(id, auth);
+        }}
+      >
+        Delete
+      </button>
       {/* <PostsCard post={post} /> */}
       {/* {post._count.comments} */}
       <CommentForm id={id} setComments={setComments} comments={comments} />

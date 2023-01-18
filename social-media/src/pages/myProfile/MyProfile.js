@@ -6,6 +6,7 @@ import { AuthContext } from "../../components/context/AuthContext";
 import { NameContext } from "../../components/context/NameContext";
 import styles from "./MyProfile.module.css";
 import removeProfilePicture from "./removeProfilePicture";
+import img from "../../img.png";
 
 function MyProfile() {
   const [name, setName] = useContext(NameContext);

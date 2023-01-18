@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { BASE_URL } from "../components/constants/baseUrl";
 import { AuthContext } from "../components/context/AuthContext";
 import PostsCard from "../components/posts/PostsCard";
+import img from "../img.png";
 
 function ProfileDetail() {
   const [auth, setAuth] = useContext(AuthContext);
