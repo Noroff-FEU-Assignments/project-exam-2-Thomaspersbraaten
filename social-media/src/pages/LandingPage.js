@@ -12,7 +12,7 @@ function LandingPage() {
 
       <div className="login">
         <p>Already have an account? </p>
-        <button className="login__button">
+        <button className="login__button login-button">
           <Link to="/login">Log in</Link>
         </button>
       </div>

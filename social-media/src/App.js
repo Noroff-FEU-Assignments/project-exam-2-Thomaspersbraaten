@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./sass/style.scss";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
@@ -17,7 +18,7 @@ function App() {
   return (
     <NameProvider>
       <AuthProvider>
-        <div className="App">
+        <div className="main-container">
           <Router>
             <Routes>
               <Route path="/" element={<LandingPage />} />

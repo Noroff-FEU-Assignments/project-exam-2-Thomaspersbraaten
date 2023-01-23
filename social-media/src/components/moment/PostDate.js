@@ -1,7 +1,15 @@
 import moment from "moment";
 
 function PostDate({ date }) {
-  return <div>{moment(date).format("MMMM Do YYYY, h:mm:ss a")}</div>;
+  const dayDate = moment(date).format("MMMM Do YYYY");
+  const timeSincePosted = moment(date).startOf("hour").fromNow();
+  const now = moment();
+
+  if (now > dayDate) {
+    return <div className="post-date">{dayDate}</div>;
+  } else {
+    return <div className="post-date">{timeSincePosted}</div>;
+  }
 }
 
 export default PostDate;

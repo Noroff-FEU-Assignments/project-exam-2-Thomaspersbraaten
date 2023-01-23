@@ -1,15 +1,17 @@
+@use "./partials/custom";
 @use "./partials/landing";
+@use "./partials/login";
+@use "./partials/typography";
+@use "./partials/alert";
+@use "./partials/home";
+@use "./partials/card";
 
 * {
   box-sizing: border-box;
 }
-
-button {
-  font-family: "open sans";
-}
-
-p {
-  font-family: "roboto";
+#root {
+  background-color: #eaedf6;
+  min-height: 100vh;
 }
 
 img {
@@ -22,4 +24,8 @@ img {
   margin: 1rem;
   border: 1px solid grey;
   border-radius: 10px;
+}
+
+p {
+  margin: 0;
 }

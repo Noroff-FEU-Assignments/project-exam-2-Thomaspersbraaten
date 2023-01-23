@@ -9,7 +9,7 @@ function Home() {
   const [posts, setPosts] = useState([]);
   const [auth, setAuth] = useContext(AuthContext);
 
-  const postUrl = BASE_URL + "/social/posts?_author=true";
+  const postUrl = BASE_URL + "/social/posts?_author=true&_reactions=true&limit=10";
 
   const options = {
     headers: {
@@ -21,7 +21,7 @@ function Home() {
     async function getPosts() {
       try {
         const response = await axios.get(postUrl, options);
-        console.log(response.data);
+        // console.log(response.data);
         setPosts(response.data);
       } catch (error) {
         console.log(error);
@@ -33,7 +33,7 @@ function Home() {
   return (
     <>
       <NavBar />
-      <div>
+      <div className="posts-container">
         {posts.map((post) => (
           <PostsCard post={post} key={post.id + post.title} />
         ))}

@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "../../components/constants/baseUrl";
-
 import { AuthContext } from "../../components/context/AuthContext";
 import Comments from "./comment/Comments";
 import PostsCard from "../../components/posts/PostsCard";
