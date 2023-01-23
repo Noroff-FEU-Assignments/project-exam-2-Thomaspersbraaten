@@ -1,11 +1,10 @@
-import { Avatar } from "@mui/material";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "../components/constants/baseUrl";
 import { AuthContext } from "../components/context/AuthContext";
+import NavBar from "../components/navigation/NavBar";
 import PostsCard from "../components/posts/PostsCard";
-import img from "../img.png";
 
 function ProfileDetail() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -34,15 +33,18 @@ function ProfileDetail() {
   }, []);
   console.log(posts);
   return (
-    <div>
-      <img src={profile.banner} />
-      <div>{profile.name}</div>
-      <div>{profile.email}</div>
-      <Avatar src={profile.avatar}></Avatar>
-      {/* {posts.map((post) => (
+    <>
+      <NavBar />
+      <div>
+        <img src={profile.banner} />
+        <div>{profile.name}</div>
+        <div>{profile.email}</div>
+        {/* <Avatar src={profile.avatar}></Avatar> */}
+        {/* {posts.map((post) => (
         <PostsCard post={post} />
       ))} */}
-    </div>
+      </div>
+    </>
   );
 }
 

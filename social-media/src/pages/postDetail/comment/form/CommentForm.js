@@ -1,4 +1,3 @@
-import { Button, FormControl, Input, InputLabel, TextField } from "@mui/material";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -41,7 +40,7 @@ function CommentForm({ id, setComments, comments }) {
 
   return (
     <form className={styles.form}>
-      <FormControl type="input" className={styles.input}>
+      {/* <FormControl type="input" className={styles.input}>
         <label htmlFor="comment">Comment</label>
         <TextField
           className={styles.textarea}
@@ -54,7 +53,7 @@ function CommentForm({ id, setComments, comments }) {
       </FormControl>
       <Button onClick={sendCommentInfo} className={styles.button} variant="contained">
         Post Comment
-      </Button>
+      </Button> */}
     </form>
   );
 }

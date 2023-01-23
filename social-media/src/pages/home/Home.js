@@ -3,6 +3,7 @@ import { BASE_URL } from "../../components/constants/baseUrl";
 import { AuthContext } from "../../components/context/AuthContext";
 import axios from "axios";
 import PostsCard from "../../components/posts/PostsCard";
+import NavBar from "../../components/navigation/NavBar";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -30,11 +31,14 @@ function Home() {
   }, []);
 
   return (
-    <div>
-      {posts.map((post) => (
-        <PostsCard post={post} key={post.id + post.title} />
-      ))}
-    </div>
+    <>
+      <NavBar />
+      <div>
+        {posts.map((post) => (
+          <PostsCard post={post} key={post.id + post.title} />
+        ))}
+      </div>
+    </>
   );
 }
 

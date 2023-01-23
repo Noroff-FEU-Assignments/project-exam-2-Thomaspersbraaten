@@ -2,14 +2,21 @@ import { Link } from "react-router-dom";
 
 function LandingPage() {
   return (
-    <>
-      <button>
-        <Link to="/login">Login</Link>
-      </button>
-      <button>
-        <Link to="/create-account">Create account</Link>
-      </button>
-    </>
+    <div className="landing-container">
+      <div className="signup">
+        <p>Sign up for an account</p>
+        <button className="signup__button">
+          <Link to="/create-account">Sign up</Link>
+        </button>
+      </div>
+
+      <div className="login">
+        <p>Already have an account? </p>
+        <button className="login__button">
+          <Link to="/login">Log in</Link>
+        </button>
+      </div>
+    </div>
   );
 }
 

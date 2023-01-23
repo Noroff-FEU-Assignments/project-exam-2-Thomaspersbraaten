@@ -1,4 +1,4 @@
-import "./App.css";
+import "./sass/style.scss";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
@@ -19,8 +19,6 @@ function App() {
       <AuthProvider>
         <div className="App">
           <Router>
-            <NavBar />
-
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />

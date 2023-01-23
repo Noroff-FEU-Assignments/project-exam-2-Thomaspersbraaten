@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FormControl, InputLabel, Input, Button, TextField } from "@mui/material";
 import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../components/context/AuthContext";
@@ -85,7 +84,7 @@ function CreatePostForm() {
 
   return (
     <form>
-      <FormControl type="input">
+      {/* <FormControl type="input">
         <InputLabel htmlFor="title">Post title</InputLabel>
         <Input
           onChange={(e) => {
@@ -131,23 +130,11 @@ function CreatePostForm() {
           id="media"
           aria-describedby="my-helper-text"
         />
-      </FormControl>
-
-      {/* <FormControl type="input">
-        <InputLabel htmlFor="media">Image Link</InputLabel>
-        <TextField
-          onChange={(e) => {
-            setMedia(e.target.value);
-          }}
-          variant="outlined"
-          id="media"
-          aria-describedby="my-helper-text"
-        />
       </FormControl> */}
 
-      <Button onClick={createPost} variant="outlined" type="submit">
+      {/* <Button onClick={createPost} variant="outlined" type="submit">
         submit
-      </Button>
+      </Button> */}
     </form>
   );
 

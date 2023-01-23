@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 function NavBar() {
   const [auth, setAuth] = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   if (auth) {
     return (
@@ -17,6 +19,7 @@ function NavBar() {
         <button
           onClick={() => {
             localStorage.removeItem("auth");
+            navigate("/");
           }}
         >
           logout

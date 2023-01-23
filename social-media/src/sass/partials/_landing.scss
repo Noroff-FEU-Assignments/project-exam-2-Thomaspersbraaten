@@ -1,0 +1,51 @@
+.landing-container {
+  margin: auto;
+  display: flex;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 25%;
+  left: 50%;
+  border: 1px solid grey;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 15px;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.signup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid grey;
+  padding-bottom: 1rem;
+  &__button {
+    border: none;
+    height: 25px;
+    border-radius: 10px;
+    color: white;
+    background-color: black;
+    & a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+}
+
+.login {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  &__button {
+    background: rgb(0, 138, 255);
+    background: linear-gradient(0deg, rgba(0, 138, 255, 1) 0%, rgba(72, 205, 255, 1) 100%);
+    border: none;
+    height: 25px;
+    border-radius: 10px;
+
+    & a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+}

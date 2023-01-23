@@ -1,5 +1,3 @@
-import { Avatar } from "@mui/material";
-
 import { useContext, useEffect, useState } from "react";
 import { BASE_URL } from "../../components/constants/baseUrl";
 import { AuthContext } from "../../components/context/AuthContext";
@@ -7,6 +5,7 @@ import { NameContext } from "../../components/context/NameContext";
 import styles from "./MyProfile.module.css";
 import removeProfilePicture from "./removeProfilePicture";
 import img from "../../img.png";
+import NavBar from "../../components/navigation/NavBar";
 
 function MyProfile() {
   const [name, setName] = useContext(NameContext);
@@ -42,50 +41,53 @@ function MyProfile() {
   }, []);
 
   return (
-    <div>
-      <img src={profile.banner} />
-      <div>{profile.name}</div>
-      <div>{profile.email}</div>
-      <Avatar src={profile.avatar}></Avatar>
-      <div>Posts</div>
-      <div>Followers</div>
+    <>
+      <NavBar />
+      <div>
+        <img src={profile.banner} />
+        <div>{profile.name}</div>
+        <div>{profile.email}</div>
+        {/* <Avatar src={profile.avatar}></Avatar> */}
+        <div>Posts</div>
+        <div>Followers</div>
 
-      <div>Following</div>
+        <div>Following</div>
 
-      {/* <div className={styles.modalBackground}>
+        {/* <div className={styles.modalBackground}>
         <img src={profile.avatar} className={styles.imageLarge} />
  
       </div>  */}
-      <div className={styles.buttonContainer}>
-        <button
-          onClick={() => {
-            removeProfilePicture(auth, name, "avatar", imageUrl, "change");
-          }}
-        >
-          Change avatar picture
-        </button>
-        <button
-          onClick={() => {
-            removeProfilePicture(auth, name, "avatar");
-          }}
-        >
-          Remove avatar picture
-        </button>
-        <button
-          onClick={() => {
-            removeProfilePicture(auth, name, "banner");
-          }}
-        >
-          Remove banner picture
-        </button>
-        <button>Cancel</button>
-        <input
-          onChange={(e) => {
-            setImageUrl(e.target.value);
-          }}
-        />
+        <div className={styles.buttonContainer}>
+          <button
+            onClick={() => {
+              removeProfilePicture(auth, name, "avatar", imageUrl, "change");
+            }}
+          >
+            Change avatar picture
+          </button>
+          <button
+            onClick={() => {
+              removeProfilePicture(auth, name, "avatar");
+            }}
+          >
+            Remove avatar picture
+          </button>
+          <button
+            onClick={() => {
+              removeProfilePicture(auth, name, "banner");
+            }}
+          >
+            Remove banner picture
+          </button>
+          <button>Cancel</button>
+          <input
+            onChange={(e) => {
+              setImageUrl(e.target.value);
+            }}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

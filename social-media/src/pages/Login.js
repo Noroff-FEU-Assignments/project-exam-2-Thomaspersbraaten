@@ -1,4 +1,3 @@
-import { FormControl, InputLabel, Input, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -31,6 +30,7 @@ function Login() {
     console.log(data);
     try {
       const response = await axios.post(loginUrl, data);
+
       console.log(response);
       console.log(response.data.accessToken);
       setAuth(response.data.accessToken);
@@ -42,7 +42,7 @@ function Login() {
   }
   return (
     <>
-      <form onSubmit={handleSubmit(performLogin)}>
+      {/* <form onSubmit={handleSubmit(performLogin)}>
         <FormControl type="input">
           <InputLabel htmlFor="email">Email</InputLabel>
           <Input id="email" aria-describedby="my-helper-text" {...register("email")} />
@@ -55,7 +55,7 @@ function Login() {
         <Button variant="outlined" type="submit">
           Login
         </Button>
-      </form>
+      </form> */}
     </>
   );
 }

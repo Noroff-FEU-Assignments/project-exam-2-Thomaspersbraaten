@@ -1,4 +1,3 @@
-import { FormControl, InputLabel, Input } from "@mui/material";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -39,41 +38,42 @@ function CreateAccount() {
     }
   }
   return (
-    <div>
-      <form onSubmit={handleSubmit(sendAccountInfo)}>
-        <FormControl type="input">
-          <InputLabel htmlFor="my-input">Your name</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" {...register("name")} />
-          {errors.name && <p>error:{errors.name.message}</p>}
-        </FormControl>
+    <></>
+    // <div>
+    //   <form onSubmit={handleSubmit(sendAccountInfo)}>
+    //     <FormControl type="input">
+    //       <InputLabel htmlFor="my-input">Your name</InputLabel>
+    //       <Input id="my-input" aria-describedby="my-helper-text" {...register("name")} />
+    //       {errors.name && <p>error:{errors.name.message}</p>}
+    //     </FormControl>
 
-        <FormControl type="input">
-          <InputLabel htmlFor="my-input">email</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" {...register("email")} />
-          {errors.email && <p>error:{errors.email.message}</p>}
-        </FormControl>
+    //     <FormControl type="input">
+    //       <InputLabel htmlFor="my-input">email</InputLabel>
+    //       <Input id="my-input" aria-describedby="my-helper-text" {...register("email")} />
+    //       {errors.email && <p>error:{errors.email.message}</p>}
+    //     </FormControl>
 
-        <FormControl type="input">
-          <InputLabel htmlFor="my-input">banner</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" {...register("banner")} />
-          {errors.banner && <p>error:{errors.banner.message}</p>}
-        </FormControl>
+    //     <FormControl type="input">
+    //       <InputLabel htmlFor="my-input">banner</InputLabel>
+    //       <Input id="my-input" aria-describedby="my-helper-text" {...register("banner")} />
+    //       {errors.banner && <p>error:{errors.banner.message}</p>}
+    //     </FormControl>
 
-        <FormControl type="input">
-          <InputLabel htmlFor="my-input">Avatar</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" {...register("avatar")} />
-          {errors.avatar && <p>error:{errors.avatar.message}</p>}
-        </FormControl>
+    //     <FormControl type="input">
+    //       <InputLabel htmlFor="my-input">Avatar</InputLabel>
+    //       <Input id="my-input" aria-describedby="my-helper-text" {...register("avatar")} />
+    //       {errors.avatar && <p>error:{errors.avatar.message}</p>}
+    //     </FormControl>
 
-        <FormControl type="input">
-          <InputLabel htmlFor="my-input">Password</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" {...register("password")} />
-          {errors.password && <p>error:{errors.password.message}</p>}
-        </FormControl>
+    //     <FormControl type="input">
+    //       <InputLabel htmlFor="my-input">Password</InputLabel>
+    //       <Input id="my-input" aria-describedby="my-helper-text" {...register("password")} />
+    //       {errors.password && <p>error:{errors.password.message}</p>}
+    //     </FormControl>
 
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    //     <button type="submit">Submit</button>
+    //   </form>
+    // </div>
   );
 }
 

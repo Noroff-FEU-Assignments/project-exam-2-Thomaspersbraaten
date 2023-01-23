@@ -8,6 +8,7 @@ import Comments from "./comment/Comments";
 import PostsCard from "../../components/posts/PostsCard";
 import CommentForm from "./comment/form/CommentForm";
 import deletePost from "../../components/ui/deletePost";
+import NavBar from "../../components/navigation/NavBar";
 
 function PostDetail() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -39,23 +40,26 @@ function PostDetail() {
   console.log(post);
 
   return (
-    <div>
-      <button
-        onClick={() => {
-          deletePost(id, auth);
-        }}
-      >
-        Delete
-      </button>
-      {/* <PostsCard post={post} /> */}
-      {/* {post._count.comments} */}
-      <CommentForm id={id} setComments={setComments} comments={comments} />
+    <>
+      <NavBar />
+      <div>
+        <button
+          onClick={() => {
+            deletePost(id, auth);
+          }}
+        >
+          Delete
+        </button>
+        {/* <PostsCard post={post} /> */}
+        {/* {post._count.comments} */}
+        <CommentForm id={id} setComments={setComments} comments={comments} />
 
-      {comments.map((comment) => (
-        // <div> {comment.body}</div>
-        <Comments comment={comment} key={comment.id + comment.created} />
-      ))}
-    </div>
+        {comments.map((comment) => (
+          // <div> {comment.body}</div>
+          <Comments comment={comment} key={comment.id + comment.created} />
+        ))}
+      </div>
+    </>
   );
 }
 
