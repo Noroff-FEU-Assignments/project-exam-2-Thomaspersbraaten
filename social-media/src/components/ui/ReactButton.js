@@ -77,14 +77,17 @@ export default function ReactButton({ post }) {
   return (
     <>
       <OverlayTrigger placement="left" delay={{ show: 750, hide: 400 }} overlay={renderTooltip}>
-        <Button ref={target} onClick={() => setShow(!show)}>
-          {/* {post._count.reactions} Reactions */}
+        {/* <Button ref={target} onClick={() => setShow(!show)}>
+  
           {symbols.length} reactions
-        </Button>
+        </Button> */}
+        <div ref={target} onClick={() => setShow(!show)}>
+          {symbols.length}
+        </div>
       </OverlayTrigger>
       <Overlay target={target.current} show={show} placement="top" className="react-tooltip">
         {(props) => (
-          <Tooltip id="overlay-example" {...props}>
+          <Tooltip {...props}>
             <p>Click to react</p>
 
             <ListGroup>

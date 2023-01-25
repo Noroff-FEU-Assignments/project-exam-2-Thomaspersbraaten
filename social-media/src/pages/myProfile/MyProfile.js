@@ -6,6 +6,8 @@ import styles from "./MyProfile.module.css";
 import removeProfilePicture from "./removeProfilePicture";
 import img from "../../img.png";
 import NavBar from "../../components/navigation/NavBar";
+import imagePlaceholder from "../../images/image-placeholder.png";
+import avatarPlaceholder from "../../images/avatar-placeholder.png";
 
 function MyProfile() {
   const [name, setName] = useContext(NameContext);
@@ -43,10 +45,15 @@ function MyProfile() {
   return (
     <>
       <NavBar />
-      <div>
-        <img src={profile.banner} />
-        <div>{profile.name}</div>
+      <div className="profile-container">
+        <div className="image-container">
+          <img src={!profile.banner ? imagePlaceholder : profile.banner} className="profile-banner" />
+          <img src={!profile.avatar ? avatarPlaceholder : profile.avatar} className="profile-avatar" />
+        </div>
+
+        <h2>{profile.name}</h2>
         <div>{profile.email}</div>
+
         {/* <Avatar src={profile.avatar}></Avatar> */}
         <div>Posts</div>
         <div>Followers</div>

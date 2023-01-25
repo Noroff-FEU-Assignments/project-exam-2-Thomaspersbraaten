@@ -5,6 +5,8 @@
 @use "./partials/alert";
 @use "./partials/home";
 @use "./partials/card";
+@use "./partials/nav";
+@use "./partials/profile";
 
 * {
   box-sizing: border-box;
@@ -28,4 +30,7 @@ img {
 
 p {
   margin: 0;
+}
+.main-container {
+  padding: 1rem;
 }
