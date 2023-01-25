@@ -1,6 +1,15 @@
 nav {
   position: fixed;
   bottom: 0;
+  left: 0;
   background-color: white;
   width: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: space-around;
+  & a {
+    color: black;
+    font-size: 1.4rem;
+    padding: 0.125rem;
+  }
 }

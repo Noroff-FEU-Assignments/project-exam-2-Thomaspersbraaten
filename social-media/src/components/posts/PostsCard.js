@@ -9,7 +9,7 @@ import Placeholder from "react-bootstrap/Placeholder";
 import imagePlaceholder from "../../images/image-placeholder.png";
 import avatarPlaceholder from "../../images/avatar-placeholder.png";
 import ReactButton from "../ui/ReactButton";
-
+import { MdComment } from "react-icons/md";
 export default function PostsCard({ post }) {
   // const [expanded, setExpanded] = React.useState(false);
 
@@ -55,10 +55,10 @@ export default function PostsCard({ post }) {
   //   </>
   //
   // console.log(post.tags[0]);
-
-  if (post.tags.length === 1 && post.tags[0] === "") {
-    post.tags = [];
-  }
+  // console.log(post);
+  // if (post.tags.length === 1 && post.tags[0] === "") {
+  //   post.tags = [];
+  // }
   return (
     <>
       <Card>
@@ -66,19 +66,19 @@ export default function PostsCard({ post }) {
           <div className="user-info">
             <img src={!post.author.avatar ? avatarPlaceholder : post.author.avatar} className="author-img" />
             <Link to={`/profiles/${post.author.name}`} className="author-name">
-              {post.author.name}
+              By {post.author.name}
             </Link>
           </div>
           <PostDate date={post.created} />
         </Card.Body>
         <Link to={`posts/${post.id}`} className="link-to-post">
           <Card.Body className="card-top">
-            <Card.Title className="title">{post.title}</Card.Title>
+            <h2 className="title">{post.title}</h2>
             <Card.Text>{post.body}</Card.Text>
             <div className="tags-container">
               {post.tags.map((tag, index) => (
                 <div className="tag" key={tag + index}>
-                  {tag}
+                  #{tag}
                 </div>
               ))}
             </div>
@@ -87,7 +87,11 @@ export default function PostsCard({ post }) {
         </Link>
 
         <Card.Body className="bottom-container">
-          <Card.Link href="#">{post._count.comments} Comments</Card.Link>
+          <Link to={`posts/${post.id}`} className="comments">
+            <MdComment className="comments__icon" />
+            <p href="#">{post._count.comments} Comments</p>
+          </Link>
+
           <ReactButton post={post} />
         </Card.Body>
       </Card>

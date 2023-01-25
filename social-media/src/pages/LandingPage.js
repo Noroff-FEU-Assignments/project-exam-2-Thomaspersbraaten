@@ -3,6 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../components/context/AuthContext";
 
 function LandingPage() {
+  const authenticated = localStorage.getItem("auth");
+  const navigate = useNavigate();
+
+  if (authenticated) {
+    navigate("/home");
+  }
   return (
     <div className="landing-container">
       <div className="signup">

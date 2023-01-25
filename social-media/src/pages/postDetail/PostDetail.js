@@ -15,7 +15,7 @@ function PostDetail() {
   const [comments, setComments] = useState([]);
 
   const { id } = useParams();
-  const postDetailUrl = BASE_URL + "/social/posts/" + id + "?_comments=true&_reactions=true&_author=true";
+  const postDetailUrl = BASE_URL + "/social/posts/" + id + "?_author=true&_reactions=true&_comments=true";
   const options = {
     headers: {
       Authorization: `bearer ${auth}`,

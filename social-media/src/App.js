@@ -8,29 +8,32 @@ import NavBar from "./components/navigation/NavBar";
 import { AuthContext, AuthProvider } from "./components/context/AuthContext";
 import Home from "./pages/home/Home";
 import ProfileDetail from "./pages/ProfileDetail";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import CreatePost from "./pages/createPost/CreatePost";
 import PostDetail from "./pages/postDetail/PostDetail";
 import MyProfile from "./pages/myProfile/MyProfile";
 import { NameProvider } from "./components/context/NameContext";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
+  // console.log(authenticated);
   return (
     <NameProvider>
       <AuthProvider>
         <div className="main-container">
           <Router>
             <Routes>
-              <Route path="/" element={<LandingPage />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<LandingPage />} />
+              {/* <Route path="/home" element={authenticated ? <Home /> : <LandingPage />} /> */}
+
               <Route path="/login" element={<Login />} />
               <Route path="/create-account" element={<CreateAccount />} />
-              <Route path="/home" element={<Home />} />
               <Route path="/profiles/:name" element={<ProfileDetail />} />
               <Route path="/create-post" element={<CreatePost />} />
               <Route path="/posts/:id" element={<PostDetail />} />
               <Route path="/my-profile" element={<MyProfile />} />
-
-              {/* <Route path="*" /> */}
+              <Route path="*" element={<PageNotFound />} />
             </Routes>
           </Router>
         </div>
@@ -40,3 +43,24 @@ function App() {
 }
 
 export default App;
+
+{
+  /* <Route path="*" /> */
+}
+{
+  /* <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/create-account" element={<CreateAccount />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/profiles/:name" element={<ProfileDetail />} />
+              <Route path="/create-post" element={<CreatePost />} />
+              <Route path="/posts/:id" element={<PostDetail />} />
+              <Route path="/my-profile" element={<MyProfile />} />
+
+       
+            </Routes> */
+}
+{
+  /* <Route path="/home" element={<Home />} /> */
+}

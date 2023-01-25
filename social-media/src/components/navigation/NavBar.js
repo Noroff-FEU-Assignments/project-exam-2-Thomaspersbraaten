@@ -1,29 +1,37 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { AiFillHome } from "react-icons/ai";
+import { BsPlusLg } from "react-icons/bs";
+import { FaUserAlt } from "react-icons/fa";
 
 function NavBar() {
   const [auth, setAuth] = useContext(AuthContext);
 
   const navigate = useNavigate();
 
+  function logOut() {
+    localStorage.removeItem("auth");
+    localStorage.removeItem("name");
+    navigate("/");
+  }
+
   if (auth) {
     return (
       <nav>
-        <Link to="/home">Home</Link>
-        <Link to="/login">login</Link>
-        <Link to="/create-account">create</Link>
-        <Link to="/create-Post">Create Post</Link>
-        <Link to="/my-profile">Profile</Link>
+        <Link to="/">
+          <AiFillHome />
+        </Link>
+        {/* <Link to="/login">login</Link> */}
+        {/* <Link to="/create-account">create account</Link> */}
+        <Link to="/create-Post">
+          <BsPlusLg />
+        </Link>
+        <Link to="/my-profile">
+          <FaUserAlt />
+        </Link>
 
-        <button
-          onClick={() => {
-            localStorage.removeItem("auth");
-            navigate("/");
-          }}
-        >
-          logout
-        </button>
+        <button onClick={logOut}>logout</button>
       </nav>
     );
   }

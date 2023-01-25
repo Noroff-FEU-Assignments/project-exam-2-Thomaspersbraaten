@@ -7,8 +7,9 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../constants/baseUrl";
 
+import { MdAddReaction } from "react-icons/md";
+
 export default function ReactButton({ post }) {
-  console.log(post.reactions);
   const [show, setShow] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [style, setStyle] = useState("");
@@ -16,8 +17,7 @@ export default function ReactButton({ post }) {
   const target = useRef(null);
   const [symbols, setSymbols] = useState(post.reactions);
   const [auth, setAuth] = useContext(AuthContext);
-  //   console.log(symbols);
-  //   setSymbols(post.reactions);
+
   async function reactToPost(symbol) {
     const reactUrl = BASE_URL + `/social/posts/${post.id}/react/` + symbol;
     const options = {
@@ -26,10 +26,11 @@ export default function ReactButton({ post }) {
         Authorization: `Bearer ${auth}`,
       },
     };
+
     try {
       const response = await fetch(reactUrl, options);
       const json = await response.json();
-      console.log(json);
+
       symbols.forEach((arr) => {
         if (arr.symbol === json.symbol) {
           console.log("already in use");
@@ -43,6 +44,9 @@ export default function ReactButton({ post }) {
   }
 
   const renderTooltip = (props) => {
+    // if (!post.reactions || !post.reactions[0] || post.reactions.length === 0 || !symbols) {
+    console.log(props);
+    console.log(symbols);
     if (!post.reactions || !post.reactions[0] || post.reactions.length === 0) {
       return (
         <Tooltip id="button-tooltip" className="hover-overlay" {...props}>
@@ -52,10 +56,10 @@ export default function ReactButton({ post }) {
     } else {
       return (
         <Tooltip id="button-tooltip" className="hover-overlay" {...props}>
-          <p>Reactions</p>
           {post.reactions.map((reaction, index) => (
             <div key={reaction.symbol + index}>{reaction.symbol}</div>
           ))}
+          <p>Reactions</p>
         </Tooltip>
       );
     }
@@ -81,14 +85,15 @@ export default function ReactButton({ post }) {
   
           {symbols.length} reactions
         </Button> */}
-        <div ref={target} onClick={() => setShow(!show)}>
-          {symbols.length}
+        <div ref={target} onClick={() => setShow(!show)} className="reactions">
+          <MdAddReaction className="reactions__icon" />
+          <p>{symbols.length} reactions</p>
         </div>
       </OverlayTrigger>
       <Overlay target={target.current} show={show} placement="top" className="react-tooltip">
         {(props) => (
           <Tooltip {...props}>
-            <p>Click to react</p>
+            {/* <p>Click to react</p> */}
 
             <ListGroup>
               <ListGroup.Item

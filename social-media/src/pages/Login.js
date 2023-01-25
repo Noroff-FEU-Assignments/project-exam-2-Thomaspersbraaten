@@ -62,12 +62,12 @@ function Login() {
         {error && <ErrorMessage message={error} variant="danger" />}
         <Form.Group>
           <Form.Label>Email address</Form.Label>
-          <Form.Control placeholder="name@example.com" {...register("email")} />
+          <Form.Control placeholder="name@example.com" value="okidokidoki@stud.noroff.no" {...register("email")} />
           {errors.email && <ErrorMessage message={errors.email.message} variant="warning" />}
         </Form.Group>
         <Form.Group>
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" {...register("password")} />
+          <Form.Control value="abcdefg1A" type="password" {...register("password")} />
         </Form.Group>
         <Button type="submit" className="login-button">
           {submitting ? "Logging in" : "Log in"}

@@ -1,3 +1,6 @@
+$primary-font: "roboto", Verdana, Geneva, Tahoma, sans-serif;
+$secondary-font: "sofia sans", Verdana, Geneva, Tahoma, sans-serif;
+$tertiary-font: "open sans", Verdana, Geneva, Tahoma, sans-serif;
 button {
   font-family: "open sans";
 }
@@ -8,11 +11,27 @@ p {
 .alert {
   font-family: "roboto";
 }
+
+// Post
+.author-name {
+  font-family: $secondary-font;
+}
 .post-date {
-  font-family: "sofia sans", Verdana, Geneva, Tahoma, sans-serif;
+  font-family: $secondary-font;
   font-style: italic;
 }
 
-h2 {
-  font-family: "sofia sans", Verdana, Geneva, Tahoma, sans-serif;
+.title,
+.card-text {
+  font-family: $primary-font;
+  text-transform: capitalize;
+}
+
+.tag {
+  font-family: $secondary-font;
+  text-transform: capitalize;
+}
+.comments,
+.reactions {
+  font-family: $primary-font;
 }
