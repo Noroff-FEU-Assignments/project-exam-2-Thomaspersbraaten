@@ -7,7 +7,7 @@ function LandingPage() {
   const navigate = useNavigate();
 
   if (authenticated) {
-    navigate("/home");
+    navigate("/");
   }
   return (
     <div className="landing-container">

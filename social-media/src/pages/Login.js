@@ -43,7 +43,7 @@ function Login() {
       console.log(response.data.accessToken);
       setAuth(response.data.accessToken);
       setName(response.data.name);
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       console.log(error);
       if (error.response.status === 401) {

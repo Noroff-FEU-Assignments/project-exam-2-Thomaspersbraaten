@@ -5,23 +5,28 @@ function removeProfilePicture(auth, name, type, url, modifier) {
   console.log(removePictureUrl);
 
   let stringifiedBody = {};
-  if (type === "avatar") {
+  // Remove avatar
+  if (modifier === "remove" && type === "avatar") {
     stringifiedBody = JSON.stringify({
       avatar: "",
     });
   }
-  if (type === "banner") {
+  // Change Avatar
+  if (modifier === "change" && type === "avatar") {
     stringifiedBody = JSON.stringify({
-      banner: "",
+      avatar: url,
     });
-  } else {
+  }
+  // Remove Banner
+  if (modifier === "remove" && type === "banner") {
     stringifiedBody = JSON.stringify({
       banner: "",
     });
   }
-  if (modifier === "change" && type === "avatar") {
+  // Change Banner
+  if (modifier === "change" && type === "banner") {
     stringifiedBody = JSON.stringify({
-      avatar: url,
+      banner: url,
     });
   }
 

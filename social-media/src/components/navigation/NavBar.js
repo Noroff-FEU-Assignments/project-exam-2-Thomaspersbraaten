@@ -4,16 +4,18 @@ import { AuthContext } from "../context/AuthContext";
 import { AiFillHome } from "react-icons/ai";
 import { BsPlusLg } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
+import { NameContext } from "../context/NameContext";
 
 function NavBar() {
   const [auth, setAuth] = useContext(AuthContext);
+  const [name, setName] = useContext(NameContext);
 
   const navigate = useNavigate();
 
   function logOut() {
-    localStorage.removeItem("auth");
-    localStorage.removeItem("name");
-    navigate("/");
+    setName(null);
+    setAuth(null);
+    navigate("/welcome");
   }
 
   if (auth) {
@@ -22,15 +24,12 @@ function NavBar() {
         <Link to="/">
           <AiFillHome />
         </Link>
-        {/* <Link to="/login">login</Link> */}
-        {/* <Link to="/create-account">create account</Link> */}
         <Link to="/create-Post">
           <BsPlusLg />
         </Link>
-        <Link to="/my-profile">
+        <Link to={`/profiles/my-profile`}>
           <FaUserAlt />
         </Link>
-
         <button onClick={logOut}>logout</button>
       </nav>
     );

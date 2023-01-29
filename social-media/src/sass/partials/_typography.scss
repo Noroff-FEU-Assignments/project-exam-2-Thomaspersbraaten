@@ -35,3 +35,18 @@ p {
 .reactions {
   font-family: $primary-font;
 }
+
+// profile
+.user-container h2 {
+  font-family: $primary-font;
+  text-transform: capitalize;
+}
+.user-container p {
+  text-transform: capitalize;
+}
+
+.profile-links {
+  font-family: $secondary-font;
+  text-transform: capitalize;
+  text-decoration: underline;
+}

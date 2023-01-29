@@ -6,17 +6,116 @@
   background-color: white;
   border: 1px solid grey;
 }
-
+.modal-bottom {
+  top: 50%;
+  &__body {
+    background-color: white;
+    border-radius: 15px;
+    width: 250px;
+  }
+}
+.modal-content {
+  border: none;
+  background: none;
+  align-items: center;
+}
+.modal-image {
+  max-height: 400px;
+}
+.modal-top {
+  background: none;
+}
 .image-container {
   position: relative;
 }
 .profile-avatar {
+  border: 5px solid white;
   position: absolute;
   left: 0;
-  width: 50px;
-  height: 50px;
+  // width: 50px;
+  // height: 50px;
+  height: 70px;
+  width: 70px;
   bottom: 0;
+  // padding: 0.1rem;
+  clip-path: circle(50% at 50% 50%);
   /* border: 1px solid black; */
-  /* border-radius: 50%; */
+  border-radius: 50%;
+  // background-color: white;
+  transition: all 0.4s ease-in;
+  &:hover {
+    clip-path: circle(60% at 50% 50%);
+
+    filter: contrast(0.75);
+    cursor: pointer;
+  }
+}
+.profile-banner {
+  // clip-path: polygon(0 0, 100% 0, 100% 18%, 100% 100%, 15% 100%, 13% 83%, 0 77%, 0% 20%);
+  border-radius: 100px;
+  height: 175px;
+  transition: all 0.4s ease;
+  &:hover {
+    border-radius: 50px;
+
+    cursor: pointer;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  margin-top: 2rem;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  &__remove {
+    color: red;
+  }
+  & p {
+    padding: 0.5rem;
+  }
+  & p:hover {
+    cursor: pointer;
+    font-weight: 600;
+  }
+}
+
+.user-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.5rem;
+}
+
+// profile links
+
+.profile-links {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem;
+
+  & div:hover {
+    cursor: pointer;
+    font-weight: 600;
+  }
+}
+
+// bottom container
+
+.profile-bottom-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: 15px;
   background-color: white;
+  border: 1px solid grey;
+  margin-top: 1.5rem;
+}
+
+.follower-container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 0.55rem;
 }

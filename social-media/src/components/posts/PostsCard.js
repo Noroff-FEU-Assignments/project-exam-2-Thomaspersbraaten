@@ -10,6 +10,7 @@ import imagePlaceholder from "../../images/image-placeholder.png";
 import avatarPlaceholder from "../../images/avatar-placeholder.png";
 import ReactButton from "../ui/ReactButton";
 import { MdComment } from "react-icons/md";
+import Avatar from "../imageComponents/Avatar";
 export default function PostsCard({ post }) {
   // const [expanded, setExpanded] = React.useState(false);
 
@@ -64,14 +65,15 @@ export default function PostsCard({ post }) {
       <Card>
         <Card.Body className="author-container">
           <div className="user-info">
-            <img src={!post.author.avatar ? avatarPlaceholder : post.author.avatar} className="author-img" />
+            <Avatar src={post.author.avatar} author={post.author} cssClass="author-img" />
+            {/* <img src={!post.author.avatar ? avatarPlaceholder : post.author.avatar} className="author-img" /> */}
             <Link to={`/profiles/${post.author.name}`} className="author-name">
               By {post.author.name}
             </Link>
           </div>
           <PostDate date={post.created} />
         </Card.Body>
-        <Link to={`posts/${post.id}`} className="link-to-post">
+        <Link to={`/posts/${post.id}`} className="link-to-post">
           <Card.Body className="card-top">
             <h2 className="title">{post.title}</h2>
             <Card.Text>{post.body}</Card.Text>

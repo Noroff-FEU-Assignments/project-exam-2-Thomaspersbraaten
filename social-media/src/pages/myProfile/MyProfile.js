@@ -2,22 +2,37 @@ import { useContext, useEffect, useState } from "react";
 import { BASE_URL } from "../../components/constants/baseUrl";
 import { AuthContext } from "../../components/context/AuthContext";
 import { NameContext } from "../../components/context/NameContext";
-import styles from "./MyProfile.module.css";
 import removeProfilePicture from "./removeProfilePicture";
-import img from "../../img.png";
 import NavBar from "../../components/navigation/NavBar";
 import imagePlaceholder from "../../images/image-placeholder.png";
 import avatarPlaceholder from "../../images/avatar-placeholder.png";
+import Modal from "react-bootstrap/Modal";
+import ShowPosts from "./ShowPosts";
+import ShowFollowers from "./ShowFollowers";
+import Avatar from "../../components/imageComponents/Avatar";
+import Banner from "../../components/imageComponents/Banner";
+import ShowFollowing from "./ShowFollowing";
+import { useParams } from "react-router-dom";
 
 function MyProfile() {
   const [name, setName] = useContext(NameContext);
   const [auth, setAuth] = useContext(AuthContext);
   const [imageUrl, setImageUrl] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [posts, setPosts] = useState([]);
-  const [profile, setProfile] = useState([]);
+  const [showInput, setShowInput] = useState(false);
+  const [showPosts, setShowPosts] = useState(false);
+  const [showFollowers, setShowFollowers] = useState(false);
+  const [showFollowing, setShowFollowing] = useState(false);
 
-  const myProfileUrl = BASE_URL + "/social/profiles/" + name + "?_posts=true";
+  const [imageType, setImageType] = useState("");
+  const [counts, setCounts] = useState([]);
+  const [profile, setProfile] = useState([]);
+  // Bootstrap modal handling
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const { user } = useParams();
+  const myProfileUrl = BASE_URL + "/social/profiles/" + name;
 
   const options = {
     headers: {
@@ -33,8 +48,9 @@ function MyProfile() {
         // console.log(response);
         console.log(json);
         setProfile(json);
-        setPosts(json.posts);
-        setAvatar(json.avatar);
+        setCounts(json._count);
+        // setPosts(json.posts);
+        // setAvatar(json.avatar);
       } catch (error) {
         console.log(error);
       }
@@ -47,53 +63,113 @@ function MyProfile() {
       <NavBar />
       <div className="profile-container">
         <div className="image-container">
-          <img src={!profile.banner ? imagePlaceholder : profile.banner} className="profile-banner" />
-          <img src={!profile.avatar ? avatarPlaceholder : profile.avatar} className="profile-avatar" />
+          <div
+            onClick={() => {
+              handleShow();
+              setImageType("banner");
+            }}
+          >
+            <Banner author={profile} />
+          </div>
+          <div
+            onClick={() => {
+              handleShow();
+              setImageType("avatar");
+            }}
+          >
+            <Avatar author={profile} cssClass="profile-avatar" />
+          </div>
+
+          <Modal
+            show={show}
+            onHide={() => {
+              handleClose();
+              setShowInput(false);
+            }}
+            className="modal-top"
+          >
+            <Modal.Body>
+              {imageType === "avatar" ? (
+                <img src={!profile.avatar ? avatarPlaceholder : profile.avatar} className="modal-image" />
+              ) : (
+                <img src={!profile.banner ? imagePlaceholder : profile.banner} className="modal-image" />
+              )}
+            </Modal.Body>
+          </Modal>
+          <Modal
+            show={show}
+            onHide={() => {
+              handleClose();
+              setShowInput(false);
+            }}
+            className="modal-bottom"
+          >
+            <Modal.Body className="modal-bottom__body">
+              <div className="modal-actions">
+                {showInput && (
+                  <>
+                    <input onChange={(e) => setImageUrl(e.target.value)}></input>
+                  </>
+                )}
+                {showInput ? (
+                  <p onClick={() => removeProfilePicture(auth, name, imageType, imageUrl, "change")}>Confirm</p>
+                ) : (
+                  <>
+                    <p onClick={() => setShowInput(true)}>{imageType === "avatar" ? "Change Profile picture" : "Change banner picture"}</p>
+                    <p variant="danger" className="modal-actions__remove" onClick={() => removeProfilePicture(auth, name, imageType, imageUrl, "remove")}>
+                      {imageType === "avatar" ? "Remove Profile picture" : "Remove banner picture"}
+                    </p>
+                  </>
+                )}
+                <p
+                  onClick={() => {
+                    handleClose();
+                    setShowInput(false);
+                  }}
+                >
+                  Cancel
+                </p>
+              </div>
+            </Modal.Body>
+          </Modal>
         </div>
-
-        <h2>{profile.name}</h2>
-        <div>{profile.email}</div>
-
-        {/* <Avatar src={profile.avatar}></Avatar> */}
-        <div>Posts</div>
-        <div>Followers</div>
-
-        <div>Following</div>
-
-        {/* <div className={styles.modalBackground}>
-        <img src={profile.avatar} className={styles.imageLarge} />
- 
-      </div>  */}
-        <div className={styles.buttonContainer}>
-          <button
+        <div className="user-container">
+          <h2>{profile.name}</h2>
+          <p>{profile.email}</p>
+        </div>
+        <div className="profile-links">
+          <div
             onClick={() => {
-              removeProfilePicture(auth, name, "avatar", imageUrl, "change");
+              setShowPosts(true);
+              setShowFollowers(false);
+              setShowFollowing(false);
             }}
           >
-            Change avatar picture
-          </button>
-          <button
+            {counts.posts} Posts
+          </div>
+          <div
             onClick={() => {
-              removeProfilePicture(auth, name, "avatar");
+              setShowFollowers(true);
+              setShowPosts(false);
+              setShowFollowing(false);
             }}
           >
-            Remove avatar picture
-          </button>
-          <button
+            {counts.followers} Followers
+          </div>
+          <div
             onClick={() => {
-              removeProfilePicture(auth, name, "banner");
+              setShowFollowing(true);
+              setShowPosts(false);
+              setShowFollowers(false);
             }}
           >
-            Remove banner picture
-          </button>
-          <button>Cancel</button>
-          <input
-            onChange={(e) => {
-              setImageUrl(e.target.value);
-            }}
-          />
+            {counts.following} Following
+          </div>
         </div>
       </div>
+      <div>{showFollowers && <ShowFollowers />}</div>
+      <div>{showPosts && <ShowPosts />}</div>
+      <div>{showFollowing && <ShowFollowing />}</div>
     </>
   );
 }
