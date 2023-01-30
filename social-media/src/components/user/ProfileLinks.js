@@ -45,9 +45,9 @@ function ProfileLinks() {
         </div>
       </div>
 
-      {/* <div>{showPosts && <ShowPosts />}</div> */}
+      <div>{showPosts && <ShowPosts />}</div>
       <div>{showFollowers && <ShowFollowers />}</div>
-      {/* <div>{showFollowing && <ShowFollowing />}</div> */}
+      <div>{showFollowing && <ShowFollowing />}</div>
       {/* {showFollowers && <ShowFollowers />}
       {showPosts && <ShowPosts />}
       {showFollowing && <ShowFollowing />} */}

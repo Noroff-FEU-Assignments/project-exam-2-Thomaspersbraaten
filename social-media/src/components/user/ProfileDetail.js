@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { AuthContext } from "../context/AuthContext";
 import NavBar from "../navigation/NavBar";
@@ -13,7 +13,6 @@ import ProfileLinks from "./ProfileLinks";
 import { ProfileContext } from "../context/ProfileContext";
 
 function ProfileDetail() {
-  const location = useLocation();
   const [auth, setAuth] = useContext(AuthContext);
   // const [profile, setProfile] = useContext(ProfileContext);
   const [profile, setProfile] = useState([]);
@@ -21,10 +20,7 @@ function ProfileDetail() {
   const [counts, setCounts] = useState([]);
 
   const { name } = useParams();
-  // const profileDetailUrl = BASE_URL + "/social/profiles/" + name + "?_posts=true&_following=true&_followers=true";
   const profileDetailUrl = BASE_URL + "/social/profiles/" + name + "?_posts=true&_following=true&_followers=true";
-
-  // console.log(profileDetailUrl);
   const options = {
     headers: {
       Authorization: `Bearer ${auth}`,
@@ -34,30 +30,19 @@ function ProfileDetail() {
     async function getProfileDetail() {
       try {
         const response = await fetch(profileDetailUrl, options);
+
         const json = await response.json();
 
-        console.log(json);
+        // console.log(json);
         setProfile(json);
       } catch (error) {
-        console.log(error);
+        console.log("WTFFF" + error);
       }
     }
     getProfileDetail();
-  }, [location]);
+  }, [name]);
 
   return (
-    // <>
-    //   <NavBar />
-    //   <div className="profile-container">
-    //     <div className="image-container">
-    //       <Banner author={profile} />
-    //       <Avatar cssClass="profile-avatar" author={profile} />
-    //     </div>
-    //     <UserContainer profile={profile} />
-
-    //     <ProfileLinks profile={profile} />
-    //   </div>
-    // </>
     <>
       <NavBar />
       <div className="profile-container">
@@ -65,14 +50,8 @@ function ProfileDetail() {
           <Banner author={profile} />
           <Avatar cssClass="profile-avatar" author={profile} />
         </div>
-        {/* <UserContainer /> */}
-
-        {/* <ProfileLinks /> */}
-        <div>
-          {profile.followers?.map((follower) => (
-            <Link to={`/profiles/${follower.name}`}>{follower.name}</Link>
-          ))}
-        </div>
+        <UserContainer profile={profile} />
+        <ProfileLinks profile={profile} />
       </div>
     </>
   );

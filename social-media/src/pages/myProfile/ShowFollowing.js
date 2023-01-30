@@ -30,20 +30,26 @@ function ShowFollowing() {
       }
     }
     getFollowing();
-  }, []);
+  }, [name]);
   return (
     <div className="profile-bottom-container">
-      <h2>You are following</h2>
-      <div>
-        {following.map((follow) => (
-          <div className="follower-container">
-            <Avatar author={follow} />
-            <Link to={`/profiles/${follow.name}`} className="author-name">
-              {follow.name}
-            </Link>
+      {following.length > 0 ? (
+        <>
+          <h2>You are following</h2>
+          <div>
+            {following.map((follow, index) => (
+              <div className="follower-container" key={follow + index}>
+                <Avatar author={follow} />
+                <Link to={`/profiles/${follow.name}`} className="author-name">
+                  {follow.name}
+                </Link>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      ) : (
+        <h2>You are following no one</h2>
+      )}
     </div>
   );
 }

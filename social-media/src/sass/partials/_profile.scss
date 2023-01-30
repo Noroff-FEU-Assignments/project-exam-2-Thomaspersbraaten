@@ -115,6 +115,11 @@
 
 .follower-container {
   display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.follower {
+  display: flex;
   justify-content: left;
   align-items: center;
   gap: 0.55rem;

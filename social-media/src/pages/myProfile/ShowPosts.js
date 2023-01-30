@@ -30,14 +30,13 @@ function ShowPosts() {
       }
     }
     getMyPosts();
-  }, []);
+  }, [name]);
 
   // return <div>{posts.length > 0 ? <div>ok</div> : <p>you have no posts</p>}</div>;
   return (
     <div>
-      {posts.map((post) => (
-        <PostsCard post={post} key={post.id + post.title} />
-      ))}
+      <h2>Posts</h2>
+      {posts.length > 0 ? posts.map((post) => <PostsCard post={post} key={post.id + post.title} />) : <h2>you have no posts</h2>}
     </div>
   );
 }
