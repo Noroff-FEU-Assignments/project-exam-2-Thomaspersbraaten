@@ -8,9 +8,12 @@ import PostsCard from "../../components/posts/PostsCard";
 import CommentForm from "./comment/form/CommentForm";
 import deletePost from "../../components/ui/deletePost";
 import NavBar from "../../components/navigation/NavBar";
+import { NameContext } from "../../components/context/NameContext";
 
 function PostDetail() {
   const [auth, setAuth] = useContext(AuthContext);
+  const [authName, setAuthName] = useContext(NameContext);
+  const [canDelete, setCanDelete] = useState(false);
   const [post, setPost] = useState([]);
   const [comments, setComments] = useState([]);
 
@@ -27,21 +30,24 @@ function PostDetail() {
       try {
         const response = await axios.get(postDetailUrl, options);
         console.log(response.data);
+
         setPost(response.data);
         setComments(response.data.comments);
+        if (response.data.author.name === authName) {
+          setCanDelete(true);
+        }
       } catch (error) {
         console.log(error);
       }
     }
     getPostDetail();
-    console.log(comments);
   }, []);
   console.log(post);
 
   return (
     <>
       <NavBar />
-      <div>
+      {canDelete ? (
         <button
           onClick={() => {
             deletePost(id, auth);
@@ -49,6 +55,10 @@ function PostDetail() {
         >
           Delete
         </button>
+      ) : (
+        ""
+      )}
+      <div>
         {/* <PostsCard post={post} /> */}
         {/* {post._count.comments} */}
         <CommentForm id={id} setComments={setComments} comments={comments} />
