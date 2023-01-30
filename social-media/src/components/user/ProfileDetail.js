@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 import { AuthContext } from "../context/AuthContext";
 import NavBar from "../navigation/NavBar";
@@ -13,6 +13,7 @@ import ProfileLinks from "./ProfileLinks";
 import { ProfileContext } from "../context/ProfileContext";
 
 function ProfileDetail() {
+  const location = useLocation();
   const [auth, setAuth] = useContext(AuthContext);
   // const [profile, setProfile] = useContext(ProfileContext);
   const [profile, setProfile] = useState([]);
@@ -42,7 +43,7 @@ function ProfileDetail() {
       }
     }
     getProfileDetail();
-  }, []);
+  }, [location]);
 
   return (
     // <>
@@ -68,7 +69,7 @@ function ProfileDetail() {
 
         {/* <ProfileLinks /> */}
         <div>
-          {profile.followers.map((follower) => (
+          {profile.followers?.map((follower) => (
             <Link to={`/profiles/${follower.name}`}>{follower.name}</Link>
           ))}
         </div>
