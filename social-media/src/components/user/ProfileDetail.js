@@ -37,7 +37,6 @@ function ProfileDetail() {
 
         console.log(json);
         setProfile(json);
-        forceUpdate();
       } catch (error) {
         console.log(error);
       }
