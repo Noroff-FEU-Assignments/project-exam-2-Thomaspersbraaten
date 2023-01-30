@@ -3,6 +3,6 @@ import useLocalStorage from "../hooks/useLocalStorage";
 
 export const NameContext = createContext([null, () => {}]);
 export const NameProvider = (props) => {
-  const [name, setName] = useLocalStorage("name", null);
-  return <NameContext.Provider value={[name, setName]}>{props.children}</NameContext.Provider>;
+  const [authName, setAuthName] = useLocalStorage("authname", null);
+  return <NameContext.Provider value={[authName, setAuthName]}>{props.children}</NameContext.Provider>;
 };

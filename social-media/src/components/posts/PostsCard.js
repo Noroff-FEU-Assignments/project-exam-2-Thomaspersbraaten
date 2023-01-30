@@ -66,7 +66,6 @@ export default function PostsCard({ post }) {
         <Card.Body className="author-container">
           <div className="user-info">
             <Avatar src={post.author.avatar} author={post.author} cssClass="author-img" />
-            {/* <img src={!post.author.avatar ? avatarPlaceholder : post.author.avatar} className="author-img" /> */}
             <Link to={`/profiles/${post.author.name}`} className="author-name">
               By {post.author.name}
             </Link>
@@ -91,7 +90,7 @@ export default function PostsCard({ post }) {
         <Card.Body className="bottom-container">
           <Link to={`posts/${post.id}`} className="comments">
             <MdComment className="comments__icon" />
-            <p href="#">{post._count.comments} Comments</p>
+            <p>{post._count.comments} Comments</p>
           </Link>
 
           <ReactButton post={post} />

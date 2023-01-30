@@ -13,9 +13,10 @@ import Avatar from "../../components/imageComponents/Avatar";
 import Banner from "../../components/imageComponents/Banner";
 import ShowFollowing from "./ShowFollowing";
 import { useParams } from "react-router-dom";
+import UserContainer from "../../components/user/UserContainer";
 
 function MyProfile() {
-  const [name, setName] = useContext(NameContext);
+  const [authName, setAuthName] = useContext(NameContext);
   const [auth, setAuth] = useContext(AuthContext);
   const [imageUrl, setImageUrl] = useState("");
   const [showInput, setShowInput] = useState(false);
@@ -32,7 +33,7 @@ function MyProfile() {
   const handleShow = () => setShow(true);
 
   const { user } = useParams();
-  const myProfileUrl = BASE_URL + "/social/profiles/" + name;
+  const myProfileUrl = BASE_URL + "/social/profiles/" + authName;
 
   const options = {
     headers: {
@@ -60,7 +61,7 @@ function MyProfile() {
 
   return (
     <>
-      <NavBar />
+      {/* <NavBar />
       <div className="profile-container">
         <div className="image-container">
           <div
@@ -112,11 +113,11 @@ function MyProfile() {
                   </>
                 )}
                 {showInput ? (
-                  <p onClick={() => removeProfilePicture(auth, name, imageType, imageUrl, "change")}>Confirm</p>
+                  <p onClick={() => removeProfilePicture(auth, authName, imageType, imageUrl, "change")}>Confirm</p>
                 ) : (
                   <>
                     <p onClick={() => setShowInput(true)}>{imageType === "avatar" ? "Change Profile picture" : "Change banner picture"}</p>
-                    <p variant="danger" className="modal-actions__remove" onClick={() => removeProfilePicture(auth, name, imageType, imageUrl, "remove")}>
+                    <p variant="danger" className="modal-actions__remove" onClick={() => removeProfilePicture(auth, authName, imageType, imageUrl, "remove")}>
                       {imageType === "avatar" ? "Remove Profile picture" : "Remove banner picture"}
                     </p>
                   </>
@@ -133,10 +134,8 @@ function MyProfile() {
             </Modal.Body>
           </Modal>
         </div>
-        <div className="user-container">
-          <h2>{profile.name}</h2>
-          <p>{profile.email}</p>
-        </div>
+        <UserContainer profile={profile} />
+
         <div className="profile-links">
           <div
             onClick={() => {
@@ -169,7 +168,7 @@ function MyProfile() {
       </div>
       <div>{showFollowers && <ShowFollowers />}</div>
       <div>{showPosts && <ShowPosts />}</div>
-      <div>{showFollowing && <ShowFollowing />}</div>
+      <div>{showFollowing && <ShowFollowing />}</div> */}
     </>
   );
 }

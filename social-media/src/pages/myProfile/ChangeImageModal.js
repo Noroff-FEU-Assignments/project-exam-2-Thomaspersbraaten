@@ -8,7 +8,7 @@ import { NameContext } from "../../components/context/NameContext";
 import { AuthContext } from "../../components/context/AuthContext";
 
 function ChangeImageModal({ profile, counts }) {
-  const [name, setName] = useContext(NameContext);
+  const [authName, setAuthName] = useContext(NameContext);
   const [auth, setAuth] = useContext(AuthContext);
 
   const [imageUrl, setImageUrl] = useState("");
@@ -40,7 +40,7 @@ function ChangeImageModal({ profile, counts }) {
             {showInput ? (
               <p
                 onClick={() => {
-                  removeProfilePicture(auth, name, "avatar", imageUrl, "change");
+                  removeProfilePicture(auth, authName, "avatar", imageUrl, "change");
                 }}
               >
                 Confirm
@@ -58,7 +58,7 @@ function ChangeImageModal({ profile, counts }) {
                   variant="danger"
                   className="modal-actions__remove"
                   onClick={() => {
-                    removeProfilePicture(auth, name, "avatar", imageUrl, "change");
+                    removeProfilePicture(auth, authName, "avatar", imageUrl, "change");
                   }}
                 >
                   Remove profile picture

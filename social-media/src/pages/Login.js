@@ -15,7 +15,7 @@ import ErrorMessage from "../components/feedback/ErrorMessage";
 
 function Login() {
   const [auth, setAuth] = useContext(AuthContext);
-  const [name, setName] = useContext(NameContext);
+  const [authName, setAuthName] = useContext(NameContext);
   const [error, setError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -42,7 +42,7 @@ function Login() {
       console.log(response);
       console.log(response.data.accessToken);
       setAuth(response.data.accessToken);
-      setName(response.data.name);
+      setAuthName(response.data.name);
       navigate("/");
     } catch (error) {
       console.log(error);

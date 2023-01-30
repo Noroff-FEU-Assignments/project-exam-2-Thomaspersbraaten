@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { BASE_URL } from "../../components/constants/baseUrl";
 import { AuthContext } from "../../components/context/AuthContext";
 import { NameContext } from "../../components/context/NameContext";
@@ -7,7 +8,9 @@ import PostsCard from "../../components/posts/PostsCard";
 function ShowPosts() {
   const [posts, setPosts] = useState([]);
   const [auth, setAuth] = useContext(AuthContext);
-  const [name, setName] = useContext(NameContext);
+  const [authName, setAuthName] = useContext(NameContext);
+  const { name } = useParams();
+
   const postUrl = BASE_URL + "/social/profiles/" + name + "/posts?_author=true&_reactions=true&limit=10";
 
   const options = {

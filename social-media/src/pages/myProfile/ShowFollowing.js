@@ -5,7 +5,7 @@ import { AuthContext } from "../../components/context/AuthContext";
 import { NameContext } from "../../components/context/NameContext";
 import Avatar from "../../components/imageComponents/Avatar";
 function ShowFollowing() {
-  const [name, setName] = useContext(NameContext);
+  const [authName, setAuthName] = useContext(NameContext);
   const [auth, setAuth] = useContext(AuthContext);
   const [following, setFollowing] = useState([]);
 
@@ -14,15 +14,16 @@ function ShowFollowing() {
       Authorization: `bearer ${auth}`,
     },
   };
-  const { user } = useParams();
+  const { name } = useParams();
 
-  const followingUrl = BASE_URL + "/social/profiles/" + name + "?_following=true";
+  const followingUrl = BASE_URL + "/social/profiles/" + name + "?_following=true&_followers=true";
   useEffect(() => {
     async function getFollowing() {
       try {
         const response = await fetch(followingUrl, options);
         const json = await response.json();
         console.log(json);
+
         setFollowing(json.following);
       } catch (error) {
         console.log(error);
@@ -36,7 +37,7 @@ function ShowFollowing() {
       <div>
         {following.map((follow) => (
           <div className="follower-container">
-            <Avatar author={follow.avatar} />
+            <Avatar author={follow} />
             <Link to={`/profiles/${follow.name}`} className="author-name">
               {follow.name}
             </Link>

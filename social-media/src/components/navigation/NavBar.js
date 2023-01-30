@@ -8,12 +8,12 @@ import { NameContext } from "../context/NameContext";
 
 function NavBar() {
   const [auth, setAuth] = useContext(AuthContext);
-  const [name, setName] = useContext(NameContext);
+  const [authName, setAuthName] = useContext(NameContext);
 
   const navigate = useNavigate();
 
   function logOut() {
-    setName(null);
+    setAuthName(null);
     setAuth(null);
     navigate("/welcome");
   }
