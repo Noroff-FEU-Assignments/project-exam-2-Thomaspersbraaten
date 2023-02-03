@@ -10,9 +10,11 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/esm/Button";
 import ErrorMessage from "../../components/feedback/ErrorMessage";
 import CreatePostImage from "../../components/imageComponents/CreatePostImage";
+import { FeedbackContext } from "../../components/context/FeedbackContext";
 
 function CreatePostForm() {
   const [auth, setAuth] = useContext(AuthContext);
+  const [feedback, setFeedback] = useContext(FeedbackContext);
   const [error, setError] = useState(false);
   const [inputError, setInputError] = useState(false);
   const [title, setTitle] = useState("");
@@ -69,13 +71,22 @@ function CreatePostForm() {
     };
     console.log(requestOptions);
 
+    // try {
+    //   const response = await fetch(createPostUrl, requestOptions);
+    //   const json = await response.json();
+    //   console.log(json);
+    //   if (json) {
+    //     navigate("/");
+    //   }
+    // }
     try {
-      const response = await fetch(createPostUrl, requestOptions);
-      const json = await response.json();
-      console.log(json);
-      if (json) {
-        navigate("/");
-      }
+      console.log("l");
+      setFeedback({
+        cssClass: "success",
+        message: "Your post was created",
+        triggered: true,
+      });
+      // navigate("/");
     } catch (error) {
       console.log("OK AN ERROR BRO", error);
     }
@@ -83,7 +94,7 @@ function CreatePostForm() {
 
   return (
     <Form className="create-post-form">
-      <h1>Create post</h1>
+      <h1 className="create-post-header">Create a post</h1>
       {error && <ErrorMessage />}
       <Form.Group>
         <Form.Control
@@ -143,9 +154,11 @@ function CreatePostForm() {
       </Form.Group>
       <Form.Text className="text-muted">
         <Form.Group>
-          <ul>
+          <ul className="form-tags">
             {tags.map((tag, index) => (
-              <li key={tag + index}>{tag}</li>
+              <li key={tag + index} className="form-tags__tag">
+                {tag}
+              </li>
             ))}
           </ul>
         </Form.Group>

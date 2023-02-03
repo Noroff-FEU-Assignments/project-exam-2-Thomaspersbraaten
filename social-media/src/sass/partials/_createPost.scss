@@ -11,7 +11,9 @@
     font-style: italic;
   }
 }
-
+.create-post-header {
+  text-align: center;
+}
 .form-image-container {
   display: flex;
   //   justify-content: center;
@@ -45,7 +47,18 @@
     margin: 0;
   }
 }
-
+.form-tags {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  &__tag {
+    list-style: none;
+    padding: 0.25rem 1.25rem 0.15rem 1.25rem;
+    background-color: #4a3f3f;
+    color: white;
+    border-radius: 10px;
+  }
+}
 .create-form-buttons {
   margin-top: 2rem;
   display: flex;

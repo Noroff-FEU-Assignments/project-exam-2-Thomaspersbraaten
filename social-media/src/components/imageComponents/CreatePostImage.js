@@ -8,6 +8,7 @@ function CreatePostImage({ imageUrl }) {
 
   useEffect(() => {
     async function fetchImage() {
+      console.log(imageUrl);
       try {
         const response = await fetch(imageUrl);
         console.log(response);
@@ -18,12 +19,20 @@ function CreatePostImage({ imageUrl }) {
         } else {
           setSrc(imagePlaceholder);
           setImageClass("invalid-image");
-          setImageInfo("❌ Image link is not valid");
+          if (imageUrl.length > 0) {
+            setImageInfo("❌ Image link is not valid");
+          } else {
+            setImageInfo("");
+          }
         }
       } catch (error) {
         setSrc(imagePlaceholder);
         setImageClass("invalid-image");
-        setImageInfo("❌ Image link is not valid");
+        if (imageUrl.length > 0) {
+          setImageInfo("❌ Image link is not valid");
+        } else {
+          setImageInfo("");
+        }
       }
     }
     fetchImage();
