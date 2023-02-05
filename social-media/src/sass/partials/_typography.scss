@@ -52,3 +52,12 @@ h1 {
   text-transform: capitalize;
   text-decoration: underline;
 }
+
+// create form
+.create-post-form {
+  & input::placeholder,
+  & textarea::placeholder {
+    font-style: italic;
+    font-family: $secondary-font;
+  }
+}

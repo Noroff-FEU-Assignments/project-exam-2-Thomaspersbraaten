@@ -24,7 +24,6 @@ function App() {
         <ProfileProvider>
           <FeedbackProvider>
             <div className="main-container">
-              okkk
               <Router>
                 <Routes>
                   <Route path="/" element={<Home />} />
