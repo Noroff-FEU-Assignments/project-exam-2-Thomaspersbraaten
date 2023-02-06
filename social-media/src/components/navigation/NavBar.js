@@ -5,6 +5,7 @@ import { AiFillHome } from "react-icons/ai";
 import { BsPlusLg } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
 import { NameContext } from "../context/NameContext";
+import smallLogo from "../../images/small-logo.png";
 
 function NavBar() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -21,6 +22,9 @@ function NavBar() {
   if (auth) {
     return (
       <nav>
+        <Link to="/">
+          <img src={smallLogo} />
+        </Link>
         <Link to="/">
           <AiFillHome />
         </Link>
