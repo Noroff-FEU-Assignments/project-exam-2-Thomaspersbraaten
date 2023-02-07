@@ -9,13 +9,12 @@ import Follow from "./Follow";
 // function UserContainer({ profile }) {
 function UserContainer() {
   const [following, setFollowing] = useState("");
-
   const [auth, setAuth] = useContext(AuthContext);
   const [authName, setAuthName] = useContext(NameContext);
-
   const [profile, setProfile] = useState([]);
 
   const { name } = useParams();
+
   const profileOptions = {
     headers: {
       Authorization: `bearer ${auth}`,
@@ -120,18 +119,23 @@ function UserContainer() {
       <p>{profile.email}</p>
 
       {/* <Follow profile={profile} /> */}
-      <Button
-        variant={!following ? "primary" : "warning"}
-        onClick={() => {
-          if (following) {
-            unfollowUser();
-          } else {
-            followUser();
-          }
-        }}
-      >
-        {following ? "Unfollow" : "follow"}
-      </Button>
+
+      {authName === name ? (
+        ""
+      ) : (
+        <Button
+          variant={!following ? "primary" : "warning"}
+          onClick={() => {
+            if (following) {
+              unfollowUser();
+            } else {
+              followUser();
+            }
+          }}
+        >
+          {following ? "Unfollow" : "follow"}
+        </Button>
+      )}
     </div>
   );
 }

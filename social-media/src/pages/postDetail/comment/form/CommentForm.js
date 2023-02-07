@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import Button from "react-bootstrap/esm/Button";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../../../components/constants/baseUrl";
 import { AuthContext } from "../../../../components/context/AuthContext";
@@ -40,7 +41,16 @@ function CommentForm({ id, setComments, comments }) {
 
   return (
     <form className={styles.form}>
-      {/* <FormControl type="input" className={styles.input}>
+      <Button onClick={sendCommentInfo} className="comment-form__button" variant="contained">
+        Post Comment
+      </Button>
+    </form>
+  );
+}
+
+export default CommentForm;
+{
+  /* <FormControl type="input" className={styles.input}>
         <label htmlFor="comment">Comment</label>
         <TextField
           className={styles.textarea}
@@ -50,15 +60,8 @@ function CommentForm({ id, setComments, comments }) {
           id="comment"
           placeholder="Type your comment here..."
         ></TextField>
-      </FormControl>
-      <Button onClick={sendCommentInfo} className={styles.button} variant="contained">
-        Post Comment
-      </Button> */}
-    </form>
-  );
+      </FormControl> */
 }
-
-export default CommentForm;
 
 // const myHeaders = new Headers();
 // myHeaders.append("Authorization", `Bearer ${auth}`);

@@ -14,6 +14,7 @@ import Banner from "../../components/imageComponents/Banner";
 import ShowFollowing from "./ShowFollowing";
 import { useParams } from "react-router-dom";
 import UserContainer from "../../components/user/UserContainer";
+import ProfileLinks from "../../components/user/ProfileLinks";
 
 function MyProfile() {
   const [authName, setAuthName] = useContext(NameContext);
@@ -33,7 +34,7 @@ function MyProfile() {
   const handleShow = () => setShow(true);
 
   const { user } = useParams();
-  const myProfileUrl = BASE_URL + "/social/profiles/" + authName;
+  const myProfileUrl = BASE_URL + "/social/profiles/" + authName + "?_posts=true&_following=true&_followers=true";
 
   const options = {
     headers: {
@@ -61,6 +62,15 @@ function MyProfile() {
 
   return (
     <>
+      <NavBar />
+      <div className="profile-container">
+        <div className="image-container">
+          <Banner author={profile} />
+          <Avatar cssClass="profile-avatar" author={profile} />
+        </div>
+        <UserContainer profile={profile.name} />
+        <ProfileLinks profile={profile} />
+      </div>
       {/* <NavBar />
       <div className="profile-container">
         <div className="image-container">

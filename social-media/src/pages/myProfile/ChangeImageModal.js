@@ -7,7 +7,7 @@ import removeProfilePicture from "./removeProfilePicture";
 import { NameContext } from "../../components/context/NameContext";
 import { AuthContext } from "../../components/context/AuthContext";
 
-function ChangeImageModal({ profile, counts }) {
+function ChangeImageModal({ profile }) {
   const [authName, setAuthName] = useContext(NameContext);
   const [auth, setAuth] = useContext(AuthContext);
 

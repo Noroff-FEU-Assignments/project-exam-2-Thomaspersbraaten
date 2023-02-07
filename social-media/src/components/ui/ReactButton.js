@@ -8,45 +8,46 @@ import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../constants/baseUrl";
 
 import { MdAddReaction } from "react-icons/md";
+import ReactionOverlay from "../ReactionOverlay";
 
+// export default function ReactButton({ post }) {
 export default function ReactButton({ post }) {
+  // console.log(post);
   const [show, setShow] = useState(false);
-  const [disabled, setDisabled] = useState(false);
-  const [style, setStyle] = useState("");
+  // const [disabled, setDisabled] = useState(false);
+  // const [style, setStyle] = useState("");
 
   const target = useRef(null);
   const [symbols, setSymbols] = useState(post.reactions);
-  const [auth, setAuth] = useContext(AuthContext);
 
-  async function reactToPost(symbol) {
-    const reactUrl = BASE_URL + `/social/posts/${post.id}/react/` + symbol;
-    const options = {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${auth}`,
-      },
-    };
+  // const [auth, setAuth] = useContext(AuthContext);
 
-    try {
-      const response = await fetch(reactUrl, options);
-      const json = await response.json();
+  // async function reactToPost(symbol) {
+  //   const reactUrl = BASE_URL + `/social/posts/${post.id}/react/` + symbol + "?_author=true";
+  //   const options = {
+  //     method: "PUT",
+  //     headers: {
+  //       Authorization: `Bearer ${auth}`,
+  //     },
+  //   };
 
-      symbols.forEach((arr) => {
-        if (arr.symbol === json.symbol) {
-          console.log("already in use");
-        }
-      });
+  //   try {
+  //     const response = await fetch(reactUrl, options);
+  //     const json = await response.json();
+  //     console.log(json);
 
-      setSymbols([...symbols, json]);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  //     symbols.forEach((arr) => {
+  //       if (arr.symbol === json.symbol) {
+  //         console.log("already in use");
+  //       }
+  //     });
+  //     setSymbols([...symbols, json]);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   const renderTooltip = (props) => {
-    // if (!post.reactions || !post.reactions[0] || post.reactions.length === 0 || !symbols) {
-    console.log(props);
-    console.log(symbols);
     if (!post.reactions || !post.reactions[0] || post.reactions.length === 0) {
       return (
         <Tooltip id="button-tooltip" className="hover-overlay" {...props}>
@@ -56,45 +57,34 @@ export default function ReactButton({ post }) {
     } else {
       return (
         <Tooltip id="button-tooltip" className="hover-overlay" {...props}>
-          {post.reactions.map((reaction, index) => (
-            <div key={reaction.symbol + index}>{reaction.symbol}</div>
-          ))}
           <p>Reactions</p>
+          {/* {symbols.map((reaction, index) => (
+            <div key={reaction.symbol + index}>{reaction.symbol + ` x${reaction.count}`}</div>
+          ))} */}
         </Tooltip>
       );
     }
   };
-  function checkIfSymbolIsUsed(symbol) {
-    symbols.forEach((arr) => {
-      if (arr.symbol === symbol) {
-        setDisabled(true);
-        setStyle("disabled-reaction");
-        return true;
-      } else {
-        setDisabled(false);
-        setStyle("");
-        return false;
-      }
-    });
-  }
 
   return (
     <>
       <OverlayTrigger placement="left" delay={{ show: 750, hide: 400 }} overlay={renderTooltip}>
-        {/* <Button ref={target} onClick={() => setShow(!show)}>
-  
-          {symbols.length} reactions
-        </Button> */}
         <div ref={target} onClick={() => setShow(!show)} className="reactions">
           <MdAddReaction className="reactions__icon" />
-          <p>{symbols.length} reactions</p>
+
+          {post.reactions === [] && <p>ok</p>}
+          {post.reactions.length > 0 && <p>{post.reactions.length} reactions</p>}
+
+          {/* {post.reactions.length === 0 ? <p>0 reactions</p> : <p>{post.reactions.length} reactions</p>} */}
         </div>
       </OverlayTrigger>
-      <Overlay target={target.current} show={show} placement="top" className="react-tooltip">
+      <ReactionOverlay show={show} target={target} post={post} symbols={symbols} setSymbols={setSymbols} />
+    </>
+  );
+  {
+    /* <Overlay target={target.current} show={show} placement="top" className="react-tooltip">
         {(props) => (
           <Tooltip {...props}>
-            {/* <p>Click to react</p> */}
-
             <ListGroup>
               <ListGroup.Item
                 onClick={() => {
@@ -146,7 +136,35 @@ export default function ReactButton({ post }) {
                 😭
               </ListGroup.Item>
             </ListGroup>
-            {/* <ListGroup>
+          </Tooltip>
+        )}
+      </Overlay> */
+  }
+}
+
+// function checkIfSymbolIsUsed(symbol) {
+//   symbols.forEach((arr) => {
+//     if (arr.symbol === symbol) {
+//       setDisabled(true);
+//       setStyle("disabled-reaction");
+//       return true;
+//     } else {
+//       setDisabled(false);
+//       setStyle("");
+//       return false;
+//     }
+//   });
+// }
+
+{
+  /* <Button ref={target} onClick={() => setShow(!show)}>
+  
+          {symbols.length} reactions
+        </Button> */
+}
+
+{
+  /* <ListGroup>
               <ListGroup.Item onClick={() => setShow(!show)}>😄</ListGroup.Item>
               <ListGroup.Item onClick={() => setShow(!show)}>🙂</ListGroup.Item>
               <ListGroup.Item onClick={() => setShow(!show)}>👍</ListGroup.Item>
@@ -154,10 +172,14 @@ export default function ReactButton({ post }) {
               <ListGroup.Item onClick={() => setShow(!show)}>👎</ListGroup.Item>
               <ListGroup.Item onClick={() => setShow(!show)}>🙁</ListGroup.Item>
               <ListGroup.Item onClick={() => setShow(!show)}>😭</ListGroup.Item>
-            </ListGroup> */}
-          </Tooltip>
-        )}
-      </Overlay>
-    </>
-  );
+            </ListGroup> */
+}
+
+{
+  /* <p>Click to react</p> */
+}
+{
+  /* {post.reactions.map((reaction, index) => (
+            <div key={reaction.symbol + index}>{reaction.symbol}</div>
+          ))} */
 }

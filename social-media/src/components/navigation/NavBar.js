@@ -31,7 +31,7 @@ function NavBar() {
         <Link to="/create-Post">
           <BsPlusLg />
         </Link>
-        <Link to={`/profiles/my-profile`}>
+        <Link to={`/profiles/${authName}`}>
           <FaUserAlt />
         </Link>
         <button onClick={logOut}>logout</button>

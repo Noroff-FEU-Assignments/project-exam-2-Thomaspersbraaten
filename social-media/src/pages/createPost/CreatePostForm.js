@@ -155,11 +155,14 @@ function CreatePostForm() {
       <Form.Text className="text-muted">
         <Form.Group>
           <ul className="form-tags">
+            {/* BRO INSERT REMOVE TAG BUTTON on each added tag */}
+
             {tags.map((tag, index) => (
               <li key={tag + index} className="form-tags__tag">
                 {tag}
               </li>
             ))}
+            {/* BRO INSERT REMOVE TAG BUTTON on each added tag */}
           </ul>
         </Form.Group>
       </Form.Text>
