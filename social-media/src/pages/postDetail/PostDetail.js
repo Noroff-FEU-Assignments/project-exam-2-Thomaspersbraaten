@@ -15,11 +15,15 @@ import imagePlaceholder from "../../images/image-placeholder.png";
 import PostDate from "../../components/moment/PostDate";
 import { MdComment } from "react-icons/md";
 import ReactButton from "../../components/ui/ReactButton";
+import EditPostForm from "../../components/ui/EditPostForm";
 
 function PostDetail() {
   const [auth, setAuth] = useContext(AuthContext);
   const [authName, setAuthName] = useContext(NameContext);
   const [canDelete, setCanDelete] = useState(false);
+  const [isMyPost, setIsMyPost] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+
   const [post, setPost] = useState([]);
   const [author, setAuthor] = useState([]);
   const [reactions, setReactions] = useState([]);
@@ -57,6 +61,7 @@ function PostDetail() {
           // if (json.comments)
           if (json.author.name === authName) {
             setCanDelete(true);
+            setIsMyPost(true);
           }
         } else {
           setError(error.toString());
@@ -72,9 +77,10 @@ function PostDetail() {
 
   return (
     <>
+      {showEditForm && <EditPostForm post={post} setPost={setPost} setShowEditForm={setShowEditForm} />}
       {error && <p>{error}</p>}
       <NavBar />
-      {canDelete ? (
+      {isMyPost ? (
         <button
           onClick={() => {
             deletePost(id, auth);
@@ -124,6 +130,18 @@ function PostDetail() {
             {/* <ReactButton post={post} />
              */}
             <ReactButton post={post} />
+            {isMyPost && (
+              <div>
+                <button>delete</button>
+                <button
+                  onClick={() => {
+                    setShowEditForm(true);
+                  }}
+                >
+                  Edit
+                </button>
+              </div>
+            )}
           </Card.Body>
           <CommentForm id={id} setComments={setComments} comments={comments} />
         </Card>

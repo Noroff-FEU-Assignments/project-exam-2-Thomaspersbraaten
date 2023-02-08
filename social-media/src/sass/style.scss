@@ -1,4 +1,6 @@
 @use "./partials/typography";
+@use "./partials/editPost";
+
 @use "./partials/custom";
 @use "./partials/landing";
 @use "./partials/login";
@@ -36,5 +38,5 @@ p {
   margin: 0;
 }
 .main-container {
-  padding: 1rem;
+  // padding: 1rem;
 }

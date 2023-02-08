@@ -65,6 +65,7 @@ export default function ReactButton({ post }) {
       );
     }
   };
+  // console.log(post.reactions.length);
 
   return (
     <>
@@ -73,7 +74,7 @@ export default function ReactButton({ post }) {
           <MdAddReaction className="reactions__icon" />
 
           {post.reactions === [] && <p>ok</p>}
-          {post.reactions.length > 0 && <p>{post.reactions.length} reactions</p>}
+          {/* {post.reactions.length > 0 && <p>{post.reactions.length} reactions</p>} */}
 
           {/* {post.reactions.length === 0 ? <p>0 reactions</p> : <p>{post.reactions.length} reactions</p>} */}
         </div>
