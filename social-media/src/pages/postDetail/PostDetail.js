@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { BASE_URL } from "../../components/constants/baseUrl";
+
 import { AuthContext } from "../../components/context/AuthContext";
 import Comments from "./comment/Comments";
 import PostsCard from "../../components/posts/PostsCard";
@@ -16,6 +16,8 @@ import PostDate from "../../components/moment/PostDate";
 import { MdComment } from "react-icons/md";
 import ReactButton from "../../components/ui/ReactButton";
 import EditPostForm from "../../components/ui/EditPostForm";
+import { getOptions } from "../../components/getOptions";
+import { AUTHOR_REACTIONS_COMMENTS, POSTS_URL_EXT, SOCIAL_URL_EXT, BASE_URL } from "../../components/constants/api";
 
 function PostDetail() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -32,19 +34,13 @@ function PostDetail() {
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
   const { id } = useParams();
-  const postDetailUrl = BASE_URL + "/social/posts/" + id + "?_author=true&_reactions=true&_comments=true";
-  // const postDetailUrl = BASE_URL + "/social/posts/" + id;
 
-  const options = {
-    headers: {
-      Authorization: `bearer ${auth}`,
-      "Content-type": "application/json",
-    },
-  };
+  const postDetailUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + `/${id}` + AUTHOR_REACTIONS_COMMENTS;
+  const options = getOptions(auth);
+
   useEffect(() => {
     async function getPostDetail() {
       try {
-        // const response = await axios.get(postDetailUrl, options);
         const response = await fetch(postDetailUrl, options);
 
         if (response.ok) {
@@ -58,7 +54,7 @@ function PostDetail() {
 
           setComments(json.comments);
           setReactions(json.reactions);
-          // if (json.comments)
+
           if (json.author.name === authName) {
             setCanDelete(true);
             setIsMyPost(true);
@@ -79,7 +75,7 @@ function PostDetail() {
     <>
       {showEditForm && <EditPostForm post={post} setPost={setPost} setShowEditForm={setShowEditForm} />}
       {error && <p>{error}</p>}
-      <NavBar />
+
       {isMyPost ? (
         <button
           onClick={() => {

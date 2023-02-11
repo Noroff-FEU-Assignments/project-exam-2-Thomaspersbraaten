@@ -1,18 +1,13 @@
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../constants/baseUrl";
-import { AuthContext } from "../context/AuthContext";
+import { BASE_URL, POSTS_URL_EXT, SOCIAL_URL_EXT } from "../constants/api";
+import { getOptions } from "../getOptions";
 
 function deletePost(id, auth) {
   //   const [auth, setAuth] = useContext(AuthContext);
 
-  const deleteUrl = BASE_URL + "/social/posts/" + id;
-  const options = {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${auth}`,
-    },
-  };
+  const deleteUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + `/${id}`;
+
+  const options = getOptions(auth, "DELETE");
+
   async function performDelete() {
     try {
       const response = await fetch(deleteUrl, options);

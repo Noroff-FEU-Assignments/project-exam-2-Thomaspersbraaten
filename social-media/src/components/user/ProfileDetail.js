@@ -8,7 +8,6 @@ import bannerPlaceholder from "../../images/image-placeholder.png";
 import { AuthContext } from "../context/AuthContext";
 import NavBar from "../navigation/NavBar";
 import PostsCard from "../posts/PostsCard";
-import { BASE_URL } from "../constants/baseUrl";
 import Banner from "../imageComponents/Banner";
 import Avatar from "../imageComponents/Avatar";
 import UserContainer from "./UserContainer";
@@ -18,6 +17,8 @@ import { ProfileContext } from "../context/ProfileContext";
 import ChangeImageModal from "../../pages/myProfile/ChangeImageModal";
 import removeProfilePicture from "../../pages/myProfile/removeProfilePicture";
 import { NameContext } from "../context/NameContext";
+import { getOptions } from "../getOptions";
+import { BASE_URL, PROFILE, SOCIAL_URL_EXT } from "../constants/api";
 
 function ProfileDetail() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -29,21 +30,14 @@ function ProfileDetail() {
   const [posts, setPosts] = useState([]);
   const [showInput, setShowInput] = useState(false);
 
-  // const [counts, setCounts] = useState([]);
-  // const [profile, setProfile] = useContext(ProfileContext);
-
   const { name } = useParams();
-  const profileDetailUrl = BASE_URL + "/social/profiles/" + name + "?_posts=true&_following=true&_followers=true";
-  const options = {
-    headers: {
-      Authorization: `Bearer ${auth}`,
-    },
-  };
+  const profileUrl = BASE_URL + SOCIAL_URL_EXT + PROFILE + name + "?_posts=true&_following=true&_followers=true";
+
+  const options = getOptions(auth);
   useEffect(() => {
     async function getProfileDetail() {
       try {
-        const response = await fetch(profileDetailUrl, options);
-
+        const response = await fetch(profileUrl, options);
         const json = await response.json();
         setProfile(json);
       } catch (error) {

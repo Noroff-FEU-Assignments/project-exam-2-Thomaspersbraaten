@@ -16,6 +16,7 @@ import ProfileDetail from "./components/user/ProfileDetail";
 import { ProfileProvider } from "./components/context/ProfileContext";
 import { FeedbackProvider } from "./components/context/FeedbackContext";
 import GlobalFeedback from "./components/feedback/GlobalFeedback";
+import NavBar from "./components/navigation/NavBar";
 function App() {
   return (
     <NameProvider>
@@ -24,6 +25,7 @@ function App() {
           <FeedbackProvider>
             <div className="main-container">
               <Router>
+                <NavBar />
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/welcome" element={<LandingPage />} />

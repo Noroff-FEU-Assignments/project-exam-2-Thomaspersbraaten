@@ -1,27 +1,22 @@
 import { useContext, useEffect, useState } from "react";
-import { BASE_URL } from "../../components/constants/baseUrl";
 import { AuthContext } from "../../components/context/AuthContext";
 import axios from "axios";
 import PostsCard from "../../components/posts/PostsCard";
-import NavBar from "../../components/navigation/NavBar";
+import { AUTHOR_REACTIONS, BASE_URL, POSTS_URL_EXT, SOCIAL_URL_EXT } from "../../components/constants/api";
+import { getOptions } from "../../components/getOptions";
 
 function Home() {
   const [posts, setPosts] = useState([]);
   const [auth, setAuth] = useContext(AuthContext);
+  const postUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS;
 
-  const postUrl = BASE_URL + "/social/posts?_author=true&_reactions=true&limit=10";
-
-  const options = {
-    headers: {
-      Authorization: `Bearer ${auth}`,
-    },
-  };
+  const options = getOptions(auth);
 
   useEffect(() => {
+    console.log(postUrl);
     async function getPosts() {
       try {
         const response = await axios.get(postUrl, options);
-        // console.log(response.data);
         setPosts(response.data);
       } catch (error) {
         console.log(error);
@@ -32,7 +27,6 @@ function Home() {
 
   return (
     <>
-      <NavBar />
       <div className="posts-container">
         {posts.map((post) => (
           <PostsCard post={post} key={post.id + post.title} />
