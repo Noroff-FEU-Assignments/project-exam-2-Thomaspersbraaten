@@ -18,10 +18,13 @@ import ReactButton from "../../components/ui/ReactButton";
 import EditPostForm from "../../components/ui/EditPostForm";
 import { getOptions } from "../../components/getOptions";
 import { AUTHOR_REACTIONS_COMMENTS, POSTS_URL_EXT, SOCIAL_URL_EXT, BASE_URL } from "../../components/constants/api";
+import LoadingIndicator from "../../components/loading/LoadingIndicator";
+import fetchPosts from "../../components/fetch/fetchPosts";
 
 function PostDetail() {
   const [auth, setAuth] = useContext(AuthContext);
   const [authName, setAuthName] = useContext(NameContext);
+  const [loading, setLoading] = useState(true);
   const [canDelete, setCanDelete] = useState(false);
   const [isMyPost, setIsMyPost] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
@@ -38,43 +41,51 @@ function PostDetail() {
   const postDetailUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + `/${id}` + AUTHOR_REACTIONS_COMMENTS;
   const options = getOptions(auth);
 
+  // useEffect(() => {
+  //   async function getPostDetail() {
+  //     try {
+  //       const response = await fetch(postDetailUrl, options);
+
+  //       if (response.ok) {
+  //         const json = await response.json();
+  //         console.log(json);
+
+  //         setPost(json);
+  //         setAuthor(json.author);
+  //         console.log(json.comments);
+  //         setTags(json.tags);
+
+  //         setComments(json.comments);
+  //         setReactions(json.reactions);
+
+  //         if (json.author.name === authName) {
+  //           setCanDelete(true);
+  //           setIsMyPost(true);
+  //         }
+  //       } else {
+  //         setError(error.toString());
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+
+  //       setError(error.toString());
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  //   getPostDetail();
+  // }, []);
   useEffect(() => {
-    async function getPostDetail() {
-      try {
-        const response = await fetch(postDetailUrl, options);
-
-        if (response.ok) {
-          const json = await response.json();
-          console.log(json);
-
-          setPost(json);
-          setAuthor(json.author);
-          console.log(json.comments);
-          setTags(json.tags);
-
-          setComments(json.comments);
-          setReactions(json.reactions);
-
-          if (json.author.name === authName) {
-            setCanDelete(true);
-            setIsMyPost(true);
-          }
-        } else {
-          setError(error.toString());
-        }
-      } catch (error) {
-        console.log(error);
-
-        setError(error.toString());
-      }
+    fetchPosts(postDetailUrl, options, setPost, setError, setLoading, setAuthor, setComments, setReactions, setTags);
+    if (author.name === authName) {
+      setIsMyPost(true);
     }
-    getPostDetail();
   }, []);
 
   return (
     <>
+      {loading && <LoadingIndicator />}
       {showEditForm && <EditPostForm post={post} setPost={setPost} setShowEditForm={setShowEditForm} />}
-      {error && <p>{error}</p>}
 
       {isMyPost ? (
         <button
@@ -105,8 +116,8 @@ function PostDetail() {
               <Card.Text>{post.body}</Card.Text>
 
               <div className="tags-container">
-                {tags.length > 1 &&
-                  post.tags.map((tag, index) => (
+                {tags.length > 0 &&
+                  tags.map((tag, index) => (
                     <div className="tag" key={tag + index}>
                       #{tag}
                     </div>
@@ -123,9 +134,10 @@ function PostDetail() {
               {comments.length === 0 ? <p>No comments</p> : <p>{comments.length} comment</p>}
             </div>
 
-            {/* <ReactButton post={post} />
-             */}
-            <ReactButton post={post} />
+            {post.reactions && <ReactButton post={post} />}
+            {/* <ReactButton post={post} /> */}
+
+            {/* <ReactButton post={post} reactions={reactions} setReactions={setReactions} /> */}
             {isMyPost && (
               <div>
                 <button>delete</button>

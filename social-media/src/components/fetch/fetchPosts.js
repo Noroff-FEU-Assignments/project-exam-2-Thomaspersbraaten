@@ -1,4 +1,4 @@
-async function fetchPosts(url, options, setPosts, setError, setLoading) {
+async function fetchPosts(url, options, setPosts, setError, setLoading, setAuthor, setComments, setReactions, setTags) {
   try {
     const response = await fetch(url, options);
     console.log(response);
@@ -7,6 +7,18 @@ async function fetchPosts(url, options, setPosts, setError, setLoading) {
     if (response.status === 200) {
       setError(false);
       setPosts(json);
+      if (json.author) {
+        setAuthor(json.author);
+      }
+      // if (json.comments) {
+      //   setComments(json.comments);
+      // }
+      // if (json.reactions) {
+      //   setReactions(json.reactions);
+      // }
+      // if (json.tags) {
+      //   setTags(json.tags);
+      // }
     } else {
       setError("An error occured");
     }

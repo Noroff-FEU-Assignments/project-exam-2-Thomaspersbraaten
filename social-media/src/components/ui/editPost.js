@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { BASE_URL, POSTS_URL_EXT, SOCIAL_URL_EXT } from "../constants/api";
+import fetchPosts from "../fetch/fetchPosts";
 import { getOptions } from "../getOptions";
 
 function editPost(title, body, media, tags, auth, id, setPost) {
@@ -23,6 +25,9 @@ function editPost(title, body, media, tags, auth, id, setPost) {
     }
   }
   sendData();
+  // useEffect(( ) => {
+  //   fetchPosts()
+  // })
 }
 
 export default editPost;

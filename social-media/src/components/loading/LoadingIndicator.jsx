@@ -1,9 +1,9 @@
 function LoadingIndicator() {
   return (
-    <div class="loader">
-      <div class="loading-dot"></div>
-      <div class="loading-dot"></div>
-      <div class="loading-dot"></div>
+    <div className="loader">
+      <div className="loading-dot"></div>
+      <div className="loading-dot"></div>
+      <div className="loading-dot"></div>
     </div>
   );
 }

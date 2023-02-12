@@ -18,9 +18,9 @@ export default function ReactButton({ post }) {
   // const [style, setStyle] = useState("");
 
   const target = useRef(null);
-  const [symbols, setSymbols] = useState(post.reactions);
+  const [reactions, setReactions] = useState(post.reactions);
 
-  // const [auth, setAuth] = useContext(AuthContext);
+  const [auth, setAuth] = useContext(AuthContext);
 
   // async function reactToPost(symbol) {
   //   const reactUrl = BASE_URL + `/social/posts/${post.id}/react/` + symbol + "?_author=true";
@@ -46,6 +46,15 @@ export default function ReactButton({ post }) {
   //     console.log(error);
   //   }
   // }
+  // let reactionCounter = 0;
+  // const calculateReactions = () => {
+  //   if (reactions) {
+  //     reactions.forEach((sym) => {
+  //       reactionCounter = reactionCounter + sym.count;
+  //     });
+  //   }
+  // };
+  // calculateReactions();
 
   const renderTooltip = (props) => {
     if (!post.reactions || !post.reactions[0] || post.reactions.length === 0) {
@@ -61,88 +70,92 @@ export default function ReactButton({ post }) {
           {/* {symbols.map((reaction, index) => (
             <div key={reaction.symbol + index}>{reaction.symbol + ` x${reaction.count}`}</div>
           ))} */}
+          {reactions.map((reaction, index) => (
+            <div key={reaction.symbol + index}>{reaction.symbol + ` x${reaction.count}`}</div>
+          ))}
         </Tooltip>
       );
     }
   };
   // console.log(post.reactions.length);
-
+  const TotalValue = () => {
+    return reactions.reduce((acc, obj) => acc + obj.count, 0);
+  };
   return (
     <>
       <OverlayTrigger placement="left" delay={{ show: 750, hide: 400 }} overlay={renderTooltip}>
         <div ref={target} onClick={() => setShow(!show)} className="reactions">
           <MdAddReaction className="reactions__icon" />
 
-          {post.reactions === [] && <p>ok</p>}
+          {post.reactions === [] || reactions === [] ? <p>ok</p> : <p>{TotalValue()} Reactions</p>}
           {/* {post.reactions.length > 0 && <p>{post.reactions.length} reactions</p>} */}
 
           {/* {post.reactions.length === 0 ? <p>0 reactions</p> : <p>{post.reactions.length} reactions</p>} */}
         </div>
       </OverlayTrigger>
-      <ReactionOverlay show={show} target={target} post={post} symbols={symbols} setSymbols={setSymbols} />
+      <ReactionOverlay show={show} target={target} post={post} reactions={reactions} setReactions={setReactions} />
     </>
   );
-  {
-    /* <Overlay target={target.current} show={show} placement="top" className="react-tooltip">
-        {(props) => (
-          <Tooltip {...props}>
-            <ListGroup>
-              <ListGroup.Item
-                onClick={() => {
-                  reactToPost("😄");
-                }}
-              >
-                😄
-              </ListGroup.Item>
-              <ListGroup.Item
-                onClick={() => {
-                  reactToPost("🙂");
-                }}
-              >
-                🙂
-              </ListGroup.Item>
-              <ListGroup.Item
-                onClick={() => {
-                  reactToPost("👍");
-                }}
-              >
-                👍
-              </ListGroup.Item>
-              <ListGroup.Item
-                onClick={() => {
-                  reactToPost("🤝");
-                }}
-              >
-                🤝
-              </ListGroup.Item>
-              <ListGroup.Item
-                onClick={() => {
-                  reactToPost("👎");
-                }}
-              >
-                👎
-              </ListGroup.Item>
-              <ListGroup.Item
-                onClick={() => {
-                  reactToPost("🙁");
-                }}
-              >
-                🙁
-              </ListGroup.Item>
-              <ListGroup.Item
-                onClick={() => {
-                  reactToPost("😭");
-                }}
-              >
-                😭
-              </ListGroup.Item>
-            </ListGroup>
-          </Tooltip>
-        )}
-      </Overlay> */
-  }
 }
-
+{
+  /* <Overlay target={target.current} show={show} placement="top" className="react-tooltip">
+      {(props) => (
+        <Tooltip {...props}>
+          <ListGroup>
+            <ListGroup.Item
+              onClick={() => {
+                reactToPost("😄");
+              }}
+            >
+              😄
+            </ListGroup.Item>
+            <ListGroup.Item
+              onClick={() => {
+                reactToPost("🙂");
+              }}
+            >
+              🙂
+            </ListGroup.Item>
+            <ListGroup.Item
+              onClick={() => {
+                reactToPost("👍");
+              }}
+            >
+              👍
+            </ListGroup.Item>
+            <ListGroup.Item
+              onClick={() => {
+                reactToPost("🤝");
+              }}
+            >
+              🤝
+            </ListGroup.Item>
+            <ListGroup.Item
+              onClick={() => {
+                reactToPost("👎");
+              }}
+            >
+              👎
+            </ListGroup.Item>
+            <ListGroup.Item
+              onClick={() => {
+                reactToPost("🙁");
+              }}
+            >
+              🙁
+            </ListGroup.Item>
+            <ListGroup.Item
+              onClick={() => {
+                reactToPost("😭");
+              }}
+            >
+              😭
+            </ListGroup.Item>
+          </ListGroup>
+        </Tooltip>
+      )}
+    </Overlay> */
+}
 // function checkIfSymbolIsUsed(symbol) {
 //   symbols.forEach((arr) => {
 //     if (arr.symbol === symbol) {

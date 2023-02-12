@@ -5,7 +5,7 @@ import { useContext, useRef, useState } from "react";
 import { BASE_URL } from "./constants/baseUrl";
 import { AuthContext } from "./context/AuthContext";
 
-function ReactionOverlay({ show, target, post, symbols, setSymbols }) {
+function ReactionOverlay({ show, target, post, reactions, setReactions }) {
   // const [show, setShow] = useState(false);
   const [auth, setAuth] = useContext(AuthContext);
   // const target = useRef(null);
@@ -24,12 +24,12 @@ function ReactionOverlay({ show, target, post, symbols, setSymbols }) {
       const json = await response.json();
       console.log(json);
 
-      symbols.forEach((arr) => {
+      reactions.forEach((arr) => {
         if (arr.symbol === json.symbol) {
           console.log("already in use");
         }
       });
-      setSymbols([...symbols, json]);
+      setReactions([...reactions, json]);
     } catch (error) {
       console.log(error);
     }

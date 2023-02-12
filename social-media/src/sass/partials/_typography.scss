@@ -26,12 +26,17 @@ h1 {
 .title,
 .card-text {
   font-family: $primary-font;
+}
+.card-title::first-letter,
+.title::first-letter,
+.tag::first-letter,
+.user-container h2::first-letter,
+.user-container p::first-letter,
+.profile-links::first-letter {
   text-transform: capitalize;
 }
-
 .tag {
   font-family: $secondary-font;
-  text-transform: capitalize;
 }
 .comments,
 .reactions {
@@ -41,15 +46,13 @@ h1 {
 // profile
 .user-container h2 {
   font-family: $primary-font;
-  text-transform: capitalize;
 }
 .user-container p {
-  text-transform: capitalize;
 }
 
 .profile-links {
   font-family: $secondary-font;
-  text-transform: capitalize;
+
   text-decoration: underline;
 }
 
