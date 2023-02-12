@@ -12,8 +12,6 @@ import ReactButton from "../ui/ReactButton";
 import { MdComment } from "react-icons/md";
 import Avatar from "../imageComponents/Avatar";
 export default function PostsCard({ post, postType = "home" }) {
-  console.log(post);
-  // console.log(post);
   return (
     <>
       <Card>

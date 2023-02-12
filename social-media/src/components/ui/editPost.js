@@ -3,7 +3,7 @@ import { getOptions } from "../getOptions";
 
 function editPost(title, body, media, tags, auth, id, setPost) {
   const editPostUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + `/${id}`;
-  // const editPostUrl = BASE_URL + "/social/posts/" + id;
+
   const data = {
     title: title,
     body: body,

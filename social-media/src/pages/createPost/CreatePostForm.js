@@ -9,11 +9,10 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/esm/Button";
 import ErrorMessage from "../../components/feedback/ErrorMessage";
 import CreatePostImage from "../../components/imageComponents/CreatePostImage";
-import { FeedbackContext } from "../../components/context/FeedbackContext";
 
 function CreatePostForm() {
   const [auth, setAuth] = useContext(AuthContext);
-  const [feedback, setFeedback] = useContext(FeedbackContext);
+
   const [error, setError] = useState(false);
   const [inputError, setInputError] = useState(false);
   const [title, setTitle] = useState("");
@@ -80,11 +79,7 @@ function CreatePostForm() {
     // }
     try {
       console.log("l");
-      setFeedback({
-        cssClass: "success",
-        message: "Your post was created",
-        triggered: true,
-      });
+
       // navigate("/");
     } catch (error) {
       console.log("OK AN ERROR BRO", error);
