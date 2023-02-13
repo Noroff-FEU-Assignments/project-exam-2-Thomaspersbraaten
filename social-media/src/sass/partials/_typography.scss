@@ -47,8 +47,6 @@ h1 {
 .user-container h2 {
   font-family: $primary-font;
 }
-.user-container p {
-}
 
 .profile-links {
   font-family: $secondary-font;
@@ -63,4 +61,8 @@ h1 {
     font-style: italic;
     font-family: $secondary-font;
   }
+}
+
+label {
+  font-family: $secondary-font;
 }

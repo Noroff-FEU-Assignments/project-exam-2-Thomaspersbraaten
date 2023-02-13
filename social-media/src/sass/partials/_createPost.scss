@@ -36,7 +36,8 @@
 .create-form-tags {
   display: flex;
   align-items: center;
-  justify-content: center;
+  // justify-content: center;
+  justify-content: space-between;
   &__input {
     margin-right: 0.5rem;
   }
@@ -46,6 +47,11 @@
     padding: 0;
     margin: 0;
   }
+}
+.tags-control {
+  display: flex;
+  flex-direction: column;
+  width: 65%;
 }
 .form-tags {
   display: flex;
@@ -78,4 +84,8 @@
     border-radius: 25px;
     border: none;
   }
+}
+
+.create-post-label {
+  margin-bottom: 0rem;
 }

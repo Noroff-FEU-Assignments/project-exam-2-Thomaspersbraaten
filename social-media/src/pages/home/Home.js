@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../components/context/AuthContext";
 import PostsCard from "../../components/posts/PostsCard";
 import { AUTHOR_REACTIONS, BASE_URL, POSTS_URL_EXT, SOCIAL_URL_EXT } from "../../components/constants/api";
@@ -6,24 +6,62 @@ import { getOptions } from "../../components/getOptions";
 import fetchPosts from "../../components/fetch/fetchPosts";
 import ErrorMessage from "../../components/feedback/ErrorMessage";
 import LoadingIndicator from "../../components/loading/LoadingIndicator";
+import LoadingMorePosts from "../../components/loading/LoadingMorePosts";
 
 function Home() {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadingMorePosts, setLoadingMorePosts] = useState(false);
   const [auth, setAuth] = useContext(AuthContext);
-  const postUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS;
+  const [numberOfPosts, setNumberOfPosts] = useState(10);
+
   const options = getOptions(auth);
 
+  const postUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS + `&limit=${numberOfPosts}`;
+
   useEffect(() => {
-    fetchPosts(postUrl, options, setPosts, setError, setLoading);
+    fetchPosts(postUrl, options, setPosts, setError, setLoading, setLoadingMorePosts);
   }, []);
+
+  useEffect(() => {
+    fetchPosts(postUrl, options, setPosts, setError, setLoading, setLoadingMorePosts);
+  }, [numberOfPosts]);
+
+  const observer = useRef(null);
+
+  const lastPost = useCallback(
+    (node) => {
+      if (loadingMorePosts) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setLoadingMorePosts(true);
+          setNumberOfPosts(numberOfPosts + 10);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loadingMorePosts]
+  );
 
   return (
     <>
       <div className="posts-container">
         {loading && <LoadingIndicator />}
-        {error ? <ErrorMessage variant="danger" message={error} /> : posts.map((post) => <PostsCard post={post} key={post.id + post.title} />)}
+
+        {error ? (
+          <ErrorMessage variant="danger" message={error} />
+        ) : (
+          posts.map((post, index) => {
+            if (posts.length === index + 1) {
+              return <PostsCard post={post} key={post.id + post.title} referance={lastPost} />;
+            } else {
+              return <PostsCard post={post} key={post.id + post.title} />;
+            }
+          })
+        )}
+        {loadingMorePosts && <LoadingMorePosts />}
       </div>
     </>
   );
@@ -31,6 +69,7 @@ function Home() {
 
 export default Home;
 
+// const [hasScrolledToBottom, setHasScrolledToBottom] = useState(false);
 {
   /* <div className="posts-container">{error ? <ErrorMessage variant="danger" message={error} /> : posts.map((post) => <PostsCard post={post} key={post.id + post.title} />)}</div> */
 }
@@ -76,3 +115,33 @@ export default Home;
 //   }
 //   getPosts();
 // }, []);
+// window.onscroll = () => {
+//   if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !hasScrolledToBottom) {
+//     console.log("bottom");
+//     setHasScrolledToBottom(true);
+//   }
+// };
+// const lastPost = useCallback(node => {
+//   if (loading) return;
+//   if (observer.current) observer.current.disconnect()
+//   observer.current = new IntersectionObserver((entries) => {
+//     if (entries[0])
+//   })
+// })
+{
+  /* {error ? (
+          <ErrorMessage variant="danger" message={error} />
+        ) : (
+          posts.map((post, index) => {
+            console.log(index);
+            if (posts.length === index + 1) {
+              return <PostsCard post={post} key={post.id + post.title} ref={lastPost} />;
+            } else {
+              return <PostsCard post={post} key={post.id + post.title} />;
+            }
+          })
+        )} */
+}
+// }, [loading, hasmore] );
+
+// const postUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS;

@@ -6,7 +6,7 @@ import { BASE_URL } from "../components/constants/baseUrl";
 import axios from "axios";
 function CreateAccount() {
   const createAccountUrl = BASE_URL + "/social/auth/register";
-  console.log(createAccountUrl);
+
   const schema = yup.object().shape({
     name: yup.string().required("Please enter your name"),
     email: yup.string().required("ok"),

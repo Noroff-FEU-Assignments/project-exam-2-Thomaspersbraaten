@@ -19,6 +19,7 @@ import removeProfilePicture from "../../pages/myProfile/removeProfilePicture";
 import { NameContext } from "../context/NameContext";
 import { getOptions } from "../getOptions";
 import { BASE_URL, PROFILE, SOCIAL_URL_EXT } from "../constants/api";
+import ProfileAvatar from "../imageComponents/ProfileAvatar";
 
 function ProfileDetail() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -29,6 +30,9 @@ function ProfileDetail() {
   const [profile, setProfile] = useState([]);
   const [posts, setPosts] = useState([]);
   const [showInput, setShowInput] = useState(false);
+  const [following, setFollowing] = useState(false);
+
+  const [followers, setFollowers] = useState([]);
 
   const { name } = useParams();
   const profileUrl = BASE_URL + SOCIAL_URL_EXT + PROFILE + name + "?_posts=true&_following=true&_followers=true";
@@ -39,7 +43,19 @@ function ProfileDetail() {
       try {
         const response = await fetch(profileUrl, options);
         const json = await response.json();
+        console.log(json);
         setProfile(json);
+        if (json.followers) {
+          setFollowers(json.followers);
+          const amIFollowing = json.followers.some((follower) => {
+            return follower.name === authName;
+          });
+          if (amIFollowing) {
+            setFollowing(true);
+          } else {
+            setFollowing(false);
+          }
+        }
       } catch (error) {
         console.log("WTFFF" + error);
       }
@@ -126,12 +142,12 @@ function ProfileDetail() {
               setImageType("avatar");
             }}
           >
-            <Avatar cssClass="profile-avatar" author={profile} />
+            {profile && <ProfileAvatar src={profile} cssClass="profile-avatar" />}
           </div>
         </div>
 
-        <UserContainer profile={profile} />
-        <ProfileLinks profile={profile} />
+        <UserContainer profile={profile} following={following} setFollowing={setFollowing} followers={followers} setFollowers={setFollowers} />
+        <ProfileLinks profile={profile} followers={followers} setFollowers={setFollowers} />
       </div>
     </>
   );

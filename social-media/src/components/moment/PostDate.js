@@ -2,7 +2,7 @@ import moment from "moment";
 
 function PostDate({ date }) {
   const dayDate = moment(date).format("MMMM Do YYYY");
-  const timeSincePosted = moment(date).startOf("hour").fromNow();
+  const timeSincePosted = moment(date).startOf("minute").fromNow();
   const now = moment();
 
   if (now > dayDate) {

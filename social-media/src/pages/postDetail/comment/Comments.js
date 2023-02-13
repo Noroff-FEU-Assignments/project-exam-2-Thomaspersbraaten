@@ -1,24 +1,20 @@
-// import { Avatar } from "@mui/material";
-import { Link } from "react-router-dom";
-import PostDate from "../../../components/moment/PostDate";
-import styles from "./Comments.module.css";
-function Comments({ comment }) {
+import UserComponent from "../../../components/posts/cardComponents/UserComponent";
+
+import CommentForm from "./form/CommentForm";
+function Comments({ post, comments, setComments }) {
   return (
-    <div className={styles.container}>
-      <div className={styles.topContainer}>
-        <div className={styles.author}>
-          {/* <Avatar src={comment.author.avatar}></Avatar> */}
-          <div className={styles.commentBy}>
-            <div>Comment by</div>
-            <Link to={`/profiles/${comment.author.name}`}>{comment.author.name}</Link>
-          </div>
-        </div>
-        <div className={`${styles}.posted-date`}>
-          <PostDate date={comment.created} />
-        </div>
+    <>
+      <CommentForm comments={comments} setComments={setComments} />
+      <div>
+        {comments &&
+          comments.map((comment) => (
+            <div className="comment" key={comment.id}>
+              <UserComponent data={comment} />
+              <p>{comment.body}</p>
+            </div>
+          ))}
       </div>
-      <div>{comment.body}</div>
-    </div>
+    </>
   );
 }
 

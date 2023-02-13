@@ -5,7 +5,7 @@ import ShowPosts from "../../pages/myProfile/ShowPosts";
 import { ProfileContext } from "../context/ProfileContext";
 
 // function ProfileLinks({ posts, counts, profile }) {
-function ProfileLinks() {
+function ProfileLinks({ profile, followers, setFollowers }) {
   const [showPosts, setShowPosts] = useState(false);
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
@@ -45,8 +45,8 @@ function ProfileLinks() {
         </div>
       </div>
 
-      <div>{showPosts && <ShowPosts />}</div>
-      <div>{showFollowers && <ShowFollowers />}</div>
+      <div>{showPosts && <ShowPosts profile={profile} />}</div>
+      <div>{showFollowers && <ShowFollowers followers={followers} setFollowers={setFollowers} />}</div>
       <div>{showFollowing && <ShowFollowing />}</div>
       {/* {showFollowers && <ShowFollowers />}
       {showPosts && <ShowPosts />}

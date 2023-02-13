@@ -1,49 +1,58 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
-import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../../../components/constants/baseUrl";
 import { AuthContext } from "../../../../components/context/AuthContext";
-import styles from "./CommentForm.module.css";
+import Form from "react-bootstrap/Form";
+import { getOptions } from "../../../../components/getOptions";
+import { useParams } from "react-router-dom";
 
-function CommentForm({ id, setComments, comments }) {
-  const [comment, setComment] = useState("");
+function CommentForm({ setComments, comments }) {
+  const [commentInput, setCommentInput] = useState("");
   const [auth, setAuth] = useContext(AuthContext);
+  const { id } = useParams();
 
   const commentUrl = BASE_URL + `/social/posts/${id}/comment`;
   async function sendCommentInfo() {
-    if (comment.length < 1) {
+    if (commentInput.length < 1) {
       return;
     }
-    const stringifiedBody = JSON.stringify({
-      body: comment,
-    });
 
-    const options = {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${auth}`,
-        "Content-Type": "application/json",
-      },
-      body: stringifiedBody,
+    const data = {
+      body: commentInput,
     };
+    const options = getOptions(auth, "POST", data);
 
     try {
       const response = await fetch(commentUrl, options);
       const json = await response.json();
-      console.log(response);
       console.log(json);
-      setComments([...comments, json]);
+      if (json.created) {
+        setComments([...comments, json]);
+        setCommentInput("");
+      }
     } catch (error) {
       console.log(error);
     }
   }
 
   return (
-    <form className={styles.form}>
-      <Button onClick={sendCommentInfo} className="comment-form__button" variant="contained">
-        Post Comment
-      </Button>
+    <form>
+      <Form.Group className="comment-group">
+        <Form.Label>Comment</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows="3"
+          id="comment"
+          placeholder="Type your comment here..."
+          value={commentInput}
+          onChange={(e) => {
+            setCommentInput(e.target.value);
+          }}
+        />
+        <Button onClick={sendCommentInfo} className="comment-form__button">
+          Post Comment
+        </Button>
+      </Form.Group>
     </form>
   );
 }

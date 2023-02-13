@@ -44,6 +44,10 @@
   border-radius: 0px;
 }
 
+textarea {
+  resize: none;
+}
+
 .author-name {
   & a {
     text-decoration: underline;

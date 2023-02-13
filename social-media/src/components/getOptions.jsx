@@ -1,6 +1,4 @@
 export function getOptions(auth, method = "GET", array) {
-  //   const data = array && array;
-
   if (array) {
     return {
       method: method,

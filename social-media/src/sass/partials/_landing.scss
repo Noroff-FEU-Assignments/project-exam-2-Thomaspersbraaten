@@ -1,16 +1,39 @@
 .landing-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.landing-logo-container {
+  background-color: white;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+.landing-logo {
+  width: 100%;
+  max-width: 85px;
+}
+
+.welcome-text-container {
+  text-align: center;
+  margin: 2rem auto;
+  & h1 {
+    font-weight: bold;
+  }
+}
+.login-signup {
   margin: auto;
   display: flex;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 25%;
-  left: 50%;
+  max-width: 350px;
   border: 1px solid grey;
   justify-content: center;
   flex-direction: column;
   border-radius: 15px;
   gap: 1rem;
-  padding: 1.5rem;
+  padding: 2rem;
 }
 
 .signup {
@@ -20,16 +43,29 @@
   border-bottom: 1px solid grey;
   padding-bottom: 1rem;
   &__button {
-    border: none;
-    height: 25px;
-    border-radius: 10px;
-    color: white;
-    background-color: black;
-    & a {
-      text-decoration: none;
-      color: white;
-    }
+    background-color: #068545;
   }
+}
+.signup__button,
+.login__button {
+  border: none;
+  border-radius: 10px;
+  color: white;
+  transition: all 0.3s ease-in-out;
+  height: 50px;
+  width: 200px;
+  margin: auto;
+  font-weight: 600;
+  scale: 1;
+  &:hover {
+    // width: 220px;
+    scale: 1.05;
+  }
+}
+.signup,
+.login {
+  text-align: center;
+  gap: 1rem;
 }
 
 .login {
@@ -38,21 +74,5 @@
   flex-direction: column;
 }
 .login-button {
-  background: rgb(0, 138, 255);
-  background: linear-gradient(0deg, rgba(0, 138, 255, 1) 0%, rgba(72, 205, 255, 1) 100%);
-  border: none;
-  height: 25px;
-  margin-top: 1rem;
-  border-radius: 10px;
-  height: 35px;
-  width: 100%;
-
-  & a {
-    text-decoration: none;
-    color: white;
-  }
-  &:hover {
-    background: rgb(145, 200, 248);
-    background: linear-gradient(0deg, rgb(0, 101, 190) 0%, rgb(12, 101, 134) 100%);
-  }
+  background-color: #0774d4;
 }

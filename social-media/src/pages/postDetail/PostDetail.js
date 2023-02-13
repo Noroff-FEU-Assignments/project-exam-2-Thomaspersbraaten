@@ -20,6 +20,8 @@ import { getOptions } from "../../components/getOptions";
 import { AUTHOR_REACTIONS_COMMENTS, POSTS_URL_EXT, SOCIAL_URL_EXT, BASE_URL } from "../../components/constants/api";
 import LoadingIndicator from "../../components/loading/LoadingIndicator";
 import fetchPosts from "../../components/fetch/fetchPosts";
+import UserComponent from "../../components/posts/cardComponents/UserComponent";
+import TagsComponent from "../../components/posts/cardComponents/TagsComponent";
 
 function PostDetail() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -41,45 +43,8 @@ function PostDetail() {
   const postDetailUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + `/${id}` + AUTHOR_REACTIONS_COMMENTS;
   const options = getOptions(auth);
 
-  // useEffect(() => {
-  //   async function getPostDetail() {
-  //     try {
-  //       const response = await fetch(postDetailUrl, options);
-
-  //       if (response.ok) {
-  //         const json = await response.json();
-  //         console.log(json);
-
-  //         setPost(json);
-  //         setAuthor(json.author);
-  //         console.log(json.comments);
-  //         setTags(json.tags);
-
-  //         setComments(json.comments);
-  //         setReactions(json.reactions);
-
-  //         if (json.author.name === authName) {
-  //           setCanDelete(true);
-  //           setIsMyPost(true);
-  //         }
-  //       } else {
-  //         setError(error.toString());
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-
-  //       setError(error.toString());
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-  //   getPostDetail();
-  // }, []);
   useEffect(() => {
-    fetchPosts(postDetailUrl, options, setPost, setError, setLoading, setAuthor, setComments, setReactions, setTags);
-    if (author.name === authName) {
-      setIsMyPost(true);
-    }
+    fetchPosts(postDetailUrl, options, setPost, setError, setLoading, setAuthor, setComments, setIsMyPost);
   }, []);
 
   return (
@@ -99,30 +64,23 @@ function PostDetail() {
         ""
       )}
 
-      <div>
+      <div className="posts-container">
         <Card>
-          <Card.Body className="author-container">
-            <div className="user-info">
-              <Avatar src={author.avatar} author={author} cssClass="author-img" />
-              <Link to={`/profiles/${author.name}`} className="author-name">
-                By {author.name}
-              </Link>
-            </div>
-            <PostDate date={post.created} />
-          </Card.Body>
+          <UserComponent data={post} />
           <Link to={`/posts/${post.id}`} className="link-to-post">
             <Card.Body className="card-top">
               <h2 className="title">{post.title}</h2>
               <Card.Text>{post.body}</Card.Text>
+              {post.tags && <TagsComponent post={post} />}
 
-              <div className="tags-container">
+              {/* <div className="tags-container">
                 {tags.length > 0 &&
                   tags.map((tag, index) => (
                     <div className="tag" key={tag + index}>
                       #{tag}
                     </div>
                   ))}
-              </div>
+              </div> */}
             </Card.Body>
 
             <Card.Img src={!post.media ? imagePlaceholder : post.media} />
@@ -131,13 +89,11 @@ function PostDetail() {
           <Card.Body className="bottom-container">
             <div className="comments">
               <MdComment className="comments__icon" />
-              {comments.length === 0 ? <p>No comments</p> : <p>{comments.length} comment</p>}
+              {comments ? comments.length === 0 ? <p>No comments</p> : <p>{comments.length} comments</p> : ""}
             </div>
 
             {post.reactions && <ReactButton post={post} />}
-            {/* <ReactButton post={post} /> */}
 
-            {/* <ReactButton post={post} reactions={reactions} setReactions={setReactions} /> */}
             {isMyPost && (
               <div>
                 <button>delete</button>
@@ -151,19 +107,58 @@ function PostDetail() {
               </div>
             )}
           </Card.Body>
-          <CommentForm id={id} setComments={setComments} comments={comments} />
+          <Card.Body>{post.comments ? <Comments post={post} comments={comments} setComments={setComments} /> : ""}</Card.Body>
         </Card>
-
-        {/* {post._count.comments} */}
-        {/* <CommentForm id={id} setComments={setComments} comments={comments} /> */}
-
-        {/* {comments.map((comment) => (
-          // <div> {comment.body}</div>
-          <Comments comment={comment} key={comment.id + comment.created} />
-        ))} */}
       </div>
     </>
   );
 }
 
 export default PostDetail;
+
+// useEffect(() => {
+//   async function getPostDetail() {
+//     try {
+//       const response = await fetch(postDetailUrl, options);
+
+//       if (response.ok) {
+//         const json = await response.json();
+//         console.log(json);
+
+//         setPost(json);
+//         setAuthor(json.author);
+//         console.log(json.comments);
+//         setTags(json.tags);
+
+//         setComments(json.comments);
+//         setReactions(json.reactions);
+
+//         if (json.author.name === authName) {
+//           setCanDelete(true);
+//           setIsMyPost(true);
+//         }
+//       } else {
+//         setError(error.toString());
+//       }
+//     } catch (error) {
+//       console.log(error);
+
+//       setError(error.toString());
+//     } finally {
+//       setLoading(false);
+//     }
+//   }
+//   getPostDetail();
+// }, []);
+
+{
+  /* <Card.Body className="author-container">
+            <div className="user-info">
+              <Avatar src={author.avatar} author={author} cssClass="author-img" />
+              <Link to={`/profiles/${author.name}`} className="author-name">
+                By {author.name}
+              </Link>
+            </div>
+            <PostDate date={post.created} />
+          </Card.Body> */
+}

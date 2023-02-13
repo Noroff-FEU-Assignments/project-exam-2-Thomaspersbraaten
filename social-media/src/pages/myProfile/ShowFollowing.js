@@ -33,7 +33,7 @@ function ShowFollowing() {
   }, [name]);
   return (
     <div className="profile-bottom-container">
-      {following.length > 0 ? (
+      {following ? (
         <>
           <h2>You are following</h2>
           <div>
@@ -55,3 +55,23 @@ function ShowFollowing() {
 }
 
 export default ShowFollowing;
+
+{
+  /* {following.length > 0 ? (
+        <>
+          <h2>You are following</h2>
+          <div>
+            {following.map((follow, index) => (
+              <div className="follower-container" key={follow + index}>
+                <Avatar author={follow} />
+                <Link to={`/profiles/${follow.name}`} className="author-name">
+                  {follow.name}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </>
+      ) : (
+        <h2>You are following no one</h2>
+      )} */
+}
