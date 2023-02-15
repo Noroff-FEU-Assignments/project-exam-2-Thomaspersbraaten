@@ -17,6 +17,7 @@ import ProfileDetail from "./components/user/ProfileDetail";
 import { ProfileProvider } from "./components/context/ProfileContext";
 
 import NavBar from "./components/navigation/NavBar";
+import Profiles from "./pages/Profiles";
 function App() {
   return (
     <NameProvider>
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/welcome" element={<LandingPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/create-account" element={<CreateAccount />} />
+                <Route path="/profiles" element={<Profiles />} />
                 <Route path="/profiles/:name" element={<ProfileDetail />} />
                 <Route path="/create-post" element={<CreatePost />} />
                 <Route path="/posts/:id" element={<PostDetail />} />

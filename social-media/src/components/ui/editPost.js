@@ -3,7 +3,7 @@ import { BASE_URL, POSTS_URL_EXT, SOCIAL_URL_EXT } from "../constants/api";
 import fetchPosts from "../fetch/fetchPosts";
 import { getOptions } from "../getOptions";
 
-function editPost(title, body, media, tags, auth, id, setPost) {
+async function editPost(title, body, media, tags, auth, id, setPost, setShowEditForm) {
   const editPostUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + `/${id}`;
 
   const data = {
@@ -13,21 +13,17 @@ function editPost(title, body, media, tags, auth, id, setPost) {
     media: media,
   };
   const options = getOptions(auth, "PUT", data);
-
-  async function sendData() {
-    try {
-      const response = await fetch(editPostUrl, options);
-      const json = await response.json();
+  try {
+    const response = await fetch(editPostUrl, options);
+    const json = await response.json();
+    if (response.status === 200) {
       setPost(json);
-      console.log(json);
-    } catch (error) {
-      console.log(error);
+      setShowEditForm(false);
     }
+    console.log(json);
+  } catch (error) {
+    console.log(error);
   }
-  sendData();
-  // useEffect(( ) => {
-  //   fetchPosts()
-  // })
 }
 
 export default editPost;

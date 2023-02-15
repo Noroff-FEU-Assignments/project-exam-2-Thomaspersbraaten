@@ -14,7 +14,7 @@ import Card from "react-bootstrap/Card";
 import imagePlaceholder from "../../images/image-placeholder.png";
 import PostDate from "../../components/moment/PostDate";
 import { MdComment } from "react-icons/md";
-import ReactButton from "../../components/ui/ReactButton";
+import ReactButton from "../../components/posts/cardComponents/ReactButton";
 import EditPostForm from "../../components/ui/EditPostForm";
 import { getOptions } from "../../components/getOptions";
 import { AUTHOR_REACTIONS_COMMENTS, POSTS_URL_EXT, SOCIAL_URL_EXT, BASE_URL } from "../../components/constants/api";
@@ -44,45 +44,54 @@ function PostDetail() {
   const options = getOptions(auth);
 
   useEffect(() => {
-    fetchPosts(postDetailUrl, options, setPost, setError, setLoading, setAuthor, setComments, setIsMyPost);
+    // fetchPosts(postDetailUrl, options, setPost, setError, setLoading, setAuthor, setComments, setIsMyPost);
+    async function getPostDetails() {
+      try {
+        const response = await fetch(postDetailUrl, options);
+        const json = await response.json();
+        console.log(json);
+        console.log(json);
+        if (response.status === 200) {
+          setPost(json);
+          setComments(json.comments);
+
+          if (authName === json.author.name) {
+            setIsMyPost(true);
+          } else {
+            setIsMyPost(false);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    getPostDetails();
   }, []);
 
   return (
     <>
       {loading && <LoadingIndicator />}
       {showEditForm && <EditPostForm post={post} setPost={setPost} setShowEditForm={setShowEditForm} />}
-
-      {isMyPost ? (
-        <button
-          onClick={() => {
-            deletePost(id, auth);
-          }}
-        >
-          Delete
-        </button>
-      ) : (
-        ""
-      )}
-
       <div className="posts-container">
-        <Card>
+        {post.comments && <PostsCard post={post} comments={comments} setComments={setComments} isMyPost={isMyPost} setShowEditForm={setShowEditForm} showEditForm={showEditForm} />}
+      </div>
+    </>
+  );
+}
+
+export default PostDetail;
+
+{
+  /* <Card>
           <UserComponent data={post} />
           <Link to={`/posts/${post.id}`} className="link-to-post">
             <Card.Body className="card-top">
               <h2 className="title">{post.title}</h2>
               <Card.Text>{post.body}</Card.Text>
               {post.tags && <TagsComponent post={post} />}
-
-              {/* <div className="tags-container">
-                {tags.length > 0 &&
-                  tags.map((tag, index) => (
-                    <div className="tag" key={tag + index}>
-                      #{tag}
-                    </div>
-                  ))}
-              </div> */}
             </Card.Body>
-
             <Card.Img src={!post.media ? imagePlaceholder : post.media} />
           </Link>
 
@@ -108,13 +117,8 @@ function PostDetail() {
             )}
           </Card.Body>
           <Card.Body>{post.comments ? <Comments post={post} comments={comments} setComments={setComments} /> : ""}</Card.Body>
-        </Card>
-      </div>
-    </>
-  );
+        </Card> */
 }
-
-export default PostDetail;
 
 // useEffect(() => {
 //   async function getPostDetail() {

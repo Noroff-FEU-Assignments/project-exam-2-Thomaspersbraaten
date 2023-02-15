@@ -113,12 +113,14 @@
   margin-top: 1.5rem;
 }
 
-.follower-container {
+.follower-container,
+.following-container {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 }
-.follower {
+.follower,
+.following {
   display: flex;
   justify-content: left;
   align-items: center;

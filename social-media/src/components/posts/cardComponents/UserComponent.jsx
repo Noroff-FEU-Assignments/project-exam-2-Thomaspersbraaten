@@ -10,7 +10,7 @@ function UserComponent({ data }) {
         <div className="user-info">
           {data.author && (
             <>
-              <Avatar src={data.author.avatar} cssClass="author-img" />{" "}
+              <Avatar src={data.author.avatar} cssClass="author-img" />
               <Link to={`/profiles/${data.author.name}`} className="author-name">
                 By {data.author.name}
               </Link>

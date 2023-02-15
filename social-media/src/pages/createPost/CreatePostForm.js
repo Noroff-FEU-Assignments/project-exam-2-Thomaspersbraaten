@@ -1,20 +1,17 @@
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../components/context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/esm/Button";
 import ErrorMessage from "../../components/feedback/ErrorMessage";
 import CreatePostImage from "../../components/imageComponents/CreatePostImage";
 import { getOptions } from "../../components/getOptions";
 import { BASE_URL, POSTS_URL_EXT, SOCIAL_URL_EXT } from "../../components/constants/api";
+import TagsComponent from "../../components/posts/cardComponents/TagsComponent";
 
 function CreatePostForm() {
   const [auth, setAuth] = useContext(AuthContext);
-
+  const [creating, setCreating] = useState(true);
   const [error, setError] = useState(false);
   const [inputError, setInputError] = useState(false);
   const [title, setTitle] = useState("");
@@ -59,10 +56,10 @@ function CreatePostForm() {
     }
   }
 
-  function removeTags(e) {
-    const filteredTags = tags.filter((tag) => tag !== e.target.value);
-    setTags(filteredTags);
-  }
+  // function removeTags(e) {
+  //   const filteredTags = tags.filter((tag) => tag !== e.target.value);
+  //   setTags(filteredTags);
+  // }
 
   function handleTags() {
     if (tagInput.length === 0) {
@@ -147,18 +144,11 @@ function CreatePostForm() {
       <Form.Text className="text-muted">
         <Form.Group>
           <ul className="form-tags">
-            {/* BRO INSERT REMOVE TAG BUTTON on each added tag */}
-
             {tags.map((tag, index) => (
-              <li key={tag + index} className="form-tags__tag">
-                <p> {tag}</p>
-
-                <Button value={tag} className="remove-tag" variant="danger" onClick={removeTags}>
-                  X
-                </Button>
+              <li key={tag + index} className="form-tags__tag tag">
+                <TagsComponent tag={tag} tags={tags} setTags={setTags} creating={creating} />
               </li>
             ))}
-            {/* BRO INSERT REMOVE TAG BUTTON on each added tag */}
           </ul>
         </Form.Group>
       </Form.Text>

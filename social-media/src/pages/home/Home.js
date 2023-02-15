@@ -7,6 +7,7 @@ import fetchPosts from "../../components/fetch/fetchPosts";
 import ErrorMessage from "../../components/feedback/ErrorMessage";
 import LoadingIndicator from "../../components/loading/LoadingIndicator";
 import LoadingMorePosts from "../../components/loading/LoadingMorePosts";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -14,18 +15,23 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [loadingMorePosts, setLoadingMorePosts] = useState(false);
   const [auth, setAuth] = useContext(AuthContext);
-  const [numberOfPosts, setNumberOfPosts] = useState(10);
-
+  const [numberOfPosts, setNumberOfPosts] = useState(15);
+  const navigate = useNavigate();
   const options = getOptions(auth);
+  const [comments, setComments] = useState("");
 
   const postUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS + `&limit=${numberOfPosts}`;
 
-  useEffect(() => {
-    fetchPosts(postUrl, options, setPosts, setError, setLoading, setLoadingMorePosts);
-  }, []);
+  // useEffect(() => {
+
+  //   fetchPosts(postUrl, options, setPosts, setError, setLoading, setLoadingMorePosts, setComments);
+  // }, []);
 
   useEffect(() => {
-    fetchPosts(postUrl, options, setPosts, setError, setLoading, setLoadingMorePosts);
+    if (!auth) {
+      navigate("/welcome");
+    }
+    fetchPosts(postUrl, options, setPosts, setError, setLoading, setLoadingMorePosts, setComments);
   }, [numberOfPosts]);
 
   const observer = useRef(null);
@@ -37,7 +43,7 @@ function Home() {
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
           setLoadingMorePosts(true);
-          setNumberOfPosts(numberOfPosts + 10);
+          setNumberOfPosts(numberOfPosts + 15);
         }
       });
       if (node) observer.current.observe(node);

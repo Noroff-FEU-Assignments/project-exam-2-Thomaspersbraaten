@@ -1,4 +1,4 @@
-async function fetchPosts(url, options, setPosts, setError, setLoading, setLoadingMorePosts) {
+async function fetchPosts(url, options, setPosts, setError, setLoading, setLoadingMorePosts, setComments) {
   try {
     const response = await fetch(url, options);
     const json = await response.json();
@@ -24,16 +24,3 @@ async function fetchPosts(url, options, setPosts, setError, setLoading, setLoadi
 }
 
 export default fetchPosts;
-
-// if (json.author) {
-//   setAuthor(json.author);
-// }
-// if (json.comments) {
-//   setComments(json.comments);
-// }
-// if (json.reactions) {
-//   setReactions(json.reactions);
-// }
-// if (json.tags) {
-//   setTags(json.tags);
-// }

@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import { getOptions } from "../../../../components/getOptions";
 import { useParams } from "react-router-dom";
 
-function CommentForm({ setComments, comments }) {
+function CommentForm({ setCommentToReplyTo, setComments, comments, replying, setReplying, replyId, commentToReplyTo, referance }) {
   const [commentInput, setCommentInput] = useState("");
   const [auth, setAuth] = useContext(AuthContext);
   const { id } = useParams();
@@ -20,7 +20,10 @@ function CommentForm({ setComments, comments }) {
     const data = {
       body: commentInput,
     };
+    if (replying) data.replyToId = replyId;
+    // replying ? (data.replyToId = replyId) : null;
     const options = getOptions(auth, "POST", data);
+    console.log(options);
 
     try {
       const response = await fetch(commentUrl, options);
@@ -38,20 +41,31 @@ function CommentForm({ setComments, comments }) {
   return (
     <form>
       <Form.Group className="comment-group">
-        <Form.Label>Comment</Form.Label>
+        <Form.Label>{commentToReplyTo ? `Replying to ${commentToReplyTo.owner}` : "Comment"}</Form.Label>
         <Form.Control
           as="textarea"
           rows="3"
+          ref={referance}
           id="comment"
-          placeholder="Type your comment here..."
+          placeholder={commentToReplyTo ? `Type your reply here` : `Type your comment here...`}
           value={commentInput}
           onChange={(e) => {
             setCommentInput(e.target.value);
           }}
         />
-        <Button onClick={sendCommentInfo} className="comment-form__button">
-          Post Comment
+        <Button onClick={sendCommentInfo} className={commentToReplyTo ? "comment-form__button reply" : "comment-form__button"}>
+          {commentToReplyTo ? "Reply to comment" : "Post Comment"}
         </Button>
+        {replying && (
+          <Button
+            onClick={() => {
+              setCommentToReplyTo(null);
+              setReplying(false);
+            }}
+          >
+            Cancel Reply
+          </Button>
+        )}
       </Form.Group>
     </form>
   );

@@ -60,6 +60,7 @@ textarea {
   gap: 0.25rem;
 }
 .tag {
+  list-style: none;
   // clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
   padding: 0.25rem 1.25rem 0.15rem 1.25rem;
   background-color: #4a3f3f;
@@ -119,4 +120,8 @@ textarea {
   margin: 1.5rem;
   background-color: #0ae276;
   color: white;
+}
+.reply {
+  color: blue;
+  background: none;
 }

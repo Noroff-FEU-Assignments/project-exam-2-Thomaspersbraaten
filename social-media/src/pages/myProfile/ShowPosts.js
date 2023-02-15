@@ -10,6 +10,7 @@ function ShowPosts({ profile }) {
   const [auth, setAuth] = useContext(AuthContext);
   const [authName, setAuthName] = useContext(NameContext);
   const { name } = useParams();
+  // const [comments, setComments] = useState([]);
 
   const postUrl = BASE_URL + "/social/profiles/" + name + "/posts?_author=true&_reactions=true";
 
@@ -25,6 +26,7 @@ function ShowPosts({ profile }) {
         const json = await response.json();
         console.log(json);
         setPosts(json);
+        // setComments(json.comments);
       } catch (error) {
         console.log(error);
       }

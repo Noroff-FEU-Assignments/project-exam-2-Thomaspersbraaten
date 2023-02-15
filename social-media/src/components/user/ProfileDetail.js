@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 // import Modal from "react-bootstrap/Modal";
 import avatarPlaceholder from "../../images/avatar-placeholder.png";
 import bannerPlaceholder from "../../images/image-placeholder.png";
@@ -20,6 +20,8 @@ import { NameContext } from "../context/NameContext";
 import { getOptions } from "../getOptions";
 import { BASE_URL, PROFILE, SOCIAL_URL_EXT } from "../constants/api";
 import ProfileAvatar from "../imageComponents/ProfileAvatar";
+import Button from "react-bootstrap/esm/Button";
+import logOut from "../ui/logOut";
 
 function ProfileDetail() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -31,9 +33,9 @@ function ProfileDetail() {
   const [posts, setPosts] = useState([]);
   const [showInput, setShowInput] = useState(false);
   const [following, setFollowing] = useState(false);
-
+  const [isMyProfile, setIsMyProfile] = useState(false);
   const [followers, setFollowers] = useState([]);
-
+  const navigate = useNavigate();
   const { name } = useParams();
   const profileUrl = BASE_URL + SOCIAL_URL_EXT + PROFILE + name + "?_posts=true&_following=true&_followers=true";
 
@@ -45,6 +47,9 @@ function ProfileDetail() {
         const json = await response.json();
         console.log(json);
         setProfile(json);
+        if (json.name === authName) {
+          setIsMyProfile(true);
+        }
         if (json.followers) {
           setFollowers(json.followers);
           const amIFollowing = json.followers.some((follower) => {
@@ -63,13 +68,25 @@ function ProfileDetail() {
     getProfileDetail();
   }, [name]);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShowInput(false);
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
 
   return (
     <>
-      <NavBar />
+      {/* <NavBar /> */}
       <div>
+        {isMyProfile && (
+          <Button
+            onClick={() => {
+              logOut(navigate, setAuth, setAuthName);
+            }}
+          >
+            Logout
+          </Button>
+        )}
         <Modal show={show} onHide={handleClose} className="modal-top">
           <Modal.Body>
             {imageType === "avatar" && <img src={!profile.avatar ? avatarPlaceholder : profile.avatar} className="modal-image" />}

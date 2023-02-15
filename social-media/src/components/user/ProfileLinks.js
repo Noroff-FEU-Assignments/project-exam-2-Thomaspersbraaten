@@ -47,10 +47,7 @@ function ProfileLinks({ profile, followers, setFollowers }) {
 
       <div>{showPosts && <ShowPosts profile={profile} />}</div>
       <div>{showFollowers && <ShowFollowers followers={followers} setFollowers={setFollowers} />}</div>
-      <div>{showFollowing && <ShowFollowing />}</div>
-      {/* {showFollowers && <ShowFollowers />}
-      {showPosts && <ShowPosts />}
-      {showFollowing && <ShowFollowing />} */}
+      <div>{showFollowing && <ShowFollowing profile={profile} />}</div>
     </>
   );
 }

@@ -14,16 +14,16 @@ function ShowFollowers({ followers, setFollowers }) {
   // const [profile, setProfile] = useState([]);
 
   // const { name } = useParams();
-
+  console.log(followers);
   return (
     <div className="profile-bottom-container">
       {followers.length > 0 ? (
         <>
-          <h2>Your followers</h2>
+          <h2>Followers {`(${followers.length})`}</h2>
           <div className="follower-container">
             {followers.map((follower, index) => (
               <div className="follower" key={follower + index}>
-                <Avatar author={follower} />
+                <Avatar src={follower.avatar} />
                 <Link to={`/profiles/${follower.name}`} className="author-name">
                   {follower.name}
                 </Link>
