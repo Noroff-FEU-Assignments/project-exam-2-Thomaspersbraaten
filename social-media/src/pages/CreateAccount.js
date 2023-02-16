@@ -16,12 +16,15 @@ function CreateAccount() {
   const [avatarUrl, setAvatarUrl] = useState("");
   const navigate = useNavigate();
   // const emailRegEx = /\S+@\S+\.\S+/;
-  const emailRegex = new RegExp("^[^@]+@(stud\\.noroff\\.no|noroff\\.no)$");
+  // const emailRegex = new RegExp("^[^@]+@(stud\\.noroff\\.no|noroff\\.no)$");
+  // const emailRegex = new RegExp("^[^@]+@(stud\\.noroff\\.no)$");
+  const emailRegex = "^[^@]+@(stud\\.noroff\\.no)$";
 
+  const nameRegex = /^[a-zA-Z0-9_]+$/;
   const urlRegex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
   const schema = yup.object().shape({
-    name: yup.string().required("Please enter your name").min(2, "Must be atleast two characters"),
-    email: yup.string().required("Please enter your email").matches(emailRegex, "Must be a valid stud.noroff.no or noroff.no email"),
+    name: yup.string().required("Please enter your name").matches(nameRegex, "Name may only contain English letters, numbers, and underscores.").min(2, "Must be atleast two characters"),
+    email: yup.string().required("Please enter your email").matches(emailRegex, "Must be a valid stud.noroff.no email"),
     banner: yup.string().optional(""),
     avatar: yup.string().optional(""),
     password: yup.string().required("Please enter a password").min(8, "must be atleast 8 characters"),
@@ -59,13 +62,17 @@ function CreateAccount() {
       <p>Sign up for an account to </p>
       <Form onSubmit={handleSubmit(sendAccountInfo)}>
         <Form.Group>
-          <Form.Label className="create-post-label">Your name</Form.Label>
+          <Form.Label className="create-post-label">
+            Your name <span className="required">*</span>
+          </Form.Label>
           <Form.Control type="input" {...register("name")} />
           {errors.name && <p>{errors.name.message}</p>}
         </Form.Group>
 
         <Form.Group>
-          <Form.Label className="create-post-label">Your email</Form.Label>
+          <Form.Label className="create-post-label">
+            Your email <span className="required">*</span>
+          </Form.Label>
           <Form.Control type="input" {...register("email")} />
           {errors.email && <p>{errors.email.message}</p>}
         </Form.Group>
@@ -97,13 +104,17 @@ function CreateAccount() {
         </Form.Group>
 
         <Form.Group>
-          <Form.Label className="create-post-label">Password</Form.Label>
+          <Form.Label className="create-post-label">
+            Password <span className="required">*</span>
+          </Form.Label>
           <Form.Control type="password" {...register("password")} />
           {errors.password && <p>{errors.password.message}</p>}
         </Form.Group>
 
         <Form.Group>
-          <Form.Label className="create-post-label">Confirm Password</Form.Label>
+          <Form.Label className="create-post-label">
+            Confirm Password <span className="required">*</span>
+          </Form.Label>
           <Form.Control type="password" {...register("passwordMatches")} />
           {errors.passwordMatches && <p>{errors.passwordMatches.message}</p>}
         </Form.Group>

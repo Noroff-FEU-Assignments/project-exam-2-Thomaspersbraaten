@@ -31,7 +31,9 @@ function CommentForm({ setCommentToReplyTo, setComments, comments, replying, set
       console.log(json);
       if (json.created) {
         setComments([...comments, json]);
+        setReplying(false);
         setCommentInput("");
+        setCommentToReplyTo(null);
       }
     } catch (error) {
       console.log(error);

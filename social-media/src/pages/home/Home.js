@@ -8,6 +8,7 @@ import ErrorMessage from "../../components/feedback/ErrorMessage";
 import LoadingIndicator from "../../components/loading/LoadingIndicator";
 import LoadingMorePosts from "../../components/loading/LoadingMorePosts";
 import { useNavigate } from "react-router-dom";
+import { TrackReactionContext } from "../../components/context/ReactionContext";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -19,7 +20,7 @@ function Home() {
   const navigate = useNavigate();
   const options = getOptions(auth);
   const [comments, setComments] = useState("");
-
+  const [trackReaction, setTrackReaction] = useContext(TrackReactionContext);
   const postUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS + `&limit=${numberOfPosts}`;
 
   // useEffect(() => {
@@ -31,6 +32,10 @@ function Home() {
     if (!auth) {
       navigate("/welcome");
     }
+    if (!trackReaction) {
+      setTrackReaction([]);
+    }
+
     fetchPosts(postUrl, options, setPosts, setError, setLoading, setLoadingMorePosts, setComments);
   }, [numberOfPosts]);
 

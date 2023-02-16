@@ -1,28 +1,24 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./sass/style.scss";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import CreateAccount from "./pages/CreateAccount";
 import { AuthProvider } from "./components/context/AuthContext";
 import Home from "./pages/home/Home";
-
 import CreatePost from "./pages/createPost/CreatePost";
 import PostDetail from "./pages/postDetail/PostDetail";
-import MyProfile from "./pages/myProfile/MyProfile";
 import { NameProvider } from "./components/context/NameContext";
 import PageNotFound from "./pages/PageNotFound";
 import ProfileDetail from "./components/user/ProfileDetail";
-import { ProfileProvider } from "./components/context/ProfileContext";
-
 import NavBar from "./components/navigation/NavBar";
 import Profiles from "./pages/Profiles";
+import { TrackReactionProvider } from "./components/context/ReactionContext";
 function App() {
   return (
     <NameProvider>
       <AuthProvider>
-        <ProfileProvider>
+        <TrackReactionProvider>
           <div className="main-container">
             <Router>
               <NavBar />
@@ -39,7 +35,7 @@ function App() {
               </Routes>
             </Router>
           </div>
-        </ProfileProvider>
+        </TrackReactionProvider>
       </AuthProvider>
     </NameProvider>
   );

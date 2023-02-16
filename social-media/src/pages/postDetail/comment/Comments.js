@@ -14,11 +14,9 @@ function Comments({ post, comments, setComments }) {
 
   function scrollToElement() {
     scrollRef.current.scrollIntoView({ behavior: "smooth" });
-
     const elementTop = scrollRef.current.getBoundingClientRect().top;
     const windowCenter = window.innerHeight / 2;
     const scrollTo = elementTop - windowCenter + window.pageYOffset;
-
     window.scrollTo({
       top: scrollTo,
       behavior: "smooth",
@@ -37,7 +35,6 @@ function Comments({ post, comments, setComments }) {
         referance={scrollRef}
       />
       <div>
-        {showReplyInput && <p>ok</p>}
         {comments &&
           comments.map((comment) => (
             <div className="comment" key={comment.id}>
@@ -48,7 +45,6 @@ function Comments({ post, comments, setComments }) {
                 value={comment.id}
                 variant="outline-secondary"
                 onClick={() => {
-                  // setShowReplyInput(true);
                   scrollToElement();
                   setReplyId(comment.id);
                   setReplying(true);
