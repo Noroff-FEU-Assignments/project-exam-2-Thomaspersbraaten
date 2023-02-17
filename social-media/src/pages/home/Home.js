@@ -9,6 +9,7 @@ import LoadingIndicator from "../../components/loading/LoadingIndicator";
 import LoadingMorePosts from "../../components/loading/LoadingMorePosts";
 import { useNavigate } from "react-router-dom";
 import { TrackReactionContext } from "../../components/context/ReactionContext";
+import Button from "react-bootstrap/esm/Button";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -21,7 +22,9 @@ function Home() {
   const options = getOptions(auth);
   const [comments, setComments] = useState("");
   const [trackReaction, setTrackReaction] = useContext(TrackReactionContext);
+  const [postLimitReached, setPostLimitReached] = useState(false);
   const postUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS + `&limit=${numberOfPosts}`;
+  // const catUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS + "&_tag=";
 
   // useEffect(() => {
 
@@ -35,8 +38,7 @@ function Home() {
     if (!trackReaction) {
       setTrackReaction([]);
     }
-
-    fetchPosts(postUrl, options, setPosts, setError, setLoading, setLoadingMorePosts, setComments);
+    fetchPosts(postUrl, options, setPosts, setError, setLoading, setLoadingMorePosts, setComments, posts, postLimitReached, setPostLimitReached);
   }, [numberOfPosts]);
 
   const observer = useRef(null);
@@ -60,6 +62,7 @@ function Home() {
     <>
       <div className="posts-container">
         {loading && <LoadingIndicator />}
+        {!loading && <Button>filter</Button>}
 
         {error ? (
           <ErrorMessage variant="danger" message={error} />
@@ -72,87 +75,12 @@ function Home() {
             }
           })
         )}
-        {loadingMorePosts && <LoadingMorePosts />}
+
+        {loadingMorePosts || (!postLimitReached && <LoadingMorePosts />)}
+        {postLimitReached && <p>No more posts</p>}
       </div>
     </>
   );
 }
 
 export default Home;
-
-// const [hasScrolledToBottom, setHasScrolledToBottom] = useState(false);
-{
-  /* <div className="posts-container">{error ? <ErrorMessage variant="danger" message={error} /> : posts.map((post) => <PostsCard post={post} key={post.id + post.title} />)}</div> */
-}
-// (async function () {
-//   // const data = await fetchPosts(postUrl, options, setPosts, setError);
-//   await fetchPosts(postUrl, options, setPosts, setError);
-// })();
-{
-  /* <div className="posts-container">
-        {error && <ErrorMessage variant="danger" message={error} />}
-        {posts.map((post) => (
-          <PostsCard post={post} key={post.id + post.title} />
-        ))}
-      </div> */
-}
-// const thePosts = fetchPosts(postUrl, options);
-// useEffect(() => {
-//   async function posts() {
-//     try {
-//       const data = await fetchPosts(postUrl, options);
-//       if (Array.isArray(data)) {
-//         console.log("ok bro");
-//       } else {
-//         throw new Error("data is not array");
-//       }
-//       console.log(data);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-//   posts();
-// }, []);
-// useEffect(() => {
-
-//   console.log(postUrl);
-//   async function getPosts() {
-//     try {
-//       const response = await axios.get(postUrl, options);
-//       setPosts(response.data);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-//   getPosts();
-// }, []);
-// window.onscroll = () => {
-//   if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !hasScrolledToBottom) {
-//     console.log("bottom");
-//     setHasScrolledToBottom(true);
-//   }
-// };
-// const lastPost = useCallback(node => {
-//   if (loading) return;
-//   if (observer.current) observer.current.disconnect()
-//   observer.current = new IntersectionObserver((entries) => {
-//     if (entries[0])
-//   })
-// })
-{
-  /* {error ? (
-          <ErrorMessage variant="danger" message={error} />
-        ) : (
-          posts.map((post, index) => {
-            console.log(index);
-            if (posts.length === index + 1) {
-              return <PostsCard post={post} key={post.id + post.title} ref={lastPost} />;
-            } else {
-              return <PostsCard post={post} key={post.id + post.title} />;
-            }
-          })
-        )} */
-}
-// }, [loading, hasmore] );
-
-// const postUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS;
