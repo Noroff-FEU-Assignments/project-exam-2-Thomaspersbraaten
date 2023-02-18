@@ -13,8 +13,11 @@
 @use "./partials/card";
 @use "./partials/nav";
 @use "./partials/profile";
+@use "./partials/profiles";
+
 @use "./partials/pageNotFound";
 @use "./partials/createPost";
+@use "./partials/pagination";
 
 * {
   box-sizing: border-box;
@@ -41,4 +44,8 @@ p {
 }
 .main-container {
   // padding: 1rem;
+}
+
+.end-container {
+  margin: 2rem auto 5rem auto;
 }
