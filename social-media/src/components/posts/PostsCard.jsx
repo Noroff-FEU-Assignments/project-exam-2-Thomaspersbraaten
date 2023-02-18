@@ -7,13 +7,15 @@ import TagsComponent from "./cardComponents/TagsComponent";
 import Comments from "../../pages/postDetail/comment/Comments";
 import EditAndDeletePost from "./cardComponents/EditAndDeletePost";
 import CommentIcon from "./cardComponents/CommentIcon";
+import TitleBodyImage from "./cardComponents/TitleBodyImage";
 
 export default function PostsCard({ post, referance, comments, setComments, isMyPost, setShowEditForm, showEditForm }) {
   return (
     <Card ref={referance}>
       {isMyPost && <EditAndDeletePost setShowEditForm={setShowEditForm} showEditForm={showEditForm} />}
       <UserComponent data={post} />
-      <Link to={`/posts/${post.id}`} className="link-to-post">
+      <TitleBodyImage post={post} />
+      {/* <Link to={`/posts/${post.id}`} className="link-to-post">
         <Card.Body className="card-top">
           <h2 className="title">{post.title}</h2>
           <Card.Text>{post.body}</Card.Text>
@@ -27,7 +29,7 @@ export default function PostsCard({ post, referance, comments, setComments, isMy
           </ul>
         </Card.Body>
         <Card.Img src={!post.media ? imagePlaceholder : post.media} />
-      </Link>
+      </Link> */}
 
       <Card.Body className="bottom-container">
         <CommentIcon post={post} comments={comments} />

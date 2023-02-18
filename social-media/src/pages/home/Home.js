@@ -10,7 +10,6 @@ import LoadingMorePosts from "../../components/loading/LoadingMorePosts";
 import { useNavigate } from "react-router-dom";
 import { TrackReactionContext } from "../../components/context/ReactionContext";
 import Button from "react-bootstrap/esm/Button";
-
 function Home() {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(false);
@@ -38,7 +37,58 @@ function Home() {
     if (!trackReaction) {
       setTrackReaction([]);
     }
-    fetchPosts(postUrl, options, setPosts, setError, setLoading, setLoadingMorePosts, setComments, posts, postLimitReached, setPostLimitReached);
+    // fetchPosts(postUrl, options, setPosts, setError, setLoading, setLoadingMorePosts, setComments, posts, postLimitReached, setPostLimitReached);
+    async function fetchPosts() {
+      if (postLimitReached) {
+        return;
+      }
+      try {
+        const response = await fetch(postUrl, options);
+        const json = await response.json();
+
+        console.log(json);
+        console.log(response);
+
+        if (json.length < 15) {
+          setPostLimitReached("No more posts to show...");
+        }
+        // const jsonError = json.errors ? json.errors[0] : undefined;
+        // if (jsonError.code === "too_big") {
+        //   setPostLimitReached(true);
+        // }
+        if (response.status === 400) {
+          if (json.errors && json.errors[0] && json.errors[0].code === "too_big") {
+            setPostLimitReached("This is the end, You cannot view more than 100 posts");
+          } else {
+            setError("an error occured man");
+          }
+        }
+
+        // if (response.status === 400 && json.errors[0].code !== "too_big") {
+        //   setError("An error occured sis");
+        // } else {
+        //   setError("An error occured bro");
+        // }
+
+        if (response.status === 200) {
+          setError(false);
+          setPosts(json);
+        }
+        if (response.status === 404) {
+          setError("An error occured, Please try again.");
+        }
+        if (response.status === 429) {
+          setError("You performed too many requests to the site, Please wait 30 seconds before retrying.");
+        }
+      } catch (error) {
+        setError("An error occured, Please try again.");
+        console.log(error);
+      } finally {
+        setLoading(false);
+        setLoadingMorePosts(false);
+      }
+    }
+    fetchPosts();
   }, [numberOfPosts]);
 
   const observer = useRef(null);
@@ -77,7 +127,7 @@ function Home() {
         )}
 
         {loadingMorePosts || (!postLimitReached && <LoadingMorePosts />)}
-        {postLimitReached && <p>No more posts</p>}
+        {postLimitReached && <ErrorMessage message={postLimitReached} variant="warning" />}
       </div>
     </>
   );

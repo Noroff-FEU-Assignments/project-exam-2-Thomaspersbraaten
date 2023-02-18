@@ -73,6 +73,17 @@ function Login() {
           {submitting ? "Logging in" : "Log in"}
         </Button>
       </Form>
+      <div className="signup">
+        <p>Dont have an account?</p>
+        <button
+          className="signup__button"
+          onClick={() => {
+            navigate("/create-account");
+          }}
+        >
+          Sign Up
+        </button>
+      </div>
     </Container>
   );
 }

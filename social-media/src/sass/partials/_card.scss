@@ -95,10 +95,10 @@ textarea {
   & > * {
     padding: 0.125rem;
   }
-  &:hover {
-    cursor: pointer;
-    color: blue;
-  }
+  // &:hover {
+  //   cursor: pointer;
+  //   color: blue;
+  // }
   &__icon {
     display: flex;
     height: 30px;
@@ -107,6 +107,10 @@ textarea {
 }
 .reactions {
   align-items: flex-end;
+  &:hover {
+    cursor: pointer;
+    color: blue;
+  }
 }
 
 .comments {

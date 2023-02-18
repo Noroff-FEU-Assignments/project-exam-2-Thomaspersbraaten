@@ -4,19 +4,17 @@ async function fetchPosts(url, options, setPosts, setError, setLoading, setLoadi
   }
   try {
     const response = await fetch(url, options);
-
     const json = await response.json();
 
-    if (json.length < 15) {
+    console.log(response);
+    console.log(json);
+
+    if (json.length < 10) {
       setPostLimitReached(true);
     }
     if (json.errors[0].code === "too_big") {
       setPostLimitReached(true);
-      console.log("yes");
-      console.log(json.errors[0].code);
     }
-    console.log(json);
-    console.log(response);
 
     if (response.status === 200) {
       setError(false);
@@ -26,10 +24,11 @@ async function fetchPosts(url, options, setPosts, setError, setLoading, setLoadi
       setError("An error occured, Please try again.");
     }
     if (response.status === 429) {
-      setError("You performed too many requests to the site, Please wait 30 seconds before retrying. ");
-    } else {
-      setError("An error occured");
+      setError("You performed too many requests to the site, Please wait 30 seconds before retrying.");
     }
+    // else {
+    //   setError("An error occured");
+    // }
   } catch (error) {
     setError(error);
   } finally {
