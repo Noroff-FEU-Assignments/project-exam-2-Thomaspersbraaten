@@ -9,3 +9,5 @@ export const reactions = "_reactions=true";
 export const AUTHOR = "_author=true";
 export const AUTHOR_REACTIONS = "?_author=true&_reactions=true";
 export const AUTHOR_REACTIONS_COMMENTS = "?_author=true&_reactions=true&_comments=true";
+
+export const POSTSURL = `https://api.noroff.dev/api/v1/social/posts?_author=true&_reactions=true`;

@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { BASE_URL } from "../../components/constants/baseUrl";
+// import { BASE_URL } from "../../components/constants/baseUrl";
 import { AuthContext } from "../../components/context/AuthContext";
 import { NameContext } from "../../components/context/NameContext";
 import PostsCard from "../../components/posts/PostsCard";
+import { BASE_URL } from "../constants/api";
 import Header from "../Header";
 
 function ShowPosts({ profile }) {
@@ -24,7 +25,7 @@ function ShowPosts({ profile }) {
       try {
         const response = await fetch(postUrl, options);
         const json = await response.json();
-        console.log(json);
+
         setPosts(json);
       } catch (error) {
         console.log(error);
@@ -35,20 +36,22 @@ function ShowPosts({ profile }) {
 
   return (
     <div>
-      {posts || posts.length < 1 ? (
+      <Header size="2">{posts || posts.length < 1 ? `Posts (${posts.length})` : <h2>Posts (0)</h2>}</Header>
+
+      {posts && (
         <>
-          <Header size="2">Posts {`(${posts.length})`}</Header>
           <div className="profile-posts">
             {posts.map((post) => (
               <PostsCard post={post} key={post.id + post.title} />
             ))}
           </div>
         </>
-      ) : (
-        <h2>you have no posts</h2>
       )}
     </div>
   );
 }
 
 export default ShowPosts;
+// : (
+//   <h2>You have no posts</h2>
+// )

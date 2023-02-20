@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../components/context/AuthContext";
 import PostsCard from "../../components/posts/PostsCard";
-import { AUTHOR_REACTIONS, BASE_URL, POSTS_URL_EXT, SOCIAL_URL_EXT } from "../../components/constants/api";
+import { AUTHOR_REACTIONS, BASE_URL, POSTS_URL_EXT, SOCIAL_URL_EXT, POSTSURL } from "../../components/constants/api";
 import { getOptions } from "../../components/getOptions";
 import fetchPosts from "../../components/fetch/fetchPosts";
 import ErrorMessage from "../../components/feedback/ErrorMessage";
@@ -30,9 +30,9 @@ function Home() {
   const options = getOptions(auth);
 
   // const postUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS + `&limit=${numberOfPosts}`;
-  const postUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS + `&limit=${numberOfPosts}&offset=${offset}`;
-
-  const searchUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS + "&_tag=" + searchInput;
+  // const postUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS + `&limit=${numberOfPosts}&offset=${offset}`;
+  const postUrl = POSTSURL + `&limit=${numberOfPosts}&offset=${offset}`;
+  const searchUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS + "&_tag=" + searchInput + `&limit=${numberOfPosts}&offset=${offset}`;
 
   // useEffect(() => {
   //   console.log("first");

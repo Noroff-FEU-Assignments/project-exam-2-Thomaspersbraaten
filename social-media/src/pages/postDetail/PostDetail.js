@@ -44,7 +44,6 @@ function PostDetail() {
   const options = getOptions(auth);
 
   useEffect(() => {
-    // fetchPosts(postDetailUrl, options, setPost, setError, setLoading, setAuthor, setComments, setIsMyPost);
     async function getPostDetails() {
       try {
         const response = await fetch(postDetailUrl, options);

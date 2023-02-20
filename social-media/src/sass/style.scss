@@ -3,6 +3,7 @@
 @use "./partials/loading";
 @use "./partials/comment";
 @use "./partials/form";
+@use "./partials/profile";
 
 @use "./partials/custom";
 @use "./partials/landing";
@@ -10,15 +11,14 @@
 
 @use "./partials/alert";
 @use "./partials/home";
-@use "./partials/card";
 @use "./partials/nav";
-@use "./partials/profile";
 @use "./partials/profiles";
 
 @use "./partials/pageNotFound";
 @use "./partials/createPost";
 @use "./partials/pagination";
 @use "./partials/layout";
+@use "./partials/card";
 
 * {
   box-sizing: border-box;
@@ -30,21 +30,10 @@
 
 img {
   width: 100%;
-  /* max-height: 350px;
-    height: 100%; */
-}
-
-.post {
-  margin: 1rem;
-  border: 1px solid grey;
-  border-radius: 10px;
 }
 
 p {
   margin: 0;
-}
-.main-container {
-  // padding: 1rem;
 }
 
 .end-container {

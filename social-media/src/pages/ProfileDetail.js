@@ -17,6 +17,8 @@ import { BASE_URL, PROFILE, SOCIAL_URL_EXT } from "../components/constants/api";
 import ProfileAvatar from "../components/imageComponents/ProfileAvatar";
 import Button from "react-bootstrap/esm/Button";
 import logOut from "../components/ui/logOut";
+import Header from "../components/Header";
+import { BiLogOut } from "react-icons/bi";
 
 function ProfileDetail() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -27,9 +29,12 @@ function ProfileDetail() {
   const [profile, setProfile] = useState([]);
   const [posts, setPosts] = useState([]);
   const [showInput, setShowInput] = useState(false);
-  const [following, setFollowing] = useState(false);
+  const [showLogout, setShowLogout] = useState(false);
+  const [amIFollowing, setAmIFollowing] = useState(false);
   const [isMyProfile, setIsMyProfile] = useState(false);
   const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
+
   const navigate = useNavigate();
   const { name } = useParams();
   const profileUrl = BASE_URL + SOCIAL_URL_EXT + PROFILE + name + "?_posts=true&_following=true&_followers=true";
@@ -45,15 +50,18 @@ function ProfileDetail() {
         if (json.name === authName) {
           setIsMyProfile(true);
         }
+        if (json.following) {
+          setFollowing(json.following);
+        }
         if (json.followers) {
           setFollowers(json.followers);
-          const amIFollowing = json.followers.some((follower) => {
+          const amIFollowingTheProfile = json.followers.some((follower) => {
             return follower.name === authName;
           });
-          if (amIFollowing) {
-            setFollowing(true);
+          if (amIFollowingTheProfile) {
+            setAmIFollowing(true);
           } else {
-            setFollowing(false);
+            setAmIFollowing(false);
           }
         }
       } catch (error) {
@@ -66,21 +74,13 @@ function ProfileDetail() {
   const handleClose = () => {
     setShowInput(false);
     setShow(false);
+    setShowLogout(false);
   };
   const handleShow = () => setShow(true);
 
   return (
     <>
       <div>
-        {isMyProfile && (
-          <Button
-            onClick={() => {
-              logOut(navigate, setAuth, setAuthName);
-            }}
-          >
-            Logout
-          </Button>
-        )}
         <Modal show={show} onHide={handleClose} className="modal-top">
           <Modal.Body>
             {imageType === "avatar" && <img src={!profile.avatar ? avatarPlaceholder : profile.avatar} className="modal-image" />}
@@ -138,6 +138,37 @@ function ProfileDetail() {
       </div>
       <ChangeImageModal profile={profile} />
       <div className="profile-container">
+        {isMyProfile && (
+          <div className="my-profile-container">
+            <Header size="1">Your profile </Header>
+            <Button
+              className="logout-button"
+              variant="outline-dark"
+              onClick={() => {
+                setShowLogout(true);
+              }}
+            >
+              <BiLogOut /> Logout
+            </Button>
+          </div>
+        )}
+        <Modal show={showLogout} onHide={handleClose}>
+          <Modal.Body className="modal-logout">
+            <p>Are you sure you want to logout?</p>
+            <Button
+              className="logout-button"
+              variant="outline-dark"
+              onClick={() => {
+                logOut(navigate, setAuth, setAuthName);
+              }}
+            >
+              <BiLogOut /> Logout
+            </Button>
+            <Button onClick={handleClose} variant="dark">
+              Cancel
+            </Button>
+          </Modal.Body>
+        </Modal>
         <div className="image-container">
           <div
             onClick={() => {
@@ -157,8 +188,8 @@ function ProfileDetail() {
           </div>
         </div>
 
-        <UserContainer profile={profile} following={following} setFollowing={setFollowing} followers={followers} setFollowers={setFollowers} />
-        <ProfileLinks profile={profile} followers={followers} setFollowers={setFollowers} />
+        <UserContainer profile={profile} amIFollowing={amIFollowing} setAmIFollowing={setAmIFollowing} followers={followers} setFollowers={setFollowers} />
+        <ProfileLinks profile={profile} followers={followers} setFollowers={setFollowers} following={following} />
       </div>
     </>
   );

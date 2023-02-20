@@ -4,11 +4,11 @@ import { useParams } from "react-router-dom";
 import { BASE_URL } from "../constants/baseUrl";
 import { AuthContext } from "../context/AuthContext";
 import { NameContext } from "../context/NameContext";
-import Follow from "./Follow";
+// import Follow from "./Follow";
 import { getOptions } from "../getOptions";
 
 // function UserContainer({ profile }) {
-function UserContainer({ profile, following, setFollowing, followers, setFollowers }) {
+function UserContainer({ profile, amIFollowing, setAmIFollowing, followers, setFollowers }) {
   // const [following, setFollowing] = useState("");
   const [auth, setAuth] = useContext(AuthContext);
   const [authName, setAuthName] = useContext(NameContext);
@@ -37,7 +37,7 @@ function UserContainer({ profile, following, setFollowing, followers, setFollowe
       const json = await response.json();
       console.log(json);
       if (json.name) {
-        setFollowing(true);
+        setAmIFollowing(true);
         setFollowers([
           ...followers,
           {
@@ -65,7 +65,7 @@ function UserContainer({ profile, following, setFollowing, followers, setFollowe
         const filteredFollowers = followers.filter((fol) => fol.name !== json.name);
         console.log(filteredFollowers);
         setFollowers(filteredFollowers);
-        setFollowing(false);
+        setAmIFollowing(false);
       }
     } catch (error) {
       console.log(error);
@@ -81,16 +81,16 @@ function UserContainer({ profile, following, setFollowing, followers, setFollowe
         ""
       ) : (
         <Button
-          variant={!following ? "primary" : "warning"}
+          variant={!amIFollowing ? "primary" : "warning"}
           onClick={() => {
-            if (following) {
+            if (amIFollowing) {
               unfollowUser();
             } else {
               followUser();
             }
           }}
         >
-          {following ? "Unfollow" : "follow"}
+          {amIFollowing ? "Unfollow" : "follow"}
         </Button>
       )}
     </div>

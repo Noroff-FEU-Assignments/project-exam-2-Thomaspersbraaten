@@ -14,7 +14,23 @@
     width: 250px;
   }
 }
-
+.modal-dialog {
+  display: flex;
+  justify-content: center;
+  margin: 3rem auto;
+}
+.modal-logout {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+}
+.logout-button {
+  height: 38px;
+}
 .modal-content {
   border: none;
   background: none;
@@ -26,6 +42,12 @@
 }
 .modal-top {
   background: none;
+}
+
+.my-profile-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
 }
 .image-container {
   position: relative;

@@ -7,10 +7,36 @@
   border: 1px solid black;
   max-width: 560px;
 }
-// .card:hover {
-//   border: 1px solid rgb(82, 80, 80);
-// }
 
+.delete-modal {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+}
+.post-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid black;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-weight: 600;
+  &__buttons {
+    display: flex;
+    gap: 2.5rem;
+    & button {
+      width: 75px;
+    }
+  }
+}
 .card-title {
   padding: 0.5rem 0;
 }
@@ -30,7 +56,6 @@
 .user-info {
   display: flex;
   align-items: baseline;
-  // align-items: inherit;
   gap: 0.25rem;
 }
 .card-top {
@@ -44,7 +69,11 @@
   padding: 0rem 1.5rem;
   border-radius: 0px;
 }
-
+.post {
+  margin: 1rem;
+  border: 1px solid grey;
+  border-radius: 10px;
+}
 textarea {
   resize: none;
 }
@@ -62,7 +91,6 @@ textarea {
 }
 .tag {
   list-style: none;
-  // clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
   padding: 0.25rem 1.25rem 0.15rem 1.25rem;
   background-color: #4a3f3f;
   color: white;
