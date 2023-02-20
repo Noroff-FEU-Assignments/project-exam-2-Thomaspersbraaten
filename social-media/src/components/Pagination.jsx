@@ -20,7 +20,8 @@ function Pagination({ offset, setOffset }) {
     <div className="pagination">
       {/* <Button>{pageNumber}</Button> */}
       <Button
-        className="pagination__button"
+        className="pagination__button prev"
+        variant="warning"
         disabled={offset === 0}
         onClick={() => {
           setOffset(offset - 15);
@@ -31,7 +32,7 @@ function Pagination({ offset, setOffset }) {
       <p className="pagination__page-number">Page {currentPage} </p>
 
       <Button
-        className="pagination__button"
+        className="pagination__button next"
         onClick={() => {
           setOffset(offset + 15);
           window.scrollTo({

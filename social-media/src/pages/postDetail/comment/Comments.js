@@ -44,6 +44,7 @@ function Comments({ post, comments, setComments }) {
               <Button
                 value={comment.id}
                 variant="outline-secondary"
+                className="reply-comment-button"
                 onClick={() => {
                   scrollToElement();
                   setReplyId(comment.id);

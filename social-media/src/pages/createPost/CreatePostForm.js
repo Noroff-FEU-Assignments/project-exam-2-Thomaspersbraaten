@@ -136,13 +136,14 @@ function CreatePostForm() {
                 setTagInput(e.target.value);
               }}
             />
-            {tagError && <ErrorMessage variant="warning" message={tagError} />}
           </div>
 
           <Button className="create-form-tags__button" onClick={handleTags}>
             Add tag
           </Button>
         </Form.Group>
+        <div>{tagError && <ErrorMessage variant="warning" message={tagError} />}</div>
+
         <Form.Text className="text-muted">
           <Form.Group>
             <ul className="form-tags">

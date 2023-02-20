@@ -19,6 +19,7 @@ import Button from "react-bootstrap/esm/Button";
 import logOut from "../components/ui/logOut";
 import Header from "../components/Header";
 import { BiLogOut } from "react-icons/bi";
+import CreatePostImage from "../components/imageComponents/CreatePostImage";
 
 function ProfileDetail() {
   const [auth, setAuth] = useContext(AuthContext);

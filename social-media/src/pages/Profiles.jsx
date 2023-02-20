@@ -9,10 +9,12 @@ import LoadingMorePosts from "../components/loading/LoadingMorePosts";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/esm/Button";
 import Pageination from "../components/Pagination";
+import LoadingIndicator from "../components/loading/LoadingIndicator";
 
 function Profiles() {
   const [auth] = useContext(AuthContext);
   const [profiles, setProfiles] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [numberOfProfiles, setNumberOfProfiles] = useState(15);
   const [loadingMoreProfiles, setLoadingMoreProfiles] = useState(false);
   const [profileLimitReached, setProfileLimitReached] = useState(false);
@@ -78,6 +80,7 @@ function Profiles() {
   // }, [numberOfProfiles]);
   useEffect(() => {
     async function getProfiles() {
+      setLoading(true);
       console.log(profileUrl);
       if (profileLimitReached) {
         return;
@@ -102,16 +105,25 @@ function Profiles() {
         if (response.status === 200) {
           setProfiles(json);
         }
+        if (response.status === 404) {
+          setError("An error occured, Please try again.");
+        }
+        if (response.status === 429) {
+          setError("You performed too many requests to the site, Please wait 30 seconds before retrying.");
+        }
       } catch (error) {
         console.log(error);
       } finally {
         setLoadingMoreProfiles(false);
+        setLoading(false);
       }
     }
     getProfiles();
   }, [offset]);
   return (
-    <div className="profiles-container">
+    <>
+      {/* <div className="profiles-container"> */}
+      {loading && <LoadingIndicator />}
       <h1>List of profiles</h1>
       <Pageination offset={offset} setOffset={setOffset} />
       {/* <div>
@@ -149,7 +161,8 @@ function Profiles() {
           <ErrorMessage message={profileLimitReached} variant="warning" />
         </div>
       )}
-    </div>
+      {/* </div> */}
+    </>
   );
 
   // return <ProfileCard profile={profile} key={profile.email} referance={lastProfile} />;

@@ -39,7 +39,7 @@ export default function ReactButton({ post }) {
           {post.reactions === [] || reactions === [] ? <p>ok</p> : <p>{TotalValue()} Reactions</p>}
         </div>
       </OverlayTrigger>
-      <ReactionOverlay show={show} target={target} post={post} reactions={reactions} setReactions={setReactions} />
+      <ReactionOverlay setShow={setShow} show={show} target={target} post={post} reactions={reactions} setReactions={setReactions} />
     </>
   );
 }

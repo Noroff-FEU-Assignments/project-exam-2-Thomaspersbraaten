@@ -2,7 +2,21 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  width: 100%;
   &__page-number {
     font-weight: 600;
   }
+  &__button {
+    font-weight: bold;
+    width: 80px;
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
 }
+
+// .next {
+//   background-color: #27e227;
+//   border: none;
+//   color: #000;
+// }

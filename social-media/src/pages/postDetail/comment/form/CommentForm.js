@@ -60,6 +60,7 @@ function CommentForm({ setCommentToReplyTo, setComments, comments, replying, set
         </Button>
         {replying && (
           <Button
+            variant="dark"
             onClick={() => {
               setCommentToReplyTo(null);
               setReplying(false);

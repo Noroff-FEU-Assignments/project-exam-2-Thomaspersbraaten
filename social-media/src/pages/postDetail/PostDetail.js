@@ -48,8 +48,8 @@ function PostDetail() {
       try {
         const response = await fetch(postDetailUrl, options);
         const json = await response.json();
-        console.log(json);
-        console.log(json);
+        // console.log(json);
+        // console.log(json);
         if (response.status === 200) {
           setPost(json);
           setComments(json.comments);

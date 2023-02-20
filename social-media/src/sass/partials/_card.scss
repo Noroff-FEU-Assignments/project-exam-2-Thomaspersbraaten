@@ -6,6 +6,7 @@
   padding: 0.5rem;
   border: 1px solid black;
   max-width: 560px;
+  width: 100%;
 }
 
 .delete-modal {
@@ -150,7 +151,7 @@ textarea {
 
 .comment-form__button {
   width: 150px;
-  margin: 1.5rem;
+  margin: 1.5rem 0rem;
   background-color: #0ae276;
   color: white;
 }

@@ -13,9 +13,9 @@ function EditAndDeletePost({ setShowEditForm, showEditForm }) {
     <div className="post-actions">
       <Modal show={deleting}>
         <Modal.Body className="delete-modal">
-          are you sure you want to delete?
+          Are you sure you want to delete this post?
           <Button
-            variant="danger"
+            variant="outline-danger"
             onClick={() => {
               deletePost(id, auth);
             }}
@@ -32,26 +32,7 @@ function EditAndDeletePost({ setShowEditForm, showEditForm }) {
           </Button>
         </Modal.Body>
       </Modal>
-      {/* {deleting && (
-        <div>
-          are you sure you want to delete?
-          <Button
-            onClick={() => {
-              setDeleting(false);
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="danger"
-            onClick={() => {
-              deletePost(id, auth);
-            }}
-          >
-            Confirm delete
-          </Button>
-        </div>
-      )} */}
+
       <p>This is your post and you may edit and delete it</p>
       <div className="post-actions__buttons">
         <Button
@@ -75,3 +56,26 @@ function EditAndDeletePost({ setShowEditForm, showEditForm }) {
 }
 
 export default EditAndDeletePost;
+
+{
+  /* {deleting && (
+        <div>
+          are you sure you want to delete?
+          <Button
+            onClick={() => {
+              setDeleting(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => {
+              deletePost(id, auth);
+            }}
+          >
+            Confirm delete
+          </Button>
+        </div>
+      )} */
+}
