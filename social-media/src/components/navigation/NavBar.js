@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { AiFillHome } from "react-icons/ai";
 import { BsPlusLg, BsPeopleFill } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
 import { NameContext } from "../context/NameContext";
 import smallLogo from "../../images/small-logo.png";
+import logo from "../../images/logo.png";
 
 function NavBar() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -24,19 +25,24 @@ function NavBar() {
       <nav>
         <Link to="/">
           <img src={smallLogo} className="small-logo" />
+          <img src={logo} className="larger-logo" />
         </Link>
-        <Link to="/">
+        <NavLink to="/">
           <AiFillHome />
-        </Link>
-        <Link to="/create-Post">
+          <p className="nav-text">Home</p>
+        </NavLink>
+        <NavLink to="/create-Post">
           <BsPlusLg />
-        </Link>
-        <Link to={`/profiles/${authName}`}>
+          <p className="nav-text">Create</p>
+        </NavLink>
+        <NavLink to={`/profiles/${authName}`}>
           <FaUserAlt />
-        </Link>
-        <Link to="/profiles">
+          <p className="nav-text">My profile</p>
+        </NavLink>
+        <NavLink to="/list-profiles">
           <BsPeopleFill />
-        </Link>
+          <p className="nav-text">Profiles</p>
+        </NavLink>
         {/* <button onClick={logOut}>logout</button> */}
       </nav>
     );

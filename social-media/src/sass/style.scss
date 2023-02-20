@@ -18,6 +18,7 @@
 @use "./partials/pageNotFound";
 @use "./partials/createPost";
 @use "./partials/pagination";
+@use "./partials/layout";
 
 * {
   box-sizing: border-box;

@@ -1,27 +1,22 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-// import Modal from "react-bootstrap/Modal";
-import avatarPlaceholder from "../../images/avatar-placeholder.png";
-import bannerPlaceholder from "../../images/image-placeholder.png";
+import avatarPlaceholder from "../images/avatar-placeholder.png";
+import bannerPlaceholder from "../images/image-placeholder.png";
 
-import { AuthContext } from "../context/AuthContext";
-import NavBar from "../navigation/NavBar";
-import PostsCard from "../posts/PostsCard";
-import Banner from "../imageComponents/Banner";
-import Avatar from "../imageComponents/Avatar";
-import UserContainer from "./UserContainer";
+import { AuthContext } from "../components/context/AuthContext";
+import Banner from "../components/imageComponents/Banner";
+import UserContainer from "../components/user/UserContainer";
 import Modal from "react-bootstrap/Modal";
-import ProfileLinks from "./ProfileLinks";
-import { ProfileContext } from "../context/ProfileContext";
-import ChangeImageModal from "../../pages/myProfile/ChangeImageModal";
-import removeProfilePicture from "../../pages/myProfile/removeProfilePicture";
-import { NameContext } from "../context/NameContext";
-import { getOptions } from "../getOptions";
-import { BASE_URL, PROFILE, SOCIAL_URL_EXT } from "../constants/api";
-import ProfileAvatar from "../imageComponents/ProfileAvatar";
+import ProfileLinks from "../components/user/ProfileLinks";
+import ChangeImageModal from "../components/profile/ChangeImageModal";
+import removeProfilePicture from "../components/profile/removeProfilePicture";
+import { NameContext } from "../components/context/NameContext";
+import { getOptions } from "../components/getOptions";
+import { BASE_URL, PROFILE, SOCIAL_URL_EXT } from "../components/constants/api";
+import ProfileAvatar from "../components/imageComponents/ProfileAvatar";
 import Button from "react-bootstrap/esm/Button";
-import logOut from "../ui/logOut";
+import logOut from "../components/ui/logOut";
 
 function ProfileDetail() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -76,7 +71,6 @@ function ProfileDetail() {
 
   return (
     <>
-      {/* <NavBar /> */}
       <div>
         {isMyProfile && (
           <Button

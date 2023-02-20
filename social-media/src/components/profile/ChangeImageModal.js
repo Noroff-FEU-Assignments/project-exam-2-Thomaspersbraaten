@@ -4,8 +4,8 @@ import imagePlaceholder from "../../images/image-placeholder.png";
 import avatarPlaceholder from "../../images/avatar-placeholder.png";
 
 import removeProfilePicture from "./removeProfilePicture";
-import { NameContext } from "../../components/context/NameContext";
-import { AuthContext } from "../../components/context/AuthContext";
+import { NameContext } from "../context/NameContext";
+import { AuthContext } from "../context/AuthContext";
 
 function ChangeImageModal({ profile }) {
   const [authName, setAuthName] = useContext(NameContext);

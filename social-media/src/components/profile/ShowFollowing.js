@@ -4,6 +4,7 @@ import { BASE_URL } from "../../components/constants/baseUrl";
 import { AuthContext } from "../../components/context/AuthContext";
 import { NameContext } from "../../components/context/NameContext";
 import Avatar from "../../components/imageComponents/Avatar";
+import Header from "../Header";
 function ShowFollowing({ profile }) {
   const [authName, setAuthName] = useContext(NameContext);
   const [auth, setAuth] = useContext(AuthContext);
@@ -32,25 +33,28 @@ function ShowFollowing({ profile }) {
     getFollowing();
   }, [name]);
   return (
-    <div className="profile-bottom-container">
-      {following ? (
-        <>
-          <h2>Following {`(${following.length})`}</h2>
-          <div className="following-container">
-            {following.map((follow, index) => (
-              <div className="following" key={follow + index}>
-                <Avatar src={follow.avatar} />
-                <Link to={`/profiles/${follow.name}`} className="author-name">
-                  {follow.name}
-                </Link>
-              </div>
-            ))}
-          </div>
-        </>
-      ) : (
-        <h2>You are following no one</h2>
-      )}
-    </div>
+    <>
+      <Header size="2">Following ({following.length})</Header>
+
+      <div className="profile-bottom-container">
+        {following ? (
+          <>
+            <div className="following-container">
+              {following.map((follow, index) => (
+                <div className="following" key={follow + index}>
+                  <Avatar src={follow.avatar} />
+                  <Link to={`/profiles/${follow.name}`} className="author-name">
+                    {follow.name}
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          <h2>You are following no one</h2>
+        )}
+      </div>
+    </>
   );
 }
 

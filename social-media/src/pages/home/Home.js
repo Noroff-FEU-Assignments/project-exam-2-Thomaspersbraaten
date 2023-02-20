@@ -73,23 +73,21 @@ function Home() {
 
   return (
     <>
-      <div className="posts-container">
-        <FilterPosts posts={posts} setPosts={setPosts} setSearching={setSearching} setSearchInput={setSearchInput} setPostLimitReached={setPostLimitReached} />
-        <Pagination offset={offset} setOffset={setOffset} />
-        {loading && <LoadingIndicator />}
-        {error ? (
-          <ErrorMessage variant="danger" message={error} />
-        ) : (
-          posts.map((post, index) => {
-            if (posts.length === index + 1) {
-              return <PostsCard post={post} key={post.id + post.title} />;
-            } else {
-              return <PostsCard post={post} key={post.id + post.title} />;
-            }
-          })
-        )}
-        <Pagination offset={offset} setOffset={setOffset} />
-      </div>
+      <FilterPosts posts={posts} setPosts={setPosts} setSearching={setSearching} setSearchInput={setSearchInput} setPostLimitReached={setPostLimitReached} />
+      <Pagination offset={offset} setOffset={setOffset} />
+      {loading && <LoadingIndicator />}
+      {error ? (
+        <ErrorMessage variant="danger" message={error} />
+      ) : (
+        posts.map((post, index) => {
+          if (posts.length === index + 1) {
+            return <PostsCard post={post} key={post.id + post.title} />;
+          } else {
+            return <PostsCard post={post} key={post.id + post.title} />;
+          }
+        })
+      )}
+      <Pagination offset={offset} setOffset={setOffset} />
     </>
   );
 }

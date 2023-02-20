@@ -10,10 +10,55 @@ nav {
   & a {
     color: black;
     font-size: 1.4rem;
-    padding: 0.125rem;
+    padding: 0.125rem 0.5rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    &:hover {
+      // font-size: 1.6rem;
+      scale: 1.035;
+    }
   }
 }
-
+.nav-text {
+  display: none;
+  font-size: 0.8rem;
+}
 .small-logo {
   height: 40px;
+}
+.larger-logo {
+  display: none;
+  max-width: 100px;
+}
+.active {
+  background-color: black;
+  color: white;
+}
+
+@media (min-width: 850px) {
+  .small-logo {
+    display: none;
+  }
+  .larger-logo {
+    display: block;
+  }
+  nav {
+    width: auto;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 3rem;
+    // padding: 0.75rem;
+    border-right: 1px solid black;
+    & a {
+      display: flex;
+      // justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem;
+    }
+  }
+  .nav-text {
+    display: block;
+  }
 }

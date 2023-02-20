@@ -6,9 +6,9 @@ function PostDate({ date }) {
   const now = moment();
 
   if (now > dayDate) {
-    return <div className="post-date">{dayDate}</div>;
+    return <p className="post-date">{dayDate}</p>;
   } else {
-    return <div className="post-date">{timeSincePosted}</div>;
+    return <p className="post-date">{timeSincePosted}</p>;
   }
 }
 

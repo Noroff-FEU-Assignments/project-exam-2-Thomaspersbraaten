@@ -11,9 +11,12 @@ p {
 .alert {
   font-family: "roboto";
 }
-h1 {
+h1,
+h2 {
   font-family: $primary-font;
+  color: black;
 }
+
 // Post
 .author-name {
   font-family: $secondary-font;
@@ -21,6 +24,7 @@ h1 {
 .post-date {
   font-family: $secondary-font;
   font-style: italic;
+  color: black;
 }
 
 .title,

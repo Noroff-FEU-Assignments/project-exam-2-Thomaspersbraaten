@@ -8,12 +8,15 @@
   flex-direction: column;
   gap: 1rem;
   margin: auto 1rem;
-  padding: 7rem 0rem;
+  padding: 2rem 0rem;
   & h1 {
     margin: 1rem;
   }
 }
 
+.tab-pane {
+  background-color: white;
+}
 .count-container {
   display: flex;
   justify-content: space-around;

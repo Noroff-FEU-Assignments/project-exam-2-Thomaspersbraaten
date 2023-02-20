@@ -10,6 +10,7 @@ import Button from "react-bootstrap/esm/Button";
 import CreatePostImage from "../components/imageComponents/CreatePostImage";
 import { Link, useNavigate } from "react-router-dom";
 
+import Container from "react-bootstrap/Container";
 function CreateAccount() {
   const createAccountUrl = BASE_URL + "/social/auth/register";
   const [bannerUrl, setBannerUrl] = useState("");
