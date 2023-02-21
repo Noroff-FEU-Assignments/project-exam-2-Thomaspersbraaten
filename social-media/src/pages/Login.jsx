@@ -9,9 +9,11 @@ import { useNavigate } from "react-router-dom";
 import { NameContext } from "../components/context/NameContext";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
+import logo from "../images/logo.png";
 
 import ErrorMessage from "../components/feedback/ErrorMessage";
+import WelcomeLogo from "../components/WelcomeLogo";
+import Header from "../components/Header";
 
 function Login() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -56,22 +58,27 @@ function Login() {
     }
   }
   return (
-    <Container className="login-container">
-      <Form onSubmit={handleSubmit(performLogin)} className="login-form">
-        <p>Use your email and password to login below</p>
-        {error && <ErrorMessage message={error} variant="danger" />}
-        <Form.Group>
-          <Form.Label>Email address</Form.Label>
-          <Form.Control placeholder="name@example.com" value="okidokidoki@stud.noroff.no" {...register("email")} />
-          {errors.email && <ErrorMessage message={errors.email.message} variant="warning" />}
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Password</Form.Label>
-          <Form.Control value="abcdefg1A" type="password" {...register("password")} />
-        </Form.Group>
-        <Button type="submit" className="login-button">
-          {submitting ? "Logging in" : "Log in"}
-        </Button>
+    <>
+      <WelcomeLogo />
+      <Form onSubmit={handleSubmit(performLogin)} className="form">
+        <div className="form-container">
+          <Header size="2" cssClass="header-border-bottom">
+            Use your email and password to login
+          </Header>
+          {error && <ErrorMessage message={error} variant="danger" />}
+          <Form.Group>
+            <Form.Label>Email address</Form.Label>
+            <Form.Control placeholder="name@example.com" value="okidokidoki@stud.noroff.no" {...register("email")} />
+            {errors.email && <ErrorMessage message={errors.email.message} variant="warning" />}
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Password</Form.Label>
+            <Form.Control value="abcdefg1A" type="password" {...register("password")} />
+          </Form.Group>
+          <Button type="submit" className="login__button">
+            {submitting ? "Logging in" : "Log in"}
+          </Button>
+        </div>
       </Form>
       <div className="signup">
         <p>Dont have an account?</p>
@@ -84,7 +91,7 @@ function Login() {
           Sign Up
         </button>
       </div>
-    </Container>
+    </>
   );
 }
 

@@ -4,12 +4,12 @@ import Button from "react-bootstrap/esm/Button";
 import Form from "react-bootstrap/Form";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import CreatePostImage from "../imageComponents/CreatePostImage";
+import ImageChecker from "../imageComponents/ImageChecker";
 import TagsComponent from "../posts/cardComponents/TagsComponent";
 import Modal from "react-bootstrap/Modal";
 
 // import editPost from "./editPost";
-import { AUTHOR_REACTIONS_COMMENTS, BASE_URL, POSTS_URL_EXT, SOCIAL_URL_EXT } from "../../components/constants/api";
+import { AUTHOR_REACTIONS_COMMENTS, BASE_URL, POSTS_URL_EXT, SOCIAL_URL_EXT } from "../constants/api";
 import { getOptions } from "../getOptions";
 
 function EditPostForm({ post, setPost, setShowEditForm }) {
@@ -97,7 +97,7 @@ function EditPostForm({ post, setPost, setShowEditForm }) {
                   setMedia(e.target.value);
                 }}
               />
-              <CreatePostImage imageUrl={media} />
+              <ImageChecker imageUrl={media} />
             </Form.Group>
             <Form.Group className="create-form-tags">
               <Form.Control

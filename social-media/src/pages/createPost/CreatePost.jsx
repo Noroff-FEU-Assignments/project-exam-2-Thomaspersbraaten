@@ -1,16 +1,28 @@
+// import CreatePostForm from "./CreatePostForm";
+
+// function CreatePost() {
+//   return (
+//     <>
+//       <CreatePostForm />
+//     </>
+//   );
+// }
+
+// export default CreatePost;
 import { useContext, useState } from "react";
 import { AuthContext } from "../../components/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/esm/Button";
 import ErrorMessage from "../../components/feedback/ErrorMessage";
-import CreatePostImage from "../../components/imageComponents/CreatePostImage";
+import ImageChecker from "../../components/imageComponents/ImageChecker";
 import { getOptions } from "../../components/getOptions";
 import { BASE_URL, POSTS_URL_EXT, SOCIAL_URL_EXT } from "../../components/constants/api";
 import TagsComponent from "../../components/posts/cardComponents/TagsComponent";
 import Container from "react-bootstrap/esm/Container";
+import Header from "../../components/Header";
 
-function CreatePostForm() {
+function CreatePost() {
   const [auth, setAuth] = useContext(AuthContext);
   const [creating, setCreating] = useState(true);
   const [error, setError] = useState(false);
@@ -79,8 +91,10 @@ function CreatePostForm() {
 
   return (
     <Container>
-      <Form className="create-post-form">
-        <h1 className="create-post-header">Create a post</h1>
+      <Form className="create-post-form form">
+        <Header size="2" cssClass="header-border-bottom">
+          Create a post
+        </Header>
         {error && <ErrorMessage />}
         <Form.Group>
           <Form.Label className="create-post-label">Title</Form.Label>
@@ -120,7 +134,7 @@ function CreatePostForm() {
               setMedia(e.target.value);
             }}
           />
-          <CreatePostImage imageUrl={media} />
+          <ImageChecker imageUrl={media} />
         </Form.Group>
 
         <Form.Group className="create-form-tags">
@@ -168,4 +182,4 @@ function CreatePostForm() {
   );
 }
 
-export default CreatePostForm;
+export default CreatePost;

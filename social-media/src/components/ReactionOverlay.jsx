@@ -20,7 +20,7 @@ function ReactionOverlay({ setShow, show, target, post, reactions, setReactions 
   async function reactToPost(symbol) {
     setShow(false);
 
-    const reactUrl = BASE_URL + `/social/posts/${post.id}/resact/` + symbol + "?_author=true";
+    const reactUrl = BASE_URL + `/social/posts/${post.id}/react/` + symbol + "?_author=true";
     const options = getOptions(auth, "PUT");
 
     try {
@@ -52,7 +52,6 @@ function ReactionOverlay({ setShow, show, target, post, reactions, setReactions 
         setError("An error occured, please try again");
       }
     } catch (error) {
-      console.log(error);
       setError("An error occured.");
     }
   }

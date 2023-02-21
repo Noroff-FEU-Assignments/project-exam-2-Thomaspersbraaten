@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import imagePlaceholder from "../../images/image-placeholder.png";
 
-function CreatePostImage({ imageUrl }) {
+function ImageChecker({ imageUrl }) {
   const [src, setSrc] = useState(null);
   const [imageClass, setImageClass] = useState("");
   const [imageInfo, setImageInfo] = useState("");
@@ -39,10 +39,10 @@ function CreatePostImage({ imageUrl }) {
   }, [imageUrl]);
   return (
     <div className="form-image-container">
-      <img src={src} className="create-form-image" />
+      <img src={src} className="form-image" />
       <p className={imageClass}>{imageInfo}</p>
     </div>
   );
 }
 
-export default CreatePostImage;
+export default ImageChecker;

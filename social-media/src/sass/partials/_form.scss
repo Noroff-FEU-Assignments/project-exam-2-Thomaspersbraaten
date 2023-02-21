@@ -2,3 +2,129 @@
   color: red;
   font-size: 1.3rem;
 }
+
+.form {
+  // display: flex;
+  // flex-direction: column;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 20px;
+  // margin: auto;
+  // padding: 1rem;
+  margin: 1rem;
+  // gap: 1.5rem;
+  // max-width: 650px;
+  // width: 75%;
+}
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.invalid-image {
+  color: red;
+}
+.valid-image {
+  color: #0f5132;
+}
+.form-image-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.form-container {
+  padding: 1rem;
+}
+
+.form-image {
+  height: 50px;
+  margin: 1rem;
+  width: 50px;
+}
+
+// create form
+
+.create-form-tags {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__input {
+    margin-right: 0.5rem;
+  }
+  &__button {
+    height: 35px;
+    width: 75px;
+    padding: 0;
+    margin: 0;
+  }
+}
+.tags-control {
+  display: flex;
+  flex-direction: column;
+  width: 65%;
+}
+.form-tags {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  &__tag {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    list-style: none;
+    padding: 0.25rem 1.25rem 0.15rem 1.25rem;
+    background-color: #4a3f3f;
+    color: white;
+    border-radius: 10px;
+  }
+}
+.remove-tag {
+  font-weight: bold;
+  border: 1px solid white;
+  // padding: 0.2rem 0.5rem;
+  border-radius: 50%;
+  margin: 0.1rem;
+  // background: none;
+}
+.create-form-buttons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  &__back {
+    border: none;
+    background: none;
+    color: black;
+    &:hover {
+      background: none;
+      color: black;
+    }
+  }
+  &__submit {
+    background-color: #0ae276;
+    color: white;
+    border-radius: 25px;
+    border: none;
+  }
+}
+
+.create-post-label {
+  margin-bottom: 0rem;
+}
+
+// sign up
+
+.signup-button-container {
+  margin: 1.25rem auto;
+  display: flex;
+}
+
+@media (min-width: 700px) {
+  .form {
+    width: 450px;
+  }
+  .small-input {
+    width: 75%;
+  }
+}

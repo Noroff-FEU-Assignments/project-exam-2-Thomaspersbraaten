@@ -40,11 +40,16 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid grey;
   padding-bottom: 1rem;
   &__button {
     background-color: #068545;
   }
+}
+
+.seperator {
+  height: 1px;
+  background-color: grey;
+  width: 100%;
 }
 .signup__button,
 .login__button {

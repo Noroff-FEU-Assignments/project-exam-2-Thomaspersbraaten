@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 // import { BASE_URL } from "../../components/constants/baseUrl";
-import { AuthContext } from "../../components/context/AuthContext";
-import { NameContext } from "../../components/context/NameContext";
-import PostsCard from "../../components/posts/PostsCard";
+import { AuthContext } from "../context/AuthContext";
+import { NameContext } from "../context/NameContext";
+import PostsCard from "../posts/PostsCard";
 import { BASE_URL } from "../constants/api";
 import Header from "../Header";
 

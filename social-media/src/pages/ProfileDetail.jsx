@@ -19,7 +19,6 @@ import Button from "react-bootstrap/esm/Button";
 import logOut from "../components/ui/logOut";
 import Header from "../components/Header";
 import { BiLogOut } from "react-icons/bi";
-import CreatePostImage from "../components/imageComponents/CreatePostImage";
 
 function ProfileDetail() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -50,6 +49,8 @@ function ProfileDetail() {
         setProfile(json);
         if (json.name === authName) {
           setIsMyProfile(true);
+        } else {
+          setIsMyProfile(false);
         }
         if (json.following) {
           setFollowing(json.following);
@@ -81,7 +82,7 @@ function ProfileDetail() {
 
   return (
     <>
-      <div>
+      <>
         <Modal show={show} onHide={handleClose} className="modal-top">
           <Modal.Body>
             {imageType === "avatar" && <img src={!profile.avatar ? avatarPlaceholder : profile.avatar} className="modal-image" />}
@@ -136,8 +137,8 @@ function ProfileDetail() {
         ) : (
           ""
         )}
-      </div>
-      <ChangeImageModal profile={profile} />
+      </>
+      {/* <ChangeImageModal profile={profile} /> */}
       <div className="profile-container">
         {isMyProfile && (
           <div className="my-profile-container">
@@ -185,7 +186,7 @@ function ProfileDetail() {
               setImageType("avatar");
             }}
           >
-            {profile && <ProfileAvatar src={profile} cssClass="profile-avatar" />}
+            <ProfileAvatar src={profile} cssClass="profile-avatar" />
           </div>
         </div>
 

@@ -5,8 +5,17 @@ button {
   font-family: "open sans";
 }
 
+h2 {
+  text-align: center;
+  padding-bottom: 0.5rem;
+}
+
+.header-border-bottom {
+  border-bottom: 1px solid black;
+}
 p {
   font-family: "roboto";
+  margin: 0;
 }
 .alert {
   font-family: "roboto";
@@ -59,14 +68,19 @@ h2 {
 }
 
 // create form
-.create-post-form {
-  & input::placeholder,
-  & textarea::placeholder {
-    font-style: italic;
-    font-family: $secondary-font;
-  }
-}
+// .create-post-form {
+//   & input::placeholder,
+//   & textarea::placeholder {
+//     font-style: italic;
+//     font-family: $secondary-font;
+//   }
+// }
 
 label {
+  font-family: $secondary-font;
+}
+input::placeholder,
+textarea::placeholder {
+  font-style: italic;
   font-family: $secondary-font;
 }

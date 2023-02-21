@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { BASE_URL } from "../../components/constants/baseUrl";
-import { AuthContext } from "../../components/context/AuthContext";
-import { NameContext } from "../../components/context/NameContext";
-import { ProfileContext } from "../../components/context/ProfileContext";
-import Avatar from "../../components/imageComponents/Avatar";
+import { BASE_URL } from "../constants/baseUrl";
+import { AuthContext } from "../context/AuthContext";
+import { NameContext } from "../context/NameContext";
+import { ProfileContext } from "../context/ProfileContext";
+import Avatar from "../imageComponents/Avatar";
 import Header from "../Header";
 
 function ShowFollowers({ followers, setFollowers }) {

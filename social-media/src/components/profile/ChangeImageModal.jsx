@@ -6,7 +6,7 @@ import avatarPlaceholder from "../../images/avatar-placeholder.png";
 import removeProfilePicture from "./removeProfilePicture";
 import { NameContext } from "../context/NameContext";
 import { AuthContext } from "../context/AuthContext";
-import CreatePostImage from "../imageComponents/CreatePostImage";
+// import CreatePostImage from "../imageComponents/CreatePostImage";
 
 function ChangeImageModal({ profile }) {
   const [authName, setAuthName] = useContext(NameContext);
@@ -20,7 +20,7 @@ function ChangeImageModal({ profile }) {
   const [show, setShow] = useState(false);
 
   return (
-    <div>
+    <>
       <Modal show={show} onHide={handleClose} className="modal-top">
         <Modal.Body>
           <img src={!profile.avatar ? avatarPlaceholder : profile.avatar} className="modal-image" />
@@ -66,13 +66,12 @@ function ChangeImageModal({ profile }) {
                 </p>
               </>
             )}
-            {/* <CreatePostImage imageUrl={imageUrl} /> */}
 
             <p onClick={handleClose}>Cancel</p>
           </div>
         </Modal.Body>
       </Modal>
-    </div>
+    </>
   );
 }
 

@@ -1,4 +1,4 @@
-import { BASE_URL } from "../../components/constants/baseUrl";
+import { BASE_URL } from "../constants/baseUrl";
 
 function removeProfilePicture(auth, authName, type, url, modifier) {
   const removePictureUrl = BASE_URL + "/social/profiles/" + authName + "/media";

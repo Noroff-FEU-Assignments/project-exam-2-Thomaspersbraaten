@@ -4,18 +4,14 @@
 @use "./partials/comment";
 @use "./partials/form";
 @use "./partials/profile";
-
 @use "./partials/custom";
 @use "./partials/landing";
 @use "./partials/login";
-
 @use "./partials/alert";
 @use "./partials/home";
 @use "./partials/nav";
 @use "./partials/profiles";
-
 @use "./partials/pageNotFound";
-@use "./partials/createPost";
 @use "./partials/pagination";
 @use "./partials/layout";
 @use "./partials/card";
@@ -30,10 +26,6 @@
 
 img {
   width: 100%;
-}
-
-p {
-  margin: 0;
 }
 
 .end-container {

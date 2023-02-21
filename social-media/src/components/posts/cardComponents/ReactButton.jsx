@@ -33,10 +33,10 @@ export default function ReactButton({ post }) {
   };
   return (
     <>
-      <OverlayTrigger placement="left" delay={{ show: 750, hide: 400 }} overlay={renderTooltip}>
+      <OverlayTrigger placement="left" delay={{ show: 550, hide: 300 }} overlay={renderTooltip}>
         <div ref={target} onClick={() => setShow(!show)} className="reactions">
           <MdAddReaction className="reactions__icon" />
-          {post.reactions === [] || reactions === [] ? <p>ok</p> : <p>{TotalValue()} Reactions</p>}
+          {post && <p>{TotalValue()} Reactions</p>}
         </div>
       </OverlayTrigger>
       <ReactionOverlay setShow={setShow} show={show} target={target} post={post} reactions={reactions} setReactions={setReactions} />

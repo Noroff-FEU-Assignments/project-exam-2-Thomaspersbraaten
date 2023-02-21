@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
 import { AuthContext } from "../components/context/AuthContext";
+import WelcomeLogo from "../components/WelcomeLogo";
 function LandingPage() {
   const [auth, setAuth] = useContext(AuthContext);
   const navigate = useNavigate();
@@ -14,9 +15,7 @@ function LandingPage() {
 
   return (
     <div className="landing-container">
-      <div className="landing-logo-container">
-        <img src={logo} className="landing-logo" />
-      </div>
+      <WelcomeLogo />
 
       <div className="welcome-text-container">
         <h1>Realize and share your dreams</h1>
@@ -35,6 +34,7 @@ function LandingPage() {
             Sign Up
           </button>
         </div>
+        <div className="seperator"></div>
 
         <div className="login">
           <p>Already have an account? </p>
