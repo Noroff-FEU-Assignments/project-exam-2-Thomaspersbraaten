@@ -67,15 +67,6 @@ h2 {
   text-decoration: underline;
 }
 
-// create form
-// .create-post-form {
-//   & input::placeholder,
-//   & textarea::placeholder {
-//     font-style: italic;
-//     font-family: $secondary-font;
-//   }
-// }
-
 label {
   font-family: $secondary-font;
 }
@@ -83,4 +74,8 @@ input::placeholder,
 textarea::placeholder {
   font-style: italic;
   font-family: $secondary-font;
+}
+
+.text-align-left {
+  text-align: left;
 }

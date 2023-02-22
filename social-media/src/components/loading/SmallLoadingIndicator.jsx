@@ -1,7 +1,7 @@
-function LoadingMoreData({ typeOfData }) {
+function SmallLoadingIndicator() {
   return (
     <div className="loading-more-posts">
-      <p> Loading more {typeOfData}...</p>
+      <p> Loading...</p>
       <div>
         <div className="loading-dot"></div>
         <div className="loading-dot"></div>
@@ -11,4 +11,4 @@ function LoadingMoreData({ typeOfData }) {
   );
 }
 
-export default LoadingMoreData;
+export default SmallLoadingIndicator;

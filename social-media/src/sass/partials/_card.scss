@@ -150,8 +150,14 @@ textarea {
 
 // comment area
 
+.comment-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .comment-form__button {
-  width: 150px;
+  // width: 100px;
   margin: 1.5rem 0rem;
   background-color: #0ae276;
   color: white;

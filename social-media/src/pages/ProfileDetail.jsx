@@ -1,43 +1,39 @@
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import avatarPlaceholder from "../images/avatar-placeholder.png";
-import bannerPlaceholder from "../images/image-placeholder.png";
-
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../components/context/AuthContext";
 import Banner from "../components/imageComponents/Banner";
 import UserContainer from "../components/user/UserContainer";
 import Modal from "react-bootstrap/Modal";
 import ProfileLinks from "../components/user/ProfileLinks";
-import ChangeImageModal from "../components/profile/ChangeImageModal";
-import removeProfilePicture from "../components/profile/removeProfilePicture";
 import { NameContext } from "../components/context/NameContext";
 import { getOptions } from "../components/getOptions";
-import { BASE_URL, PROFILE, SOCIAL_URL_EXT } from "../components/constants/api";
 import ProfileAvatar from "../components/imageComponents/ProfileAvatar";
 import Button from "react-bootstrap/esm/Button";
 import logOut from "../components/ui/logOut";
 import Header from "../components/Header";
 import { BiLogOut } from "react-icons/bi";
+import ChangeImageModal from "../components/profile/ChangeImageModal";
+import FloatingError from "../components/feedback/FloatingError";
+import { BASE_URL, QUERY_FOLLOWERS, QUERY_FOLLOWING, QUERY_POSTS } from "../components/constants/baseUrl";
 
 function ProfileDetail() {
   const [auth, setAuth] = useContext(AuthContext);
   const [authName, setAuthName] = useContext(NameContext);
   const [imageType, setImageType] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
   const [show, setShow] = useState(false);
   const [profile, setProfile] = useState([]);
   const [posts, setPosts] = useState([]);
-  const [showInput, setShowInput] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
   const [amIFollowing, setAmIFollowing] = useState(false);
   const [isMyProfile, setIsMyProfile] = useState(false);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
+  const [error, setError] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   const navigate = useNavigate();
   const { name } = useParams();
-  const profileUrl = BASE_URL + SOCIAL_URL_EXT + PROFILE + name + "?_posts=true&_following=true&_followers=true";
+  const profileUrl = BASE_URL + `profiles/${name}?${QUERY_POSTS}&${QUERY_FOLLOWING}&${QUERY_FOLLOWERS}`;
 
   const options = getOptions(auth);
   useEffect(() => {
@@ -46,35 +42,48 @@ function ProfileDetail() {
         const response = await fetch(profileUrl, options);
         const json = await response.json();
         console.log(json);
-        setProfile(json);
-        if (json.name === authName) {
-          setIsMyProfile(true);
-        } else {
-          setIsMyProfile(false);
-        }
-        if (json.following) {
-          setFollowing(json.following);
-        }
-        if (json.followers) {
-          setFollowers(json.followers);
-          const amIFollowingTheProfile = json.followers.some((follower) => {
-            return follower.name === authName;
-          });
-          if (amIFollowingTheProfile) {
-            setAmIFollowing(true);
+        if (response.status === 200) {
+          setError(false);
+          setShowError(false);
+          setProfile(json);
+          if (json.name === authName) {
+            setIsMyProfile(true);
           } else {
-            setAmIFollowing(false);
+            setIsMyProfile(false);
           }
+          if (json.following) {
+            setFollowing(json.following);
+          }
+          if (json.posts) {
+            setPosts(json.posts);
+          }
+          if (json.followers) {
+            setFollowers(json.followers);
+            const amIFollowingTheProfile = json.followers.some((follower) => {
+              return follower.name === authName;
+            });
+            if (amIFollowingTheProfile) {
+              setAmIFollowing(true);
+            } else {
+              setAmIFollowing(false);
+            }
+          }
+        } else if (response.status === 429) {
+          setError("You performed too many requests to the site, Please wait 30 seconds before retrying.");
+          setShowError(true);
+        } else {
+          setError("An error occured, Please try again.");
+          setShowError(true);
         }
       } catch (error) {
-        console.log("WTFFF" + error);
+        setError("An error occured, Please try again.");
+        setShowError(true);
       }
     }
     getProfileDetail();
   }, [name]);
 
   const handleClose = () => {
-    setShowInput(false);
     setShow(false);
     setShowLogout(false);
   };
@@ -82,63 +91,8 @@ function ProfileDetail() {
 
   return (
     <>
-      <>
-        <Modal show={show} onHide={handleClose} className="modal-top">
-          <Modal.Body>
-            {imageType === "avatar" && <img src={!profile.avatar ? avatarPlaceholder : profile.avatar} className="modal-image" />}
-            {imageType === "banner" && <img src={!profile.banner ? bannerPlaceholder : profile.banner} className="modal-image" />}
-          </Modal.Body>
-        </Modal>
-        {authName === name ? (
-          <Modal show={show} onHide={handleClose} className="modal-bottom">
-            <Modal.Body className="modal-bottom__body">
-              <div className="modal-actions">
-                {showInput && (
-                  <>
-                    <input
-                      onChange={(e) => {
-                        setImageUrl(e.target.value);
-                      }}
-                    ></input>
-                  </>
-                )}
-                {showInput ? (
-                  <p
-                    onClick={() => {
-                      removeProfilePicture(auth, authName, imageType, imageUrl, "change");
-                    }}
-                  >
-                    Confirm
-                  </p>
-                ) : (
-                  <>
-                    <p
-                      onClick={() => {
-                        setShowInput(true);
-                      }}
-                    >
-                      Change {imageType} picture
-                    </p>
-                    <p
-                      variant="danger"
-                      className="modal-actions__remove"
-                      onClick={() => {
-                        removeProfilePicture(auth, authName, imageType, imageUrl, "change");
-                      }}
-                    >
-                      Remove {imageType} picture
-                    </p>
-                  </>
-                )}
-                <p onClick={handleClose}>Cancel</p>
-              </div>
-            </Modal.Body>
-          </Modal>
-        ) : (
-          ""
-        )}
-      </>
-      {/* <ChangeImageModal profile={profile} /> */}
+      {showError && <FloatingError error={error} setShowError={setShowError} />}
+      <ChangeImageModal setShow={setShow} show={show} profile={profile} imageType={imageType} setProfile={setProfile} />
       <div className="profile-container">
         {isMyProfile && (
           <div className="my-profile-container">
@@ -191,7 +145,7 @@ function ProfileDetail() {
         </div>
 
         <UserContainer profile={profile} amIFollowing={amIFollowing} setAmIFollowing={setAmIFollowing} followers={followers} setFollowers={setFollowers} />
-        <ProfileLinks profile={profile} followers={followers} setFollowers={setFollowers} following={following} />
+        <ProfileLinks followers={followers} following={following} />
       </div>
     </>
   );

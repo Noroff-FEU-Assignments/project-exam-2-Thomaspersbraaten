@@ -1,9 +1,6 @@
-import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
-import imagePlaceholder from "../../images/image-placeholder.png";
 import ReactButton from "./cardComponents/ReactButton";
 import UserComponent from "./cardComponents/UserComponent";
-import TagsComponent from "./cardComponents/TagsComponent";
 import Comments from "../../pages/postDetail/comment/Comments";
 import EditAndDeletePost from "./cardComponents/EditAndDeletePost";
 import CommentIcon from "./cardComponents/CommentIcon";

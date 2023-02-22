@@ -8,7 +8,7 @@ import deletePost from "../../ui/deletePost";
 function EditAndDeletePost({ setShowEditForm, showEditForm }) {
   const [deleting, setDeleting] = useState(false);
   const { id } = useParams();
-  const [auth, setAuth] = useContext(AuthContext);
+  const [auth] = useContext(AuthContext);
   return (
     <div className="post-actions">
       <Modal show={deleting}>

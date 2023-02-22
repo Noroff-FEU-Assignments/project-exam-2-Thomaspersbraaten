@@ -22,23 +22,3 @@ function CommentIcon({ post, comments }) {
 }
 
 export default CommentIcon;
-
-// <Link to={`posts/${post.id}`} className="comments">
-// const { id } = useParams();
-{
-  /* {location.pathname.includes("profiles") && (
-        <Link to={`../../posts/${post.id}`} className="comments">
-          <MdComment className="comments__icon" />
-
-          {!post._count.comments ? <p>0 Comments</p> : <p>{post._count.comments} Comments</p>}
-        </Link>
-      )} */
-}
-{
-  /* {id && (
-        <div className="comments">
-          <MdComment className="comments__icon" />
-          {!comments ? <p>0 Comments</p> : <p>{comments.length} Comments</p>}
-        </div>
-      )} */
-}

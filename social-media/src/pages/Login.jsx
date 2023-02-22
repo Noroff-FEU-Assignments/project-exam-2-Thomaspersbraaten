@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { NameContext } from "../components/context/NameContext";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import logo from "../images/logo.png";
 
 import ErrorMessage from "../components/feedback/ErrorMessage";
 import WelcomeLogo from "../components/WelcomeLogo";
@@ -26,7 +25,7 @@ function Login() {
     password: yup.string().required(),
   });
 
-  const loginUrl = BASE_URL + "/social/auth/login";
+  const loginUrl = BASE_URL + "auth/login";
   const navigate = useNavigate();
 
   const {
@@ -40,12 +39,12 @@ function Login() {
     setSubmitting(true);
     try {
       const response = await axios.post(loginUrl, data);
-
       console.log(response);
-      console.log(response.data.accessToken);
-      setAuth(response.data.accessToken);
-      setAuthName(response.data.name);
-      navigate("/");
+      if (response.data.accessToken) {
+        setAuth(response.data.accessToken);
+        setAuthName(response.data.name);
+        navigate("/");
+      }
     } catch (error) {
       console.log(error);
       if (error.response.status === 401) {

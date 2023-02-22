@@ -3,46 +3,45 @@ import ShowFollowing from "../profile/ShowFollowing";
 import ShowFollowers from "../profile/ShowFollowers";
 import ShowPosts from "../profile/ShowPosts";
 
-function ProfileLinks({ profile, followers, setFollowers, following }) {
+function ProfileLinks({ followers, following }) {
   const [showPosts, setShowPosts] = useState(false);
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
+
+  function handleShowing(booleanPosts, booleanFollowers, booleanFollowing) {
+    setShowPosts(booleanPosts);
+    setShowFollowers(booleanFollowers);
+    setShowFollowing(booleanFollowing);
+  }
 
   return (
     <>
       <div className="profile-links">
         <div
           onClick={() => {
-            setShowPosts(true);
-            setShowFollowers(false);
-            setShowFollowing(false);
+            handleShowing(true, false, false);
           }}
         >
           Posts
         </div>
         <div
           onClick={() => {
-            setShowFollowers(true);
-            setShowPosts(false);
-            setShowFollowing(false);
+            handleShowing(false, true, false);
           }}
         >
           followers
         </div>
         <div
           onClick={() => {
-            setShowFollowing(true);
-            setShowPosts(false);
-            setShowFollowers(false);
+            handleShowing(false, false, true);
           }}
         >
           following
         </div>
       </div>
-
-      <div>{showPosts && <ShowPosts profile={profile} />}</div>
-      <div>{showFollowers && <ShowFollowers followers={followers} setFollowers={setFollowers} />}</div>
-      <div>{showFollowing && <ShowFollowing profile={profile} following={following} />}</div>
+      {showPosts && <ShowPosts />}
+      {showFollowers && <ShowFollowers followers={followers} />}
+      {showFollowing && <ShowFollowing following={following} />}
     </>
   );
 }

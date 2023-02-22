@@ -8,7 +8,6 @@ function ImageChecker({ imageUrl }) {
 
   useEffect(() => {
     async function fetchImage() {
-      console.log(imageUrl);
       try {
         const response = await fetch(imageUrl);
         console.log(response);
@@ -17,6 +16,7 @@ function ImageChecker({ imageUrl }) {
           setImageClass("valid-image");
           setImageInfo("✔️");
         } else {
+          console.log("this");
           setSrc(imagePlaceholder);
           setImageClass("invalid-image");
           if (imageUrl.length > 0) {
@@ -37,6 +37,7 @@ function ImageChecker({ imageUrl }) {
     }
     fetchImage();
   }, [imageUrl]);
+
   return (
     <div className="form-image-container">
       <img src={src} className="form-image" />

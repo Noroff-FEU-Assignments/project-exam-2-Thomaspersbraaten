@@ -1,17 +1,19 @@
 import { useContext, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
-import { BASE_URL } from "../../../../components/constants/baseUrl";
+// import { BASE_URL } from "../../../../components/constants/baseUrl";
 import { AuthContext } from "../../../../components/context/AuthContext";
 import Form from "react-bootstrap/Form";
 import { getOptions } from "../../../../components/getOptions";
 import { useParams } from "react-router-dom";
+import { BASE_URL } from "../../../../components/constants/baseUrl";
 
 function CommentForm({ setCommentToReplyTo, setComments, comments, replying, setReplying, replyId, commentToReplyTo, referance }) {
   const [commentInput, setCommentInput] = useState("");
   const [auth, setAuth] = useContext(AuthContext);
   const { id } = useParams();
 
-  const commentUrl = BASE_URL + `/social/posts/${id}/comment`;
+  // const commentUrl = BASE_URL + `/social/posts/${id}/comment`;
+  const commentUrl = BASE_URL + `posts/${id}/comment`;
   async function sendCommentInfo() {
     if (commentInput.length < 1) {
       return;
@@ -49,26 +51,28 @@ function CommentForm({ setCommentToReplyTo, setComments, comments, replying, set
           rows="3"
           ref={referance}
           id="comment"
-          placeholder={commentToReplyTo ? `Type your reply here` : `Type your comment here...`}
+          placeholder={commentToReplyTo ? `Type your reply here...` : `Type your comment here...`}
           value={commentInput}
           onChange={(e) => {
             setCommentInput(e.target.value);
           }}
         />
-        <Button onClick={sendCommentInfo} className={commentToReplyTo ? "comment-form__button reply" : "comment-form__button"}>
-          {commentToReplyTo ? "Reply to comment" : "Post Comment"}
-        </Button>
-        {replying && (
-          <Button
-            variant="dark"
-            onClick={() => {
-              setCommentToReplyTo(null);
-              setReplying(false);
-            }}
-          >
-            Cancel Reply
+        <div className="comment-buttons">
+          <Button onClick={sendCommentInfo} className={commentToReplyTo ? "comment-form__button reply" : "comment-form__button"}>
+            {commentToReplyTo ? "Reply to comment" : "Comment"}
           </Button>
-        )}
+          {replying && (
+            <Button
+              variant="dark"
+              onClick={() => {
+                setCommentToReplyTo(null);
+                setReplying(false);
+              }}
+            >
+              Cancel Reply
+            </Button>
+          )}
+        </div>
       </Form.Group>
     </form>
   );

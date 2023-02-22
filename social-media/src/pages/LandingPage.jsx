@@ -1,10 +1,9 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../images/logo.png";
 import { AuthContext } from "../components/context/AuthContext";
 import WelcomeLogo from "../components/WelcomeLogo";
 function LandingPage() {
-  const [auth, setAuth] = useContext(AuthContext);
+  const [auth] = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {

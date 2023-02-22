@@ -1,7 +1,6 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef } from "react";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import { AuthContext } from "../../context/AuthContext";
 import { MdAddReaction } from "react-icons/md";
 import ReactionOverlay from "../../ReactionOverlay";
 

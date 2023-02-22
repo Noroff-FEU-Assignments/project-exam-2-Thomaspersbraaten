@@ -10,7 +10,7 @@ import Header from "../components/Header";
 import ErrorMessage from "../components/feedback/ErrorMessage";
 import WelcomeLogo from "../components/WelcomeLogo";
 function CreateAccount() {
-  const createAccountUrl = BASE_URL + "/social/auth/register";
+  const createAccountUrl = BASE_URL + "auth/register";
   const [bannerUrl, setBannerUrl] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [error, setError] = useState(false);
@@ -19,7 +19,7 @@ function CreateAccount() {
   const emailRegex = "^[^@]+@(stud\\.noroff\\.no)$";
 
   const nameRegex = /^[a-zA-Z0-9_]+$/;
-  const urlRegex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+  // const urlRegex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
   const schema = yup.object().shape({
     name: yup.string().required("Please enter your name").matches(nameRegex, "Name may only contain English letters, numbers, and underscores.").min(1, "Must be atleast one character"),
     email: yup.string().required("Please enter your email").matches(emailRegex, "Must be a valid stud.noroff.no email"),

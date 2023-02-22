@@ -13,7 +13,6 @@ export function getOptions(auth, method = "GET", array) {
       method: method,
       headers: {
         Authorization: `bearer ${auth}`,
-        // "Content-Type": "application/json",
       },
     };
   }

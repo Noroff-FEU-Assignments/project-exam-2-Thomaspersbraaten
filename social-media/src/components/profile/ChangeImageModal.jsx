@@ -1,76 +1,93 @@
 import { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import imagePlaceholder from "../../images/image-placeholder.png";
+import bannerPlaceholder from "../../images/image-placeholder.png";
 import avatarPlaceholder from "../../images/avatar-placeholder.png";
-
-import removeProfilePicture from "./removeProfilePicture";
+import changeAccountPicture from "./changeAccountPicture";
 import { NameContext } from "../context/NameContext";
 import { AuthContext } from "../context/AuthContext";
-// import CreatePostImage from "../imageComponents/CreatePostImage";
+import { useParams } from "react-router-dom";
+import FloatingError from "../feedback/FloatingError";
+import Button from "react-bootstrap/esm/Button";
 
-function ChangeImageModal({ profile }) {
-  const [authName, setAuthName] = useContext(NameContext);
-  const [auth, setAuth] = useContext(AuthContext);
-
+function ChangeImageModal({ setProfile, profile, show, setShow, imageType }) {
+  const [authName] = useContext(NameContext);
+  const [auth] = useContext(AuthContext);
   const [imageUrl, setImageUrl] = useState("");
-
   const [showInput, setShowInput] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const [show, setShow] = useState(false);
+  const { name } = useParams();
+  const [error, setError] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} className="modal-top">
+      {showError && <FloatingError error={error} setShowError={setShowError} />}
+      <Modal show={show} onHide={() => setShow(false)} className="modal-top">
         <Modal.Body>
-          <img src={!profile.avatar ? avatarPlaceholder : profile.avatar} className="modal-image" />
+          {imageType === "avatar" && <img src={!profile.avatar ? avatarPlaceholder : profile.avatar} className="modal-image" />}
+          {imageType === "banner" && <img src={!profile.banner ? bannerPlaceholder : profile.banner} className="modal-image" />}
         </Modal.Body>
       </Modal>
-      <Modal show={show} onHide={handleClose} className="modal-bottom">
-        <Modal.Body className="modal-bottom__body">
-          <div className="modal-actions">
-            {showInput && (
-              <>
-                <input
-                  onChange={(e) => {
-                    setImageUrl(e.target.value);
-                  }}
-                ></input>
-              </>
-            )}
-            {showInput ? (
-              <p
+      {authName === name && (
+        <Modal show={show} onHide={() => setShow(false)} className="modal-bottom">
+          <Modal.Body className="modal-bottom__body">
+            <div className="modal-actions">
+              {showInput ? (
+                <>
+                  <input
+                    onChange={(e) => {
+                      setImageUrl(e.target.value);
+                    }}
+                  ></input>
+                  <p
+                    onClick={() => {
+                      changeAccountPicture(auth, authName, imageType, imageUrl, "change", profile, setProfile, setShow, setError, setShowError);
+                    }}
+                  >
+                    Confirm
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p
+                    onClick={() => {
+                      setShowInput(true);
+                    }}
+                  >
+                    Change {imageType} picture
+                  </p>
+                  <p
+                    variant="danger"
+                    className="modal-actions__remove"
+                    onClick={() => {
+                      changeAccountPicture(auth, authName, imageType, imageUrl, "remove", profile, setProfile, setShow, setError, setShowError);
+                    }}
+                  >
+                    Remove {imageType} picture
+                  </p>
+                </>
+              )}
+
+              {/* <p
                 onClick={() => {
-                  removeProfilePicture(auth, authName, "avatar", imageUrl, "change");
+                  setShow(false);
+                  setShowInput(false);
                 }}
               >
-                Confirm
-              </p>
-            ) : (
-              <>
-                <p
-                  onClick={() => {
-                    setShowInput(true);
-                  }}
-                >
-                  Change Profile picture
-                </p>
-                <p
-                  variant="danger"
-                  className="modal-actions__remove"
-                  onClick={() => {
-                    removeProfilePicture(auth, authName, "avatar", imageUrl, "change");
-                  }}
-                >
-                  Remove profile picture
-                </p>
-              </>
-            )}
-
-            <p onClick={handleClose}>Cancel</p>
-          </div>
-        </Modal.Body>
-      </Modal>
+                Cancel
+              </p> */}
+              <Button
+                variant="dark"
+                onClick={() => {
+                  setShow(false);
+                  setShowInput(false);
+                }}
+              >
+                Cancel
+              </Button>
+            </div>
+          </Modal.Body>
+        </Modal>
+      )}
     </>
   );
 }

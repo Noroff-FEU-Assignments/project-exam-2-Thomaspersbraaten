@@ -7,12 +7,14 @@ import { TrackReactionContext } from "./context/ReactionContext";
 import { AuthContext } from "./context/AuthContext";
 import { getOptions } from "./getOptions";
 import ErrorMessage from "./feedback/ErrorMessage";
+import FloatingError from "./feedback/FloatingError";
 
 function ReactionOverlay({ setShow, show, target, post, reactions, setReactions }) {
   const [auth, setAuth] = useContext(AuthContext);
   const [trackReaction, setTrackReaction] = useContext(TrackReactionContext);
   const [canReact, setCanReact] = useState(true);
   const [error, setError] = useState(false);
+  const [showError, setShowError] = useState(false);
   // this component also Tracks if the user have reacted to a post or not and saves it to localstorage
   // This is just for demonstrating purposes since the API does not
   // support tracking of reactions.
@@ -20,42 +22,48 @@ function ReactionOverlay({ setShow, show, target, post, reactions, setReactions 
   async function reactToPost(symbol) {
     setShow(false);
 
-    const reactUrl = BASE_URL + `/social/posts/${post.id}/react/` + symbol + "?_author=true";
+    const reactUrl = BASE_URL + `posts/${post.id}/react/` + symbol + "?_author=true";
     const options = getOptions(auth, "PUT");
 
     try {
       const response = await fetch(reactUrl, options);
       const json = await response.json();
       console.log(json);
-      if (json.postId) {
-        setTrackReaction([...trackReaction, post]);
+      if (response.status === 200) {
+        if (json.postId) {
+          setTrackReaction([...trackReaction, post]);
 
-        const symbolIndex = reactions.findIndex((react) => react.symbol === symbol);
+          const symbolIndex = reactions.findIndex((react) => react.symbol === symbol);
 
-        if (symbolIndex !== -1) {
-          const existingReaction = reactions[symbolIndex];
+          if (symbolIndex !== -1) {
+            const existingReaction = reactions[symbolIndex];
 
-          const updatedReactions = [
-            ...reactions.slice(0, symbolIndex),
-            {
-              ...existingReaction,
-              count: existingReaction.count + 1,
-            },
-            ...reactions.slice(symbolIndex + 1),
-          ];
+            const updatedReactions = [
+              ...reactions.slice(0, symbolIndex),
+              {
+                ...existingReaction,
+                count: existingReaction.count + 1,
+              },
+              ...reactions.slice(symbolIndex + 1),
+            ];
 
-          setReactions(updatedReactions);
-        } else {
-          setReactions([...reactions, json]);
+            setReactions(updatedReactions);
+          } else {
+            setReactions([...reactions, json]);
+          }
         }
+      } else if (response.status === 429) {
+        setError("You performed too many requests to the site, Please wait 30 seconds before retrying.");
+        setShowError(true);
       } else {
-        setError("An error occured, please try again");
+        setError("An error occured, Please try again.");
+        setShowError(true);
       }
     } catch (error) {
-      setError("An error occured.");
+      setError("An error occured, Please try again.");
+      setShowError(true);
     }
   }
-  // trenger en flytende error melding
 
   useEffect(() => {
     const checkedItem = trackReaction.some((reaction) => reaction.id === post.id);
@@ -68,7 +76,8 @@ function ReactionOverlay({ setShow, show, target, post, reactions, setReactions 
 
   return (
     <>
-      {/* <Overlay target={target.current} show={show} placement="top" className="react-tooltip"> */}
+      {showError && <FloatingError error={error} setShowError={setShowError} />}
+
       <Overlay show={show} placement="top" target={target.current} className="react-tooltip">
         {canReact ? (
           (props) => (

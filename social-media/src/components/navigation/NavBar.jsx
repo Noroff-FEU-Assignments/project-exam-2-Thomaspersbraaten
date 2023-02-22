@@ -12,14 +12,6 @@ function NavBar() {
   const [auth, setAuth] = useContext(AuthContext);
   const [authName, setAuthName] = useContext(NameContext);
 
-  // const navigate = useNavigate();
-
-  // function logOut() {
-  //   setAuthName(null);
-  //   setAuth(null);
-  //   navigate("/welcome");
-  // }
-
   if (auth) {
     return (
       <nav>
@@ -43,7 +35,6 @@ function NavBar() {
           <BsPeopleFill />
           <p className="nav-text">Profiles</p>
         </NavLink>
-        {/* <button onClick={logOut}>logout</button> */}
       </nav>
     );
   }

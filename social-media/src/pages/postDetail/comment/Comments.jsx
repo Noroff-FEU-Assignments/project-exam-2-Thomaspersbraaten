@@ -5,7 +5,7 @@ import CommentBody from "./CommentBody";
 
 import CommentForm from "./form/CommentForm";
 function Comments({ post, comments, setComments }) {
-  // console.log(comments);
+  console.log(comments);
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [replying, setReplying] = useState(false);
   const [replyId, setReplyId] = useState("");
@@ -43,7 +43,8 @@ function Comments({ post, comments, setComments }) {
               {comments && <CommentBody comments={comments} comment={comment} />}
               <Button
                 value={comment.id}
-                variant="outline-secondary"
+                // variant="outline-secondary"
+                variant="outline-dark"
                 className="reply-comment-button"
                 onClick={() => {
                   scrollToElement();

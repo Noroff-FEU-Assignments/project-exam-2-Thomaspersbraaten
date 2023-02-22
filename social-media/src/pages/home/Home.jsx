@@ -1,82 +1,91 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../components/context/AuthContext";
 import PostsCard from "../../components/posts/PostsCard";
-import { AUTHOR_REACTIONS, BASE_URL, POSTS_URL_EXT, SOCIAL_URL_EXT, POSTSURL } from "../../components/constants/api";
+// import { AUTHOR_REACTIONS, BASE_URL, POSTS_URL_EXT, SOCIAL_URL_EXT, POSTSURL } from "../../components/constants/api";
 import { getOptions } from "../../components/getOptions";
 import fetchPosts from "../../components/fetch/fetchPosts";
 import ErrorMessage from "../../components/feedback/ErrorMessage";
 import LoadingIndicator from "../../components/loading/LoadingIndicator";
-import LoadingMorePosts from "../../components/loading/LoadingMorePosts";
+// import LoadingMorePosts from "../../components/loading/LoadingMorePosts";
 import { useNavigate } from "react-router-dom";
 import { TrackReactionContext } from "../../components/context/ReactionContext";
-import Button from "react-bootstrap/esm/Button";
 import FilterPosts from "../../components/ui/FilterPosts";
 import Pagination from "../../components/Pagination";
+import { AUTHOR, BASE_URL, REACTIONS } from "../../components/constants/baseUrl";
+import FloatingError from "../../components/feedback/FloatingError";
 function Home() {
   // const [comments, setComments] = useState("");
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(false);
+  const [showError, setShowError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadingMorePosts, setLoadingMorePosts] = useState(false);
   const [auth, setAuth] = useContext(AuthContext);
-  const [numberOfPosts, setNumberOfPosts] = useState(15);
   const [trackReaction, setTrackReaction] = useContext(TrackReactionContext);
   const [postLimitReached, setPostLimitReached] = useState(false);
   const [searching, setSearching] = useState(null);
   const [searchInput, setSearchInput] = useState("");
   const [offset, setOffset] = useState(0);
-
+  const [postLimit, setPostLimit] = useState(15);
   const navigate = useNavigate();
   const options = getOptions(auth);
 
-  // const postUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS + `&limit=${numberOfPosts}`;
-  // const postUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS + `&limit=${numberOfPosts}&offset=${offset}`;
-  const postUrl = POSTSURL + `&limit=${numberOfPosts}&offset=${offset}`;
-  const searchUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS + "&_tag=" + searchInput + `&limit=${numberOfPosts}&offset=${offset}`;
+  const postUrl = BASE_URL + `posts?${AUTHOR}&${REACTIONS}&offset=${offset}&limit=${postLimit}`;
 
-  // useEffect(() => {
-  //   console.log("first");
-  //   if (!auth) {
-  //     navigate("/welcome");
-  //   }
-  //   if (!trackReaction) {
-  //     setTrackReaction([]);
-  //   }
-  //   fetchPosts(postUrl, options, setPosts, setError, setLoading, setLoadingMorePosts, postLimitReached, setPostLimitReached);
-  // }, [numberOfPosts]);
   useEffect(() => {
-    console.log("first");
     if (!auth) {
       navigate("/welcome");
     }
     if (!trackReaction) {
       setTrackReaction([]);
     }
-    fetchPosts(postUrl, options, setPosts, setError, setLoading);
+    fetchPosts(postUrl, options, setPosts, setError, setLoading, setShowError);
   }, [offset]);
-
-  useEffect(() => {
-    if (searching) {
-      console.log("second");
-
-      fetchPosts(searchUrl, options, setPosts, setError, setLoading, setLoadingMorePosts, postLimitReached, setPostLimitReached);
-    }
-  }, [searching]);
-
-  useEffect(() => {
-    console.log("third");
-
-    if (!searching && searchInput.length === 0) {
-      fetchPosts(postUrl, options, setPosts, setError, setLoading, setLoadingMorePosts, postLimitReached, setPostLimitReached);
-    }
-  }, [searchInput]);
 
   return (
     <>
-      <FilterPosts posts={posts} setPosts={setPosts} setSearching={setSearching} setSearchInput={setSearchInput} setPostLimitReached={setPostLimitReached} />
+      {/* <FilterPosts posts={posts} setPosts={setPosts} setSearching={setSearching} setSearchInput={setSearchInput} setPostLimitReached={setPostLimitReached} /> */}
       <Pagination offset={offset} setOffset={setOffset} />
       {loading && <LoadingIndicator />}
-      {error ? (
+      {showError && <FloatingError error={error} setShowError={setShowError} />}
+
+      {posts.map((post) => (
+        <PostsCard post={post} key={post.id + post.title} />
+      ))}
+      <Pagination offset={offset} setOffset={setOffset} />
+    </>
+  );
+}
+
+export default Home;
+
+// const searchUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + AUTHOR_REACTIONS + "&_tag=" + searchInput + `&limit=${numberOfPosts}&offset=${offset}`;
+
+// useEffect(() => {
+//   console.log("first");
+//   if (!auth) {
+//     navigate("/welcome");
+//   }
+//   if (!trackReaction) {
+//     setTrackReaction([]);
+//   }
+//   fetchPosts(postUrl, options, setPosts, setError, setLoading, setLoadingMorePosts, postLimitReached, setPostLimitReached);
+// }, [numberOfPosts]);
+// useEffect(() => {
+//   if (searching) {
+//     console.log("second");
+
+//     fetchPosts(searchUrl, options, setPosts, setError, setLoading, setLoadingMorePosts, postLimitReached, setPostLimitReached);
+//   }
+// }, [searching]);
+
+// useEffect(() => {
+//   if (!searching && searchInput.length === 0) {
+//     fetchPosts(postUrl, options, setPosts, setError, setLoading, setLoadingMorePosts, postLimitReached, setPostLimitReached);
+//   }
+// }, [searchInput]);
+{
+  /* {error ? (
         <ErrorMessage variant="danger" message={error} />
       ) : (
         posts.map((post, index) => {
@@ -86,14 +95,8 @@ function Home() {
             return <PostsCard post={post} key={post.id + post.title} />;
           }
         })
-      )}
-      <Pagination offset={offset} setOffset={setOffset} />
-    </>
-  );
+      )} */
 }
-
-export default Home;
-
 {
   /* {loadingMorePosts || (!postLimitReached && <LoadingMorePosts />)} */
 }
