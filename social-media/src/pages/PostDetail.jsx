@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AuthContext } from "../../components/context/AuthContext";
-import PostsCard from "../../components/posts/PostsCard";
-import { NameContext } from "../../components/context/NameContext";
-import EditPostForm from "../../components/ui/EditPostForm";
-import { getOptions } from "../../components/getOptions";
-import LoadingIndicator from "../../components/loading/LoadingIndicator";
-import { AUTHOR, BASE_URL, COMMENTS, REACTIONS } from "../../components/constants/baseUrl";
-import FloatingError from "../../components/feedback/FloatingError";
+import { AuthContext } from "../components/context/AuthContext";
+import PostsCard from "../components/posts/PostsCard";
+import { NameContext } from "../components/context/NameContext";
+import EditPostForm from "../components/ui/EditPostForm";
+import { getOptions } from "../components/getOptions";
+import LoadingIndicator from "../components/loading/LoadingIndicator";
+import { AUTHOR, BASE_URL, COMMENTS, REACTIONS } from "../components/constants/baseUrl";
+import FloatingError from "../components/feedback/FloatingError";
 
 function PostDetail() {
   const [auth] = useContext(AuthContext);

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import ShowFollowing from "../profile/ShowFollowing";
-import ShowFollowers from "../profile/ShowFollowers";
-import ShowPosts from "../profile/ShowPosts";
+import ShowFollowing from "./ShowFollowing";
+import ShowFollowers from "./ShowFollowers";
+import ShowPosts from "./ShowPosts";
 
 function ProfileLinks({ followers, following }) {
   const [showPosts, setShowPosts] = useState(false);
@@ -29,14 +29,14 @@ function ProfileLinks({ followers, following }) {
             handleShowing(false, true, false);
           }}
         >
-          followers
+          Followers
         </div>
         <div
           onClick={() => {
             handleShowing(false, false, true);
           }}
         >
-          following
+          Following
         </div>
       </div>
       {showPosts && <ShowPosts />}

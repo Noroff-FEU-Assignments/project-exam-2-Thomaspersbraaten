@@ -1,12 +1,9 @@
 import { useRef, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
-import UserComponent from "../../../components/posts/cardComponents/UserComponent";
+import UserComponent from "../UserComponent";
 import CommentBody from "./CommentBody";
-
-import CommentForm from "./form/CommentForm";
-function Comments({ post, comments, setComments }) {
-  console.log(comments);
-  const [showReplyInput, setShowReplyInput] = useState(false);
+import CommentForm from "./CommentForm";
+function Comments({ comments, setComments }) {
   const [replying, setReplying] = useState(false);
   const [replyId, setReplyId] = useState("");
   const [commentToReplyTo, setCommentToReplyTo] = useState(null);
@@ -39,11 +36,9 @@ function Comments({ post, comments, setComments }) {
           comments.map((comment) => (
             <div className="comment" key={comment.id}>
               <UserComponent data={comment} />
-              {/* {comment.replyToId ? ` @${comment.owner} - ${comment.body} ` : <p>{comment.body}</p>} */}
               {comments && <CommentBody comments={comments} comment={comment} />}
               <Button
                 value={comment.id}
-                // variant="outline-secondary"
                 variant="outline-dark"
                 className="reply-comment-button"
                 onClick={() => {

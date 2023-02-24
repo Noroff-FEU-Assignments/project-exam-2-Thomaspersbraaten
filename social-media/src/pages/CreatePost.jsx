@@ -1,33 +1,19 @@
-// import CreatePostForm from "./CreatePostForm";
-
-// function CreatePost() {
-//   return (
-//     <>
-//       <CreatePostForm />
-//     </>
-//   );
-// }
-
-// export default CreatePost;
 import { useContext, useState } from "react";
-import { AuthContext } from "../../components/context/AuthContext";
+import { AuthContext } from "../components/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/esm/Button";
-import ErrorMessage from "../../components/feedback/ErrorMessage";
-import ImageChecker from "../../components/imageComponents/ImageChecker";
-import { getOptions } from "../../components/getOptions";
-import TagsComponent from "../../components/posts/cardComponents/TagsComponent";
-import Container from "react-bootstrap/esm/Container";
-import Header from "../../components/Header";
-import { BASE_URL } from "../../components/constants/baseUrl";
-import CreateEditPostForm from "../../components/forms/CreateEditPostForm";
+import ErrorMessage from "../components/feedback/ErrorMessage";
+import ImageChecker from "../components/imageComponents/ImageChecker";
+import { getOptions } from "../components/getOptions";
+import TagsComponent from "../components/posts/cardComponents/TagsComponent";
+import Header from "../components/Header";
+import { BASE_URL } from "../components/constants/baseUrl";
 
 function CreatePost() {
   const [auth, setAuth] = useContext(AuthContext);
   const [creating, setCreating] = useState(true);
   const [error, setError] = useState(false);
-  const [inputError, setInputError] = useState(false);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [tags, setTags] = useState([]);
@@ -40,7 +26,6 @@ function CreatePost() {
     navigate(-1);
   };
 
-  // const createPostUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT;
   const createPostUrl = BASE_URL + `posts`;
   async function createPost(e) {
     e.preventDefault();
@@ -86,7 +71,6 @@ function CreatePost() {
   }
 
   return (
-    // <CreateEditPostForm />
     <Form className="create-post-form form">
       <div className="form-container">
         <Header size="2" cssClass="header-border-bottom">
@@ -166,8 +150,6 @@ function CreatePost() {
           </Form.Group>
         </Form.Text>
         <div className="create-form-buttons">
-          {/* <Button onClick={goBack} className="create-form-buttons__back" variant="dark">
-           */}
           <Button onClick={goBack} variant="dark">
             Cancel
           </Button>

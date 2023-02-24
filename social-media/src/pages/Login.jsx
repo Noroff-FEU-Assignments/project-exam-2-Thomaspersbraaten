@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { NameContext } from "../components/context/NameContext";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-
 import ErrorMessage from "../components/feedback/ErrorMessage";
 import WelcomeLogo from "../components/WelcomeLogo";
 import Header from "../components/Header";
@@ -39,18 +38,16 @@ function Login() {
     setSubmitting(true);
     try {
       const response = await axios.post(loginUrl, data);
-      console.log(response);
       if (response.data.accessToken) {
         setAuth(response.data.accessToken);
         setAuthName(response.data.name);
         navigate("/");
       }
     } catch (error) {
-      console.log(error);
       if (error.response.status === 401) {
         setError("Email and Password do not match");
       } else {
-        setError("Something went wrong, Please try again");
+        setError("An error occured, Please try again");
       }
     } finally {
       setSubmitting(false);

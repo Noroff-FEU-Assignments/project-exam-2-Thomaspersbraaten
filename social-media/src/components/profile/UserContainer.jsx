@@ -74,6 +74,7 @@ function UserContainer({ profile, amIFollowing, setAmIFollowing, followers, setF
         ""
       ) : (
         <Button
+          className="follow-button"
           variant={!amIFollowing ? "primary" : "warning"}
           onClick={() => {
             if (amIFollowing) {

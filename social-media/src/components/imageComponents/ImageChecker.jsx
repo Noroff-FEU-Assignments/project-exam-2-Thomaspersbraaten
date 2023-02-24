@@ -10,13 +10,11 @@ function ImageChecker({ imageUrl }) {
     async function fetchImage() {
       try {
         const response = await fetch(imageUrl);
-        console.log(response);
         if (response.type === "cors" && response.ok) {
           setSrc(imageUrl);
           setImageClass("valid-image");
           setImageInfo("✔️");
         } else {
-          console.log("this");
           setSrc(imagePlaceholder);
           setImageClass("invalid-image");
           if (imageUrl.length > 0) {

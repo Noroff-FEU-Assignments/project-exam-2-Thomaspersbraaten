@@ -4,13 +4,12 @@ import { TrackReactionProvider } from "./components/context/ReactionContext";
 import { AuthProvider } from "./components/context/AuthContext";
 import { NameProvider } from "./components/context/NameContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import CreateAccount from "./pages/CreateAccount";
-import Home from "./pages/home/Home";
-import CreatePost from "./pages/createPost/CreatePost";
-import PostDetail from "./pages/postDetail/PostDetail";
+import Home from "./pages/Home";
+import CreatePost from "./pages/CreatePost";
+import PostDetail from "./pages/PostDetail";
 import PageNotFound from "./pages/PageNotFound";
 import ProfileDetail from "./pages/ProfileDetail";
 import NavBar from "./components/navigation/NavBar";
