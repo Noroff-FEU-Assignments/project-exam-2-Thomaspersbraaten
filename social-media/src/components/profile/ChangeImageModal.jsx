@@ -7,6 +7,8 @@ import { NameContext } from "../context/NameContext";
 import { AuthContext } from "../context/AuthContext";
 import { useParams } from "react-router-dom";
 import FloatingError from "../feedback/FloatingError";
+import Form from "react-bootstrap/Form";
+
 import Button from "react-bootstrap/esm/Button";
 
 function ChangeImageModal({ setProfile, profile, show, setShow, imageType }) {
@@ -33,11 +35,22 @@ function ChangeImageModal({ setProfile, profile, show, setShow, imageType }) {
             <div className="modal-actions">
               {showInput ? (
                 <>
-                  <input
+                  {/* <input
+                    placeholder={`url link for your ${imageType}`}
                     onChange={(e) => {
                       setImageUrl(e.target.value);
                     }}
-                  ></input>
+                  ></input> */}
+                  <Form.Group>
+                    <Form.Label className="create-post-label">Image for your profile {imageType}</Form.Label>
+                    <Form.Control
+                      placeholder={`Url link for your ${imageType}`}
+                      type="input"
+                      onChange={(e) => {
+                        setImageUrl(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
                   <p
                     onClick={() => {
                       changeAccountPicture(auth, authName, imageType, imageUrl, "change", profile, setProfile, setShow, setError, setShowError);

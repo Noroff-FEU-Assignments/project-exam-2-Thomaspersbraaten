@@ -82,7 +82,9 @@ function CreatePost() {
         </Header>
         {error && <ErrorMessage variant="danger" message={error} />}
         <Form.Group>
-          <Form.Label className="create-post-label">Title</Form.Label>
+          <Form.Label className="create-post-label">
+            Title <span className="required">*</span>
+          </Form.Label>
           <Form.Control
             type="input"
             placeholder="Write a title (Required)"

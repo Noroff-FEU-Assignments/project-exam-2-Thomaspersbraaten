@@ -1,7 +1,7 @@
 import { BASE_URL } from "../constants/baseUrl";
 
 async function changeAccountPicture(auth, authName, type, url, modifier, profile, setProfile, setShow, setError, setShowError) {
-  const removePictureUrl = BASE_URL + "profiles/" + authName + "/emedia";
+  const removePictureUrl = BASE_URL + "profiles/" + authName + "/media";
 
   let stringifiedBody = {};
 

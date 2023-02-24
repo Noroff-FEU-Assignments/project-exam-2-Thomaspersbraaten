@@ -3,6 +3,7 @@ import Avatar from "../imageComponents/Avatar";
 import Header from "../Header";
 
 function ShowFollowing({ following }) {
+  console.log(following);
   return (
     <>
       <Header cssClass="text-align-left" size="2">
@@ -12,7 +13,7 @@ function ShowFollowing({ following }) {
       {following ? (
         <div className="following-container">
           {following.map((follow, index) => (
-            <div className="following" key={follow + index}>
+            <div className={index + 1 === following.length ? `last-item following` : `following`} key={follow.name + index}>
               <Avatar src={follow.avatar} />
               <Link to={`/profiles/${follow.name}`} className="author-name">
                 {follow.name}

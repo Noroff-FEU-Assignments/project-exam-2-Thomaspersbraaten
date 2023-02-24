@@ -4,6 +4,7 @@ nav {
   left: 0;
   background-color: white;
   width: 100%;
+  padding: 0.25rem;
   z-index: 100;
   display: flex;
   justify-content: space-around;
@@ -14,7 +15,6 @@ nav {
     transition: all 0.3s ease;
     text-decoration: none;
     &:hover {
-      // font-size: 1.6rem;
       scale: 1.035;
     }
   }
@@ -51,11 +51,9 @@ svg {
     flex-direction: column;
     justify-content: flex-start;
     gap: 3rem;
-    // padding: 0.75rem;
     border-right: 1px solid black;
     & a {
       display: flex;
-      // justify-content: center;
       align-items: center;
       gap: 1rem;
       padding: 0.5rem;

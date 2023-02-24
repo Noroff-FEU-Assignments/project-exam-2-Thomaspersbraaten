@@ -12,7 +12,7 @@ function ShowFollowers({ followers }) {
       {followers && (
         <div className="follower-container">
           {followers.map((follower, index) => (
-            <div className="follower" key={follower + index}>
+            <div className={index + 1 === followers.length ? `last-item follower` : `follower`} key={follower.name + index}>
               <Avatar src={follower.avatar} />
               <Link to={`/profiles/${follower.name}`} className="author-name">
                 {follower.name}

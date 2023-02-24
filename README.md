@@ -11,12 +11,14 @@ Open the terminal and go to directory social-media "cd social-media" and run "np
 React v18.2.0 - npx create-react-app .
 React router v6.6.2 - npm install react-router-dom
 React hook form v7.42.1 - npm install react-hook-form
+React icons v.4.7.1 - npm install react-icons --save
 Yup form v0.32.11 - npm install yup @hookform/resolvers
 Bootstrap 5.2.3 - npm install react-bootstrap bootstrap
 Axios v1.2.2 - npm install axios
 Momentjs v2.29.4 - npm install moment --save
 Sass v1.57.1 - npm install sass
-React icons v.4.7.1 - npm install react-icons --save
+
+##
 
 # Pages
 
@@ -50,7 +52,7 @@ One can access the profile by clicking the profile name at the top of the post, 
 
 A list of 15 profiles are displayed on the page.
 The paginations at the top and bottom allows the user to access the 15 next profiles with the "offset" function in the API.
-The avatar,name, posts, followers and following is showed. Clicking the avatar or name sends the user to the profile details.
+The avatar, name and the number of posts, followers and following is showed. Clicking the avatar or name sends the user to the profile details.
 
 ## Profile detail
 
@@ -67,3 +69,11 @@ The post card is displayed, but the comment section is enabled to allow the user
 comments.
 
 If the post is the users post, They can edit or delete the post using the buttons on top.
+
+## Create post
+
+The create post form does not use Yup form since the only required input is the title, so if the user tries to submit the form without anything typed in the title the function returns.
+The form uses imagevalidation for the post image, and the tags can be added only if the tag has atleast one length and the tag is not already used.
+All tags can be removed by clicking the tags "x" button.
+
+After the creation of the post is succesfull the user is redirected to the post detail of the post.
