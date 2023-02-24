@@ -77,7 +77,7 @@ function Login() {
         </div>
       </Form>
       <div className="signup">
-        <p>Dont have an account?</p>
+        <p>Don't have an account?</p>
         <button
           className="signup__button"
           onClick={() => {

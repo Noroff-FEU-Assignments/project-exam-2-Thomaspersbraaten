@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import ErrorMessage from "../components/feedback/ErrorMessage";
 import WelcomeLogo from "../components/WelcomeLogo";
+import axios from "axios";
 function CreateAccount() {
   const createAccountUrl = BASE_URL + "auth/register";
   const [bannerUrl, setBannerUrl] = useState("");
@@ -19,7 +20,6 @@ function CreateAccount() {
   const emailRegex = "^[^@]+@(stud\\.noroff\\.no)$";
 
   const nameRegex = /^[a-zA-Z0-9_]+$/;
-  // const urlRegex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
   const schema = yup.object().shape({
     name: yup.string().required("Please enter your name").matches(nameRegex, "Name may only contain English letters, numbers, and underscores.").min(1, "Must be atleast one character"),
     email: yup.string().required("Please enter your email").matches(emailRegex, "Must be a valid stud.noroff.no email"),
@@ -38,16 +38,16 @@ function CreateAccount() {
   });
 
   async function sendAccountInfo(data) {
-    const options = {
-      body: data,
-    };
-    console.log(data);
-
     try {
-      // const response = await axios.post(createAccountUrl, data);
+      const response = await axios.post(createAccountUrl, data);
+      if (response.data.id) {
+        console.log(response);
+        navigate("/login");
+      } else {
+        setError("An error occured, please try again.");
+      }
     } catch (error) {
       setError("An error occured, please try again.");
-      console.log(error);
     }
   }
   return (
@@ -58,6 +58,9 @@ function CreateAccount() {
           <Header size="2" cssClass="header-border-bottom">
             Sign up for an account here
           </Header>
+
+          {error && <ErrorMessage variant="danger" message={error} />}
+
           <Form.Group>
             <Form.Label className="create-post-label">
               Your name <span className="required">*</span>
@@ -84,7 +87,6 @@ function CreateAccount() {
                 setBannerUrl(e.target.value);
               }}
             />
-            {errors.banner && <p>{errors.banner.message}</p>}
             <ImageChecker imageUrl={bannerUrl} />
           </Form.Group>
 
@@ -98,7 +100,6 @@ function CreateAccount() {
                 setAvatarUrl(e.target.value);
               }}
             />
-            {errors.avatar && <p>{errors.avatar.message}</p>}
             <ImageChecker imageUrl={avatarUrl} />
           </Form.Group>
 

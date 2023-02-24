@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../components/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
@@ -21,7 +21,11 @@ function CreatePost() {
   const [tagInput, setTagInput] = useState("");
   const [media, setMedia] = useState("");
   const navigate = useNavigate();
-
+  useEffect(() => {
+    if (!auth) {
+      navigate("/welcome");
+    }
+  }, []);
   const goBack = () => {
     navigate(-1);
   };

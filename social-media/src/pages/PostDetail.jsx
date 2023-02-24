@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../components/context/AuthContext";
 import PostsCard from "../components/posts/PostsCard";
 import { NameContext } from "../components/context/NameContext";
@@ -20,8 +20,15 @@ function PostDetail() {
   const [error, setError] = useState(null);
   const [showError, setShowError] = useState(false);
   const { id } = useParams();
+  const navigate = useNavigate();
   const postDetailUrl = BASE_URL + `posts/${id}?${AUTHOR}&${REACTIONS}&${COMMENTS}`;
   const options = getOptions(auth);
+
+  useEffect(() => {
+    if (!auth) {
+      navigate("/welcome");
+    }
+  }, []);
 
   useEffect(() => {
     async function getPostDetails() {

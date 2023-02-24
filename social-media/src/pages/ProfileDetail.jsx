@@ -33,6 +33,12 @@ function ProfileDetail() {
 
   const navigate = useNavigate();
   const { name } = useParams();
+
+  useEffect(() => {
+    if (!auth) {
+      navigate("/welcome");
+    }
+  }, []);
   const profileUrl = BASE_URL + `profiles/${name}?${QUERY_POSTS}&${QUERY_FOLLOWING}&${QUERY_FOLLOWERS}`;
 
   const options = getOptions(auth);
@@ -41,7 +47,6 @@ function ProfileDetail() {
       try {
         const response = await fetch(profileUrl, options);
         const json = await response.json();
-        console.log(json);
         if (response.status === 200) {
           setError(false);
           setShowError(false);
