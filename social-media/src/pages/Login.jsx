@@ -92,6 +92,3 @@ function Login() {
 }
 
 export default Login;
-
-// okidokidoki@stud.noroff.no
-// abcdefg1A
