@@ -92,15 +92,7 @@
   margin-top: 2rem;
   display: flex;
   justify-content: space-between;
-  &__back {
-    border: none;
-    background: none;
-    color: black;
-    &:hover {
-      background: none;
-      color: black;
-    }
-  }
+
   &__submit {
     background-color: #09a746;
     color: white;
@@ -118,6 +110,11 @@
   display: flex;
 }
 
+@media (min-width: 400px) {
+  .form {
+    width: 350px;
+  }
+}
 @media (min-width: 700px) {
   .form {
     width: 450px;

@@ -1,12 +1,11 @@
 import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
 import ListGroup from "react-bootstrap/ListGroup";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BASE_URL } from "./constants/baseUrl";
 import { TrackReactionContext } from "./context/ReactionContext";
 import { AuthContext } from "./context/AuthContext";
 import { getOptions } from "./getOptions";
-import ErrorMessage from "./feedback/ErrorMessage";
 import FloatingError from "./feedback/FloatingError";
 
 function ReactionOverlay({ setShow, show, target, post, reactions, setReactions }) {
@@ -16,9 +15,7 @@ function ReactionOverlay({ setShow, show, target, post, reactions, setReactions 
   const [error, setError] = useState(false);
   const [showError, setShowError] = useState(false);
   // this component also Tracks if the user have reacted to a post or not and saves it to localstorage
-  // This is just for demonstrating purposes since the API does not
-  // support tracking of reactions.
-  // console.log(reactions);
+  // This is just for demonstrating purposes since the API does not support tracking of reactions.
   async function reactToPost(symbol) {
     setShow(false);
 
@@ -28,7 +25,6 @@ function ReactionOverlay({ setShow, show, target, post, reactions, setReactions 
     try {
       const response = await fetch(reactUrl, options);
       const json = await response.json();
-      console.log(json);
       if (response.status === 200) {
         if (json.postId) {
           setTrackReaction([...trackReaction, post]);

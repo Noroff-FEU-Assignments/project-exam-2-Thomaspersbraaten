@@ -1,6 +1,6 @@
 import { BASE_URL } from "../constants/baseUrl";
 
-async function changeAccountPicture(auth, authName, type, url, modifier, profile, setProfile, setShow, setError, setShowError) {
+async function changeAccountPicture(auth, authName, type, url, modifier, profile, setProfile, setShow, setError, setShowError, setShowInput) {
   const removePictureUrl = BASE_URL + "profiles/" + authName + "/media";
 
   let stringifiedBody = {};
@@ -45,6 +45,7 @@ async function changeAccountPicture(auth, authName, type, url, modifier, profile
     if (response.status === 200) {
       setError(false);
       setShowError(false);
+      setShowInput(false);
       if (type === "banner") {
         setProfile({ ...profile, banner: json.banner });
       } else {

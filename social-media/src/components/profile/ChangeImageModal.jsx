@@ -48,7 +48,7 @@ function ChangeImageModal({ setProfile, profile, show, setShow, imageType }) {
                   </Form.Group>
                   <p
                     onClick={() => {
-                      changeAccountPicture(auth, authName, imageType, imageUrl, "change", profile, setProfile, setShow, setError, setShowError);
+                      changeAccountPicture(auth, authName, imageType, imageUrl, "change", profile, setProfile, setShow, setError, setShowError, setShowInput);
                     }}
                   >
                     Confirm
@@ -67,7 +67,7 @@ function ChangeImageModal({ setProfile, profile, show, setShow, imageType }) {
                     variant="danger"
                     className="modal-actions__remove"
                     onClick={() => {
-                      changeAccountPicture(auth, authName, imageType, imageUrl, "remove", profile, setProfile, setShow, setError, setShowError);
+                      changeAccountPicture(auth, authName, imageType, imageUrl, "remove", profile, setProfile, setShow, setError, setShowError, setShowInput);
                     }}
                   >
                     Remove {imageType} picture

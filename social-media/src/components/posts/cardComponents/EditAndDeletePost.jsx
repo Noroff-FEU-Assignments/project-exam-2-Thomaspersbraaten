@@ -1,16 +1,23 @@
 import { useContext, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import Modal from "react-bootstrap/Modal";
 
 import deletePost from "../../ui/deletePost";
-function EditAndDeletePost({ setShowEditForm, showEditForm }) {
+import FloatingError from "../../feedback/FloatingError";
+import { NameContext } from "../../context/NameContext";
+function EditAndDeletePost({ setShowEditForm }) {
   const [deleting, setDeleting] = useState(false);
   const { id } = useParams();
   const [auth] = useContext(AuthContext);
+  const [authName, setAuthName] = useContext(NameContext);
+  const [error, setError] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const navigate = useNavigate();
   return (
     <div className="post-actions">
+      {showError && <FloatingError error={error} setShowError={setShowError} />}
       <Modal show={deleting}>
         <Modal.Body className="delete-modal">
           Are you sure you want to delete this post?
@@ -18,7 +25,7 @@ function EditAndDeletePost({ setShowEditForm, showEditForm }) {
             className="delete-post"
             variant="outline-danger"
             onClick={() => {
-              deletePost(id, auth);
+              deletePost(id, auth, setError, setShowError, navigate, authName);
             }}
           >
             Delete
@@ -58,26 +65,3 @@ function EditAndDeletePost({ setShowEditForm, showEditForm }) {
 }
 
 export default EditAndDeletePost;
-
-{
-  /* {deleting && (
-        <div>
-          are you sure you want to delete?
-          <Button
-            onClick={() => {
-              setDeleting(false);
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="danger"
-            onClick={() => {
-              deletePost(id, auth);
-            }}
-          >
-            Confirm delete
-          </Button>
-        </div>
-      )} */
-}

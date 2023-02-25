@@ -3,7 +3,6 @@ import Avatar from "../imageComponents/Avatar";
 import Header from "../Header";
 
 function ShowFollowing({ following }) {
-  console.log(following);
   return (
     <>
       <Header cssClass="text-align-left" size="2">

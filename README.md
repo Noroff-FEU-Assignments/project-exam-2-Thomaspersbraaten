@@ -20,7 +20,14 @@ Sass v1.57.1 - npm install sass
 
 ## Working with the API
 
-When fetching posts\profiles, there is no way of knowing....
+### The API does not allow to sort profiles by the Count property or do query on title\profile name.
+
+No workaround. I had in my design an element on the right side to show the most popular profiles by followers and most popular posts.
+Also there is no way of searching for profiles\posts by title or name, which also eliminated one of my pages.
+
+### The API does not let the developer know how many posts\profiles are available.
+
+Workaround: The fetching is limited to 15 posts\profiles at a time, and there is a pagination that uses the offset API function.
 
 ### The api does not track if the user has "reacted" to a post or not, which means they can essentially keep reacting without limits.
 
