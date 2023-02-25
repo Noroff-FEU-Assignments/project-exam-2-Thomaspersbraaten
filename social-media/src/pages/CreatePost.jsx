@@ -97,7 +97,6 @@ function CreatePost() {
 
         <Form.Group>
           <Form.Label className="create-post-label">Free text</Form.Label>
-
           <Form.Control
             as="textarea"
             rows="5"
@@ -124,18 +123,19 @@ function CreatePost() {
         </Form.Group>
 
         <Form.Group className="create-form-tags">
-          <Form.Label className="create-post-label">Tags</Form.Label>
-
-          <div className="tags-control">
-            <Form.Control
-              className="create-form-tags__input"
-              type="input"
-              placeholder="Add some tags (Optional)"
-              value={tagInput}
-              onChange={(e) => {
-                setTagInput(e.target.value);
-              }}
-            />
+          <div className="tags-input-label">
+            <Form.Label className="create-post-label">Tags</Form.Label>
+            <div className="tags-control">
+              <Form.Control
+                className="create-form-tags__input"
+                type="input"
+                placeholder="Add some tags (Optional)"
+                value={tagInput}
+                onChange={(e) => {
+                  setTagInput(e.target.value);
+                }}
+              />
+            </div>
           </div>
 
           <Button className="create-form-tags__button" onClick={handleTags}>

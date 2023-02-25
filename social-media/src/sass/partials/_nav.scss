@@ -4,7 +4,7 @@ nav {
   left: 0;
   background-color: white;
   width: 100%;
-  padding: 0.25rem;
+  // padding: 0.25rem;
   z-index: 100;
   display: flex;
   justify-content: space-around;
@@ -33,9 +33,14 @@ svg {
   display: none;
   max-width: 100px;
 }
+
 .active {
-  background-color: black;
+  background-color: #0a9de0;
   color: white;
+  & svg,
+  & p {
+    color: white;
+  }
 }
 
 @media (min-width: 850px) {
@@ -51,7 +56,6 @@ svg {
     flex-direction: column;
     justify-content: flex-start;
     gap: 3rem;
-    border-right: 1px solid black;
     & a {
       display: flex;
       align-items: center;

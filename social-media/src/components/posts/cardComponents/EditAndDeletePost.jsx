@@ -15,6 +15,7 @@ function EditAndDeletePost({ setShowEditForm, showEditForm }) {
         <Modal.Body className="delete-modal">
           Are you sure you want to delete this post?
           <Button
+            className="delete-post"
             variant="outline-danger"
             onClick={() => {
               deletePost(id, auth);
@@ -36,6 +37,7 @@ function EditAndDeletePost({ setShowEditForm, showEditForm }) {
       <p>This is your post and you may edit and delete it</p>
       <div className="post-actions__buttons">
         <Button
+          className="edit-post"
           onClick={() => {
             setShowEditForm(true);
           }}

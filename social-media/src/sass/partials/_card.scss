@@ -4,7 +4,6 @@
 }
 .card {
   padding: 0.5rem;
-  // border: 1px solid black;
   border: 1px solid #aeaeae;
   max-width: 560px;
   width: 100%;
@@ -39,12 +38,16 @@
     }
   }
 }
+.edit-post {
+  background-color: #0a9de0;
+  border: 1px solid grey;
+}
 .card-title {
   padding: 0.5rem 0;
 }
 
 .author-container {
-  padding: 0.25rem;
+  padding: 0.25rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -57,11 +60,11 @@
 }
 .user-info {
   display: flex;
-  align-items: baseline;
+  align-items: end;
   gap: 0.25rem;
 }
 .card-top {
-  padding: 0 0.5rem;
+  padding: 0 1.5rem;
   margin: 0;
   text-align: left;
 }
@@ -86,15 +89,16 @@ textarea {
   }
 }
 .tags-container {
+  padding-left: 0rem;
   padding: 0.5rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem;
+  gap: 0.3rem;
 }
 .tag {
   list-style: none;
   padding: 0.25rem 1.25rem 0.15rem 1.25rem;
-  background-color: #4a3f3f;
+  background-color: #0a9de0;
   color: white;
   border-radius: 10px;
 }
@@ -114,6 +118,7 @@ textarea {
 .bottom-container {
   display: flex;
   justify-content: space-between;
+  padding: 1rem 1.5rem;
 }
 
 .reactions,
@@ -162,7 +167,15 @@ textarea {
   background-color: #0ae276;
   color: white;
 }
+.comment-to-post {
+  border: none;
+}
 .reply {
-  color: blue;
+  color: black;
+  border: 1px solid black;
   background: none;
+  &:hover {
+    background-color: #0a9de0;
+    border: 1px solid #1f90c4;
+  }
 }

@@ -63,7 +63,7 @@ function CommentForm({ setCommentToReplyTo, setComments, comments, replying, set
           }}
         />
         <div className="comment-buttons">
-          <Button onClick={sendCommentInfo} className={commentToReplyTo ? "comment-form__button reply" : "comment-form__button"}>
+          <Button onClick={sendCommentInfo} className={commentToReplyTo ? "comment-form__button reply" : "comment-form__button comment-to-post"}>
             {commentToReplyTo ? "Reply to comment" : "Comment"}
           </Button>
           {replying && (

@@ -34,8 +34,12 @@ h2 {
   font-family: $secondary-font;
   font-style: italic;
   color: black;
+  margin-top: 1rem;
 }
 
+.title {
+  margin: 0.5rem;
+}
 .title,
 .card-text {
   font-family: $primary-font;
