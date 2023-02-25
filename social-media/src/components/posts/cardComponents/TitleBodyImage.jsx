@@ -46,21 +46,3 @@ function TitleBodyImage({ post }) {
 }
 
 export default TitleBodyImage;
-
-{
-  /* <Link to={`/posts/${post.id}`} className="link-to-post">
-        <Card.Body className="card-top">
-          <h2 className="title">{post.title}</h2>
-          <Card.Text>{post.body}</Card.Text>
-          <ul className="tags-container">
-            {post.tags &&
-              post.tags.map((tag, index) => (
-                <li className="tag" key={tag + index}>
-                  <TagsComponent post={post} tag={tag} />
-                </li>
-              ))}
-          </ul>
-        </Card.Body>
-        <Card.Img src={!post.media ? imagePlaceholder : post.media} />
-      </Link> */
-}

@@ -8,8 +8,9 @@ import { AuthContext } from "../context/AuthContext";
 import { useParams } from "react-router-dom";
 import FloatingError from "../feedback/FloatingError";
 import Form from "react-bootstrap/Form";
-
 import Button from "react-bootstrap/esm/Button";
+import Avatar from "../imageComponents/Avatar";
+import Banner from "../imageComponents/Banner";
 
 function ChangeImageModal({ setProfile, profile, show, setShow, imageType }) {
   const [authName] = useContext(NameContext);
@@ -25,8 +26,8 @@ function ChangeImageModal({ setProfile, profile, show, setShow, imageType }) {
       {showError && <FloatingError error={error} setShowError={setShowError} />}
       <Modal show={show} onHide={() => setShow(false)} className="modal-top">
         <Modal.Body>
-          {imageType === "avatar" && <img src={!profile.avatar ? avatarPlaceholder : profile.avatar} className="modal-image" />}
-          {imageType === "banner" && <img src={!profile.banner ? bannerPlaceholder : profile.banner} className="modal-image" />}
+          {imageType === "avatar" && <Avatar src={!profile.avatar ? avatarPlaceholder : profile.avatar} cssClass="modal-image" />}
+          {imageType === "banner" && <Banner src={!profile.banner ? bannerPlaceholder : profile.banner} cssClass="modal-image" />}
         </Modal.Body>
       </Modal>
       {authName === name && (
@@ -35,12 +36,6 @@ function ChangeImageModal({ setProfile, profile, show, setShow, imageType }) {
             <div className="modal-actions">
               {showInput ? (
                 <>
-                  {/* <input
-                    placeholder={`url link for your ${imageType}`}
-                    onChange={(e) => {
-                      setImageUrl(e.target.value);
-                    }}
-                  ></input> */}
                   <Form.Group>
                     <Form.Label className="create-post-label">Image for your profile {imageType}</Form.Label>
                     <Form.Control
@@ -80,14 +75,6 @@ function ChangeImageModal({ setProfile, profile, show, setShow, imageType }) {
                 </>
               )}
 
-              {/* <p
-                onClick={() => {
-                  setShow(false);
-                  setShowInput(false);
-                }}
-              >
-                Cancel
-              </p> */}
               <Button
                 variant="dark"
                 onClick={() => {

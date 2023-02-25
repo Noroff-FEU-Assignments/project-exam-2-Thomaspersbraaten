@@ -18,7 +18,13 @@ Axios v1.2.2 - npm install axios
 Momentjs v2.29.4 - npm install moment --save
 Sass v1.57.1 - npm install sass
 
-##
+## Working with the API
+
+When fetching posts\profiles, there is no way of knowing....
+
+### The api does not track if the user has "reacted" to a post or not, which means they can essentially keep reacting without limits.
+
+Workaround: When reacting the post is stored into localstorage. If the post already is in localstorage, the function returns "You have reacted" else it allows for reacting.
 
 # Pages
 

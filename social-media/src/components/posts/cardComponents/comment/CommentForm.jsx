@@ -84,30 +84,3 @@ function CommentForm({ setCommentToReplyTo, setComments, comments, replying, set
 }
 
 export default CommentForm;
-{
-  /* <FormControl type="input" className={styles.input}>
-        <label htmlFor="comment">Comment</label>
-        <TextField
-          className={styles.textarea}
-          onChange={(e) => {
-            setComment(e.target.value);
-          }}
-          id="comment"
-          placeholder="Type your comment here..."
-        ></TextField>
-      </FormControl> */
-}
-
-// const myHeaders = new Headers();
-// myHeaders.append("Authorization", `Bearer ${auth}`);
-
-// myHeaders.append("Content-Type", "application/json");
-// console.log(commentUrl);
-// console.log("https://api.noroff.dev/api/v1/social/posts/2316/comment");
-
-// const options = {
-//   method: "POST",
-//   headers: myHeaders,
-//   body: raw,
-//   // redirect: "follow",
-// };

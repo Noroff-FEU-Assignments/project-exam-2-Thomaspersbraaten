@@ -4,17 +4,10 @@
 }
 
 .form {
-  // display: flex;
-  // flex-direction: column;
   background-color: white;
   border: 1px solid black;
   border-radius: 20px;
-  // margin: auto;
-  // padding: 1rem;
   margin: 1rem;
-  // gap: 1.5rem;
-  // max-width: 650px;
-  // width: 75%;
 }
 .form-container {
   display: flex;
@@ -92,10 +85,8 @@
 .remove-tag {
   font-weight: bold;
   border: 1px solid white;
-  // padding: 0.2rem 0.5rem;
   border-radius: 50%;
   margin: 0.1rem;
-  // background: none;
 }
 .create-form-buttons {
   margin-top: 2rem;
@@ -118,10 +109,6 @@
       background-color: #088f3b;
     }
   }
-}
-
-.create-post-label {
-  // margin-bottom: 0rem;
 }
 
 // sign up

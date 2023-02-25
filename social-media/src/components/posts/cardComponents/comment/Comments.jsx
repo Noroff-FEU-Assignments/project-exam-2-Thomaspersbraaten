@@ -7,6 +7,8 @@ function Comments({ comments, setComments }) {
   const [replying, setReplying] = useState(false);
   const [replyId, setReplyId] = useState("");
   const [commentToReplyTo, setCommentToReplyTo] = useState(null);
+
+  // Scrolls up to the comment form when clicking reply.
   const scrollRef = useRef(null);
 
   function scrollToElement() {
@@ -19,6 +21,7 @@ function Comments({ comments, setComments }) {
       behavior: "smooth",
     });
   }
+
   return (
     <>
       <CommentForm

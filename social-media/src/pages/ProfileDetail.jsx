@@ -7,7 +7,6 @@ import Modal from "react-bootstrap/Modal";
 import ProfileLinks from "../components/profile/ProfileLinks";
 import { NameContext } from "../components/context/NameContext";
 import { getOptions } from "../components/getOptions";
-import ProfileAvatar from "../components/imageComponents/ProfileAvatar";
 import Button from "react-bootstrap/esm/Button";
 import logOut from "../components/ui/logOut";
 import Header from "../components/Header";
@@ -15,6 +14,7 @@ import { BiLogOut } from "react-icons/bi";
 import ChangeImageModal from "../components/profile/ChangeImageModal";
 import FloatingError from "../components/feedback/FloatingError";
 import { BASE_URL, QUERY_FOLLOWERS, QUERY_FOLLOWING, QUERY_POSTS } from "../components/constants/baseUrl";
+import Avatar from "../components/imageComponents/Avatar";
 
 function ProfileDetail() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -137,7 +137,7 @@ function ProfileDetail() {
               setImageType("banner");
             }}
           >
-            <Banner author={profile} />
+            <Banner author={profile} src={profile.banner} />
           </div>
           <div
             onClick={() => {
@@ -145,7 +145,7 @@ function ProfileDetail() {
               setImageType("avatar");
             }}
           >
-            <ProfileAvatar src={profile} cssClass="profile-avatar" />
+            <Avatar src={profile.avatar} cssClass="profile-avatar" />
           </div>
         </div>
 

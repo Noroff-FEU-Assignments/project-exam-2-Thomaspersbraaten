@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { AiFillHome } from "react-icons/ai";
 import { BsPlusLg, BsPeopleFill } from "react-icons/bs";

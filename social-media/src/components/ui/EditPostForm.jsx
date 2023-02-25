@@ -1,4 +1,3 @@
-// import { Form } from "react-router-dom";
 import { useContext, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Form from "react-bootstrap/Form";
@@ -7,12 +6,9 @@ import { AuthContext } from "../context/AuthContext";
 import ImageChecker from "../imageComponents/ImageChecker";
 import TagsComponent from "../posts/cardComponents/TagsComponent";
 import Modal from "react-bootstrap/Modal";
-
-// import editPost from "./editPost";
-// import { AUTHOR_REACTIONS_COMMENTS, BASE_URL, POSTS_URL_EXT, SOCIAL_URL_EXT } from "../constants/api";
 import { getOptions } from "../getOptions";
-import CreateEditPostForm from "../forms/CreateEditPostForm";
 import { AUTHOR, BASE_URL, COMMENTS, REACTIONS } from "../constants/baseUrl";
+import ErrorMessage from "../feedback/ErrorMessage";
 
 function EditPostForm({ post, setPost, setShowEditForm }) {
   const [title, setTitle] = useState(post.title);
@@ -31,7 +27,6 @@ function EditPostForm({ post, setPost, setShowEditForm }) {
       setError("Title must be atleast one character long");
       return;
     }
-    // const editPostUrl = BASE_URL + SOCIAL_URL_EXT + POSTS_URL_EXT + `/${id}` + AUTHOR_REACTIONS_COMMENTS;
     const editPostUrl = BASE_URL + `posts/${id}?${AUTHOR}&${REACTIONS}&${COMMENTS}`;
 
     const data = {
@@ -41,20 +36,20 @@ function EditPostForm({ post, setPost, setShowEditForm }) {
       media: media,
     };
     const options = getOptions(auth, "PUT", data);
-
     async function sendData() {
       try {
         const response = await fetch(editPostUrl, options);
         const json = await response.json();
-        console.log(response);
-        console.log(json);
         if (response.status === 200) {
           setPost(json);
           setShowEditForm(false);
+        } else if (response.status === 429) {
+          setError("You performed too many requests to the site, Please wait 30 seconds before retrying.");
+        } else {
+          setError("An error occured, Please try again.");
         }
-        console.log(json);
       } catch (error) {
-        console.log(error);
+        setError("An error occured, Please try again.");
       }
     }
     sendData();
@@ -64,10 +59,10 @@ function EditPostForm({ post, setPost, setShowEditForm }) {
     <>
       <Modal show={setShowEditForm}>
         <Modal.Body>
-          {/* <CreateEditPostForm formAction="edit" setShowEditForm={setShowEditForm} post={post} setPost={setPost} /> */}
           <Form className="create-post-form edit-form form">
             <div className="form-container">
               <h1 className="create-post-header">Edit post</h1>
+              {error && <ErrorMessage variant="danger" message={error} />}
               <Form.Group>
                 <Form.Label>Title</Form.Label>
                 <Form.Control

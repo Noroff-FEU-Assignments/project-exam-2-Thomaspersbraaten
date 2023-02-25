@@ -1,3 +1,4 @@
+// To use when loading full page content
 function LoadingIndicator() {
   return (
     <div className="loader">

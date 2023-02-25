@@ -1,10 +1,10 @@
 @use "./partials/typography";
+@use "./partials/layout";
 @use "./partials/editPost";
 @use "./partials/loading";
 @use "./partials/comment";
 @use "./partials/form";
 @use "./partials/profile";
-@use "./partials/custom";
 @use "./partials/landing";
 @use "./partials/login";
 @use "./partials/alert";
@@ -13,7 +13,6 @@
 @use "./partials/profiles";
 @use "./partials/pageNotFound";
 @use "./partials/pagination";
-@use "./partials/layout";
 @use "./partials/card";
 
 * {
@@ -27,8 +26,4 @@
 
 img {
   width: 100%;
-}
-
-.end-container {
-  margin: 2rem auto 5rem auto;
 }
