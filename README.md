@@ -1,5 +1,7 @@
 # Project Exam 2 - Thomas Persbråten
 
+<img src="https://tpbro.online/peer.JPG" width="500" height="400" />
+
 ## Getting started
 
 To install the project on your local computer pull the repo with github and open with github desktop.
